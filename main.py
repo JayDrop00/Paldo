@@ -1,131 +1,132 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from PyQt6.QtGui import QFont, QGuiApplication
-from PyQt6.QtCharts import QChart, QChartView, QLineSeries, QCategoryAxis
-from PyQt6.QtCore import Qt
-from tryss import Ui_Form   # import your converted UI
+import sys
+from PyQt6 import QtWidgets
+from final_log_in_form import Ui_Dialog   # Login form UI
+from sign_up import Ui_SignIn            # Sign Up form UI
+from WELCOME import Ui_Dialog as UI_Welcome  # Welcome page UI
+import sqlite3
 
-class MainWindow(QWidget):
+
+# ---- Welcome Page ----
+class WELCOMEPAGE(QtWidgets.QDialog, UI_Welcome):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_Form()
-        self.ui.setupUi(self)
-
-        # Lock size and center window
-        self.lock_and_center_window()
-
-        # Map labels to stacked widget pages
-        self.page_map = {
-            self.ui.homeLabel: 0,
-            self.ui.inventoryLabel: 1,
-            self.ui.salesReportLabel: 2,
-            self.ui.predictionLabel: 3
-        }
-
-        # Connect labels to page switching
-        for label, index in self.page_map.items():
-            label.mousePressEvent = lambda e, i=index: self.switch_page(i)
-
-        # Initialize first active page
-        self.switch_page(0)
-
-        # Insert graph inside salesReportWidget.graphWidget
-        self.init_graph()
-
-    def lock_and_center_window(self):
-        """Lock window size and center it on screen."""
-        # Lock size based on the designed UI size
-        self.setFixedSize(self.size())
-
-        # Center window
-        screen = QGuiApplication.primaryScreen().availableGeometry()
-        center = screen.center()
-        frame = self.frameGeometry()
-        frame.moveCenter(center)
-        self.move(frame.topLeft())
-
-    def init_graph(self):
-        """Create and embed a multi-line chart into graphWidget."""
-
-        # Income data
-        income_series = QLineSeries()
-        income_series.setName("Income")
-        income_values = [5000, 7000, 8500, 6000, 9000, 10000]
-        for i, y in enumerate(income_values):
-            income_series.append(i, y)
-
-        # Revenue data
-        revenue_series = QLineSeries()
-        revenue_series.setName("Revenue")
-        revenue_values = [3000, 6000, 7500, 5000, 8000, 9500]
-        for i, y in enumerate(revenue_values):
-            revenue_series.append(i, y)
-
-        # Create chart
-        chart = QChart()
-        chart.addSeries(income_series)
-        chart.addSeries(revenue_series)
-        chart.setTitle("Monthly Income vs Revenue")
-
-        # X-axis: Months
-        axis_x = QCategoryAxis()
-        axis_x.setTitleText("Month")
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        for i, m in enumerate(months):
-            axis_x.append(m, i)
-        axis_x.setRange(0, len(months) - 1)
-        chart.addAxis(axis_x, Qt.AlignmentFlag.AlignBottom)
-
-        # Y-axis: Peso values
-        axis_y = QCategoryAxis()
-        axis_y.setTitleText("Amount (₱)")
-        step = 2000
-        max_val = 12000
-        for v in range(0, max_val + step, step):
-            axis_y.append(f"₱{v}", v)
-        axis_y.setRange(0, max_val)
-        chart.addAxis(axis_y, Qt.AlignmentFlag.AlignLeft)
-
-        # Attach both series
-        income_series.attachAxis(axis_x)
-        income_series.attachAxis(axis_y)
-        revenue_series.attachAxis(axis_x)
-        revenue_series.attachAxis(axis_y)
-
-        # Legend setup
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignmentFlag.AlignTop)
-
-        # Chart view
-        chart_view = QChartView(chart)
-
-        # Put chart inside graphWidget
-        layout = QVBoxLayout(self.ui.graphWidget)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(chart_view)
-
-    def switch_page(self, index: int):
-        """Switch stackedWidget page and update label background."""
-        self.ui.stackedWidget.setCurrentIndex(index)
-
-        # Reset all labels
-        for label in self.page_map.keys():
-            label.setStyleSheet("color: rgb(50, 50, 120); background: none;")
-            font = label.font()
-            font.setBold(True)
-            label.setFont(font)
-
-        # Highlight active label
-        active_label = list(self.page_map.keys())[index]
-        active_label.setStyleSheet("color: white; background: rgb(50, 50, 120);")
-        font = active_label.font()
-        font.setBold(True)
-        active_label.setFont(font)
+        self.setupUi(self)
 
 
+# ---- Login Window ----
+class LoginWindow(QtWidgets.QDialog, Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        # connect "Sign Up Here" button to open the SignUp window
+        self.signup.clicked.connect(self.open_signin)
+
+        # connect "Login" button to check_login function
+        self.pushButton.clicked.connect(self.check_login)
+
+    def open_signin(self):
+        """Open the Sign Up window and close Login window"""
+        self.signin = SignInWindow()
+        self.signin.show()
+        self.close()
+
+    def check_login(self):
+        """Check if username + password exist in database"""
+        uname = self.username.text()
+        pword = self.password.text()
+
+        if uname == "" or pword == "":
+            self.message.setText("⚠ Please enter username and password")
+            return
+
+        try:
+            # connect to SQLite database
+            conn = sqlite3.connect("mydatabase.db")
+            cursor = conn.cursor()
+
+            # check if username & password exist
+            cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (uname, pword))
+            result = cursor.fetchone()
+            conn.close()
+
+            if result:  # ✅ login successful
+                self.welcome = WELCOMEPAGE()
+                self.welcome.show()
+                self.close()
+            else:  # ❌ no match found
+                self.message.setText("❌ Invalid username or password")
+
+        except Exception as e:
+            self.message.setText(f"DB Error: {e}")
+
+
+# ---- Sign Up Window ----
+class SignInWindow(QtWidgets.QDialog, Ui_SignIn):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        # connect "Already have account? Log in"
+        self.login_redirect.clicked.connect(self.open_login)
+
+        # connect "SIGN UP" button to save_account function
+        self.signup_btn.clicked.connect(self.save_account)
+
+    def open_login(self):
+        """Go back to the Login window"""
+        self.login = LoginWindow()
+        self.login.show()
+        self.close()
+
+    def save_account(self):
+        """Save a new account into the database"""
+        username = self.username.text()
+        password = self.password.text()
+        confirm = self.confirm_password.text()
+
+        # basic validation
+        if not username or not password:
+            QtWidgets.QMessageBox.warning(self, "Error", "All fields are required")
+            return
+        if password != confirm:
+            QtWidgets.QMessageBox.warning(self, "Error", "Passwords do not match")
+            return
+
+        # connect to SQLite DB
+        conn = sqlite3.connect("mydatabase.db")
+        cursor = conn.cursor()
+
+        # make sure table exists (create if not)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                password TEXT
+            )
+        """)
+
+        try:
+            # insert new account
+            cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+            conn.commit()
+
+            QtWidgets.QMessageBox.information(self, "Success", "Account created!")
+
+            # clear input fields after success
+            self.username.clear()
+            self.password.clear()
+            self.confirm_password.clear()
+        except sqlite3.IntegrityError:
+            # happens when username already exists
+            QtWidgets.QMessageBox.warning(self, "Error", "Username already exists")
+        finally:
+            conn.close()
+
+
+# ---- Main Program ----
 if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    window = MainWindow()
+    app = QtWidgets.QApplication(sys.argv)
+    window = LoginWindow()   # start with Login window
     window.show()
     sys.exit(app.exec())
-    
