@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>938</width>
+    <height>631</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: qlineargradient(
+    spread:pad,
+    x1:0, y1:0, x2:1, y2:1,
+    stop:0 #A6EFFF,
+    stop:1 #E0FBFF
+);
+
+</string>
+  </property>
+  <widget class="QWidget" name="mainwidget" native="true">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>941</width>
+     <height>631</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#label_phrase{
+    font-family: &quot;Open Sans Light&quot;;
+    font-size: 12pt;
+    font-weight: 300;
+    color: #002B5B;
+    border: none;              /* removes the border completely */
+    background: transparent;   /* ensures no background box */
+}
+</string>
+   </property>
+   <widget class="QLabel" name="label_logo">
+    <property name="geometry">
+     <rect>
+      <x>609</x>
+      <y>140</y>
+      <width>311</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>150</horstretch>
+      <verstretch>150</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_logo{
+border-image: url(&quot;C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png&quot;);
+
+border-radius: 25px;
+    background-color: #001F3F;
+    padding: 10px;
+ 
+   background:none;
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>390</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #00d4ff, stop:1 #00bfa6);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 16pt;
+    padding: 8px 24px;
+}
+
+QPushButton:hover {
+    background-color: #00e6cc;
+    border: 2px solid white;
+    box-shadow: 0 0 10px #00d4ff; /* ignored by Qt, visual only in Designer */
+}
+
+QPushButton:pressed {
+    background-color: #00997a;  /* darker color when clicked */
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Get Started</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_smalllogo">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_smalllogo{
+background-color:#031b3d;
+}
+
+#label_smalllogo{
+border-image: url(&quot;C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png&quot;);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_welcome">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>210</y>
+      <width>511</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_welcome {
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 34pt;
+    font-weight: 600;
+    color: #001F3F;
+    border:none;
+background:transparent;
+readOnly = True;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string> WELCOME TO </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_phrase">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>350</y>
+      <width>281</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_phrase{
+font-family:&quot;Lato Regular&quot;;
+}</string>
+    </property>
+    <property name="text">
+     <string>See the Future of Your Business Today.</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_entrep">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>280</y>
+      <width>581</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_entrep {
+    font-family: &quot;Exo 2 ExtraBold&quot;;
+    font-size: 50pt;
+    font-weight: 800;
+    color: #001F3F;
+    border:none;
+background:transparent;
+
+
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>ENTREPREDICT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_upperhome">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>941</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_upperhome{
+background-color:#031b3d;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_Entrep">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>20</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#plainTextEdit_Entrep{
+ font-family: &quot;Montserrat ExtraBold&quot;;
+    font-size: 16pt;
+font-weight: 600;
+color:white;
+background-color:#031b3d;
+border:none;
+}</string>
+    </property>
+    <property name="plainText">
+     <string>ENTREPREDICT</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>130</y>
+      <width>370</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#frame {
+    background-color: rgba(255, 255, 255, 30);  /* transparent white layer */
+    border: 2px solid #00bfa6;                  /* cyan-blue border */
+    border-radius: 15px;                        /* soft corners */
+    backdrop-filter: blur(8px);                 /* frosted glass look (optional, works in Qt6) */
+}
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_login_title">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>40</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_login_title {
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 20pt;
+    color: #001F3F;
+    background: transparent;
+    border: none;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>LOG IN</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_username">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>110</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#lineEdit_username {
+    border: 1px solid #00bfa6;
+    border-radius: 10px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 120);
+    color: #002B5B;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>USERNAME</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_password">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>160</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#lineEdit_password {
+    border: 1px solid #00bfa6;
+    border-radius: 10px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 120);
+    color: #002B5B;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>PASSWORD</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_login">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>240</y>
+       <width>241</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#pushButton_login {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #00bfa5, stop:1 #1de9b6);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+#pushButton_login:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #1de9b6, stop:1 #a7ffeb);
+    box-shadow: 0px 0px 10px #1de9b6;
+}
+
+#pushButton_login:pressed {
+    background-color: #009e89;
+    transform: scale(0.97);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Login</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_create_account">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>320</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_create_account {
+    color: #00e6ac;
+    font-size: 10pt;
+    font-weight: 400;
+    background: transparent;
+    text-decoration: underline;
+}
+
+#label_create_account:hover {
+    color: #00ffd1;
+}
+
+
+</string>
+     </property>
+     <property name="text">
+      <string>Create Account</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_noAccount">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>320</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #333;
+    font-family: &quot;Segoe UI&quot;;
+    background: transparent;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Don't have an account?</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_eye">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>160</y>
+       <width>21</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#toolButton_eye {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+#toolButton_eye:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../Downloads/view.png</normaloff>../../../../Downloads/view.png</iconset>
+     </property>
+    </widget>
+    <zorder>label_login_title</zorder>
+    <zorder>pushButton_login</zorder>
+    <zorder>label_create_account</zorder>
+    <zorder>label_noAccount</zorder>
+    <zorder>lineEdit_username</zorder>
+    <zorder>lineEdit_password</zorder>
+    <zorder>toolButton_eye</zorder>
+   </widget>
+   <zorder>label_upperhome</zorder>
+   <zorder>label_logo</zorder>
+   <zorder>label_smalllogo</zorder>
+   <zorder>label_welcome</zorder>
+   <zorder>label_phrase</zorder>
+   <zorder>label_entrep</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>plainTextEdit_Entrep</zorder>
+   <zorder>frame</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
