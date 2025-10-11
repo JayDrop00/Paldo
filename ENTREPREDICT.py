@@ -247,7 +247,7 @@ class Ui_Form(object):
             return
 
         # Placeholder for real login validation
-        QtWidgets.QMessageBox.information(None, "Login", f"Welcome {username}! (Add DB validation here)")
+  
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
