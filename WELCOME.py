@@ -45,7 +45,7 @@ class Ui_Form(object):
 "}\n"
 "\n"
 "#label_smalllogo{\n"
-"border-image: url(\"C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
+"border-image: url(\"C:/Users/USER/Documents/system_90/nagao_backend/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
 "}")
         self.label_smalllogo.setText("")
         self.label_smalllogo.setObjectName("label_smalllogo")
