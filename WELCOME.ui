@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>941</width>
+    <height>631</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>941</width>
+     <height>631</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: qlineargradient(
+        spread:pad,
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #ffffff,
+        stop:0.4 #cbf7ff,
+        stop:1 #a6ecf7
+    );
+}</string>
+   </property>
+   <widget class="QWidget" name="mainwidget" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>941</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#label_phrase{
+    font-family: &quot;Open Sans Light&quot;;
+    font-size: 12pt;
+    font-weight: 300;
+    color: #002B5B;
+    border: none;              /* removes the border completely */
+    background: transparent;   /* ensures no background box */
+}
+</string>
+    </property>
+    <widget class="QLabel" name="label_smalllogo">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>51</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_smalllogo{
+background-color:#031b3d;
+}
+
+#label_smalllogo{
+border-image: url(&quot;C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png&quot;);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_upperhome">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>941</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_upperhome{
+background-color:#031b3d;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPlainTextEdit" name="plainTextEdit_Entrep">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>20</y>
+       <width>191</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#plainTextEdit_Entrep{
+ font-family: &quot;Montserrat ExtraBold&quot;;
+    font-size: 16pt;
+font-weight: 600;
+color:white;
+background-color:#031b3d;
+border:none;
+}</string>
+     </property>
+     <property name="plainText">
+      <string>ENTREPREDICT</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_sidebar">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>161</width>
+       <height>541</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#frame_sidebar {
+    background-color: #002B5B;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="pushButton_home">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: 2px solid #00E5FF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Home</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>80</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: 2px solid #00E5FF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Inventory</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>130</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: 2px solid #00E5FF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Sales</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>180</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: 2px solid #00E5FF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Prediction</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>230</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: 2px solid #00E5FF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Income</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>480</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    color: #00E5FF;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 9pt;
+    font-weight: 500;
+    border: none;
+    border-radius: 12px;
+    padding: 6px 18px;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+QPushButton:checked {
+    background-color: #00E5FF;
+    color: #001F3F;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Log Out</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_welcome">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>100</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_welcome {
+    color: #00E5FF;
+    font-family: &quot;Poppins ExtraBold&quot;;
+    font-size: 34pt;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border: none;
+    background-color: transparent;
+	text-shadow: 0px 0px 10px rgba(0, 229, 255, 0.6);
+
+}
+
+
+</string>
+     </property>
+     <property name="text">
+      <string>Welcome!</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_username">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>110</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_username {
+    color: #00B8D4;  /* deeper cyan-blue for better contrast */
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 16pt;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: none;
+    background-color: transparent;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>[USERNAME]</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_summary">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>150</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#label_summary {
+    font-family: &quot;Poppins&quot;;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #002B5B; /* Black text */
+    background-color: transparent; /* Transparent background */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Here's your business summary.</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_status">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>200</y>
+       <width>581</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#frame_status {
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)   /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    padding: 15px;
+}
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_status">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_status{
+    background-color: transparent;
+    font-family: &quot;Poppins&quot;;
+    font-size: 13pt;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: 0.5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Business Status</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_predicted">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>491</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_predicted {
+    font-size: 36pt;      /* Adjust bigger or smaller depending on your layout */
+    font-weight: bold;
+    color: #002B5B;       /* Replace with the exact color of your sidebar frame */
+    background: transparent;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>PREDICTED SUCCESS!</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_confidence">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>100</y>
+        <width>271</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_confidence {
+    font-size: 15pt;      /* Smaller than 36pt of PREDICTED SUCCESS */
+    font-weight: semi-bold;
+    color: #002B5B;       /* Same as sidebar / PREDICTED SUCCESS for consistency */
+    background: transparent;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Confidence Level: 87%</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_last">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>140</y>
+        <width>231</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_last {
+    font-family: &quot;Poppins&quot;;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #002B5B; /* Black text */
+    background-color: transparent; /* Transparent background */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Last Prediction update  10/09/25</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_tips">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>400</y>
+       <width>301</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#frame_tips {
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)   /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    padding: 15px;
+}
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_tips">
+      <property name="geometry">
+       <rect>
+        <x>8</x>
+        <y>19</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_tips{
+    background-color: transparent;
+    font-family: &quot;Poppins&quot;;
+    font-size: 13pt;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: 0.5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Tips for Improvement </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_bullet">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>261</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#label_bullet{
+    font-size: 11pt;          /* Similar to summary/last update */
+    font-weight: normal;       /* Keep it readable */
+    color: #001F3F;            /* Consistent text color */
+    background: transparent;
+    border: none;              /* No border */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maintain sales growth&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reduce slow-moving inventory&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Monitor next month's expenses&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <zorder>label_upperhome</zorder>
+    <zorder>label_smalllogo</zorder>
+    <zorder>plainTextEdit_Entrep</zorder>
+    <zorder>frame_sidebar</zorder>
+    <zorder>label_welcome</zorder>
+    <zorder>label_username</zorder>
+    <zorder>label_summary</zorder>
+    <zorder>frame_status</zorder>
+    <zorder>frame_tips</zorder>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
