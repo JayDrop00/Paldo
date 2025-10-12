@@ -1,7 +1,6 @@
 # Form implementation generated from reading ui file 'ENTREPREDICT.ui'
 #
 # Modified: Added clear-on-click + input validation (no UI design changes)
-# Updated: Changed image path to local nagao_backend folder
 # Created by: PyQt6 UI code generator 6.4.2
 
 from PyQt6 import QtCore, QtGui, QtWidgets
@@ -41,7 +40,7 @@ class Ui_Form(object):
         sizePolicy.setHeightForWidth(self.label_logo.sizePolicy().hasHeightForWidth())
         self.label_logo.setSizePolicy(sizePolicy)
         self.label_logo.setStyleSheet("#label_logo{\n"
-"border-image: url(\"C:/Users/USER/Documents/system_90/nagao_backend/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
+"border-image: url(\"C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
 "border-radius: 25px;\n"
 "background:none;\n"
 "}")
@@ -70,7 +69,7 @@ class Ui_Form(object):
         self.label_smalllogo.setGeometry(QtCore.QRect(10, 0, 51, 61))
         self.label_smalllogo.setStyleSheet("#label_smalllogo{\n"
 "background-color:#031b3d;\n"
-"border-image: url(\"C:/Users/USER/Documents/system_90/nagao_backend/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
+"border-image: url(\"C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
 "}")
         self.label_smalllogo.setText("")
         self.label_smalllogo.setObjectName("label_smalllogo")
@@ -247,7 +246,7 @@ class Ui_Form(object):
             return
 
         # Placeholder for real login validation
-  
+        QtWidgets.QMessageBox.information(None, "Login", f"Welcome {username}! (Add DB validation here)")
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -262,7 +261,7 @@ class Ui_Form(object):
         self.lineEdit_password.setText(_translate("Form", "PASSWORD"))
         self.pushButton_login.setText(_translate("Form", "Login"))
         self.label_create_account.setText(_translate("Form", "Create Account"))
-        self.label_noAccount.setText(_translate("Form", "Don't have an account?"))
+        self.label_noAccount.setText(_translate("Form", "Don\'t have an account?"))
         self.toolButton_eye.setText(_translate("Form", "..."))
 
 
