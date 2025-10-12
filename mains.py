@@ -1,8 +1,11 @@
 import sqlite3
 from PyQt6 import QtCore, QtWidgets, QtGui
+from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QPoint
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect
+from PyQt6.QtGui import QColor
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
-from WELCOME import Ui_Form as Ui_WelcomeForm  # Welcome UI import
+from FinalInterface import Ui_Form as FinalInterfaceForm  # Welcome UI import
 
 
 # --- DATABASE SETUP ---
@@ -238,23 +241,94 @@ class MainWindow(QtWidgets.QWidget):
 class WelcomeWindow(QtWidgets.QWidget):
     def __init__(self, username: str):
         super().__init__()
-        self.ui = Ui_WelcomeForm()
+        self.ui = FinalInterfaceForm()
         self.ui.setupUi(self)
         self.setWindowTitle("Welcome - Entrepredict")
 
-        # show username if label exists
+        # Display username if available
         if hasattr(self.ui, "label_username"):
-            # show just the username (the header already has "Welcome!")
             self.ui.label_username.setText(username)
 
-        # Connect logout button (object name: pushButton_6 in the WELCOME UI)
-        if hasattr(self.ui, "pushButton_6"):
-            self.ui.pushButton_6.clicked.connect(self.handle_logout)
+        # --- Track active button ---
+        self.active_button = None
 
-        # keep a reference for re-opening main
-        self._reopened_main = None
+        # --- Button-to-widget mapping ---
+        self.button_widget_map = {
+            self.ui.homePushButton: self.ui.home_widget,
+            self.ui.inventoryPushButton: self.ui.inventory_widget,
+            self.ui.salesPushButton: self.ui.sales_widget,
+            self.ui.predictionPushButton: self.ui.prediction_widget,
+            self.ui.incomePushButton: self.ui.income_widget,
+        }
 
-        print(f"🎉 Welcome window opened for: {username}")
+        # --- Store original stylesheets ---
+        self.default_styles = {btn: btn.styleSheet() for btn in self.button_widget_map.keys()}
+
+        # --- Connect navigation buttons ---
+        for button, widget in self.button_widget_map.items():
+            button.clicked.connect(lambda checked=False, b=button, w=widget: self.handle_nav(b, w))
+
+        # --- Logout button ---
+        if hasattr(self.ui, "logOutPushButton"):
+            self.ui.logOutPushButton.clicked.connect(self.handle_logout)
+
+        
+
+    # --- HANDLE NAVIGATION ---
+    def handle_nav(self, button, widget):
+        # Restore previous button's default style
+        if self.active_button and self.active_button != button:
+            self.restore_default_style(self.active_button)
+
+        # Highlight current one
+        self.highlight_button(button)
+        self.active_button = button
+
+        # Animate bump
+        self.animate_button_click(button)
+
+        # Switch stacked widget page
+        if hasattr(self.ui, "stackedWidget"):
+            self.ui.stackedWidget.setCurrentWidget(widget)
+            print(f"📄 Switched to: {widget.objectName()}")
+
+    # --- HIGHLIGHT ACTIVE BUTTON ---
+    def highlight_button(self, button):
+        button.setStyleSheet("""
+            QPushButton {
+                background-color: qlineargradient(
+                    x1:0, y1:0, x2:1, y2:1,
+                    stop:0 #0078D4, stop:1 #00B4DB
+                );
+                color: white;
+                font-weight: bold;
+                border-radius: 10px;
+            }
+        """)
+
+        glow = QGraphicsDropShadowEffect()
+        glow.setBlurRadius(25)
+        glow.setColor(QColor("#00B4DB"))
+        glow.setOffset(0, 0)
+        button.setGraphicsEffect(glow)
+
+    # --- RESTORE ORIGINAL STYLE ---
+    def restore_default_style(self, button):
+        original = self.default_styles.get(button, "")
+        button.setStyleSheet(original)
+        button.setGraphicsEffect(None)
+
+    # --- ANIMATE BUTTON CLICK ---
+    def animate_button_click(self, button):
+        start_pos = button.pos()
+        anim = QPropertyAnimation(button, b"pos")
+        anim.setDuration(220)
+        anim.setKeyValueAt(0, start_pos)
+        anim.setKeyValueAt(0.5, QPoint(start_pos.x() + 10, start_pos.y()))
+        anim.setKeyValueAt(1, start_pos)
+        anim.setEasingCurve(QEasingCurve.Type.OutBack)
+        anim.start(QtCore.QAbstractAnimation.DeletionPolicy.DeleteWhenStopped)
+        self._anim = anim  # prevent GC
 
     def handle_logout(self):
         reply = QtWidgets.QMessageBox.question(
