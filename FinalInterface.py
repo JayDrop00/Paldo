@@ -881,7 +881,7 @@ class Ui_Form(object):
         self.predictButton = QtWidgets.QPushButton(parent=self.frame)
         self.predictButton.setGeometry(QtCore.QRect(100, 280, 91, 31))
         self.predictButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.predictButton.setStyleSheet("#donebutton {\n"
+        self.predictButton.setStyleSheet("#predictButton {\n"
 "    background-color: #002B5B;    /* Very light cyan tint */\n"
 "    border: 2px solid #031b3d;                  /* Deep navy border */\n"
 "    border-radius: 9px;\n"
@@ -1175,7 +1175,7 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
