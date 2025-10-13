@@ -156,6 +156,9 @@ border:none;
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: transparent;
@@ -194,6 +197,9 @@ QPushButton:checked {
         <width>91</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -234,6 +240,9 @@ QPushButton:checked {
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: transparent;
@@ -272,6 +281,9 @@ QPushButton:checked {
         <width>91</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -313,6 +325,9 @@ QPushButton:checked {
         <height>31</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: transparent;
@@ -351,6 +366,9 @@ QPushButton:checked {
         <width>91</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -392,8 +410,14 @@ QPushButton:checked {
        <height>531</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>UpArrowCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background : transparent</string>
+     </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="inventory_widget">
       <widget class="QWidget" name="widget_inventory" native="true">
@@ -505,6 +529,9 @@ QPushButton:checked {
           <height>31</height>
          </rect>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">#addbutton {
     background-color: #002B5B;    /* Very light cyan tint */
@@ -538,6 +565,9 @@ QPushButton:checked {
           <width>101</width>
           <height>31</height>
          </rect>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">#deletebutton {
@@ -804,7 +834,7 @@ QPushButton:checked {
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>60</y>
+          <y>70</y>
           <width>261</width>
           <height>71</height>
          </rect>
@@ -850,7 +880,706 @@ QPushButton:checked {
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="prediction_widget"/>
+     <widget class="QWidget" name="prediction_widget">
+      <widget class="QWidget" name="widget_inventory_3" native="true">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>671</width>
+         <height>481</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#widget_inventory_3 {
+    background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */
+    border: 2px solid #031b3d;                 /* navy border */
+    border-radius: 15px;                       /* smoother corners */
+    backdrop-filter: blur(10px);               /* subtle blur for depth */
+    padding: 15px;
+}
+</string>
+       </property>
+       <widget class="QLabel" name="label_inventory_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>151</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#label_inventory_3 {
+    color: #031b3d;                  /* Deep navy text for contrast */
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 22px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+    letter-spacing: 1px;             /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+        </property>
+        <property name="text">
+         <string>PREDICTION</string>
+        </property>
+       </widget>
+       <widget class="QPlainTextEdit" name="plainTextEdit_prediction">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>60</y>
+          <width>351</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#plainTextEdit_prediction {
+    font-family: &quot;Poppins&quot;;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #002B5B; /* Black text */
+    background-color: transparent; /* Transparent background */
+    border:none;
+}
+</string>
+        </property>
+        <property name="plainText">
+         <string>Input your financial data to forecast future sales performance.</string>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>120</y>
+          <width>291</width>
+          <height>331</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#frame {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #c8f1ff, stop:1 #e2fbff);
+    border: 2px solid #031b3d;
+    border-radius: 12px;
+    padding: 8px;
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLineEdit" name="netIncomeQLine">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>50</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_totalliabilities">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>111</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Total Liabilities:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="totalAssetsQLine">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_equity">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Total Equity:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="operatingIncomeQLine">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>110</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="totalEquityQLine">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>170</y>
+           <width>113</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_totalassets">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>81</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Total Assets:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_net">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>30</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Net  Income:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_currentliabilities">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>210</y>
+           <width>121</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Current Liabilities:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_operating">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>90</y>
+           <width>131</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Operating Income:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="totalLiabilitiesQLine">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>110</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="currentAssetsQLine">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>170</y>
+           <width>113</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="currentLiabilitiesQLine">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>230</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_currentassets">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>150</y>
+           <width>111</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Current Assets:</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="predictButton">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>280</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#donebutton {
+    background-color: #002B5B;    /* Very light cyan tint */
+    border: 2px solid #031b3d;                  /* Deep navy border */
+    border-radius: 9px;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 11px;                            /* Smaller text */
+    padding: 4px 10px;
+}
+
+#donebutton:hover {
+    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */
+    border: 2px solid #00ffff;                  /* Cyan glow */
+}
+
+#donebutton:pressed {
+    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */
+}
+</string>
+         </property>
+         <property name="text">
+          <string>PREDICT</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QFrame" name="frame_2">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>190</y>
+          <width>291</width>
+          <height>171</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#frame_2 {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #c8f1ff, stop:1 #e2fbff);
+    border: 2px solid #031b3d;
+    border-radius: 12px;
+    padding: 8px;
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="result_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>151</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#result_label {
+                  
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 22px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+    letter-spacing: 2px;             /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+         </property>
+         <property name="text">
+          <string>Result</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="percentage_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#percentage_label{
+                  
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 20px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+               /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="message_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>100</y>
+           <width>241</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;
+ font-weight: 900; </string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
      <widget class="QWidget" name="income_widget"/>
      <widget class="QWidget" name="sales_widget">
       <widget class="QWidget" name="widget_inventory_2" native="true">
@@ -859,7 +1588,7 @@ QPushButton:checked {
          <x>10</x>
          <y>10</y>
          <width>671</width>
-         <height>481</height>
+         <height>491</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -1168,8 +1897,8 @@ QPushButton:checked {
          <rect>
           <x>50</x>
           <y>210</y>
-          <width>561</width>
-          <height>231</height>
+          <width>551</width>
+          <height>211</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1210,7 +1939,7 @@ QPushButton:checked {
 </string>
          </property>
          <property name="text">
-          <string>Monthly Sales</string>
+          <string>Daily Sales</string>
          </property>
         </widget>
        </widget>

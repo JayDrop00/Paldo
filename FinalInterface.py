@@ -83,6 +83,7 @@ class Ui_Form(object):
         self.frame_sidebar.setObjectName("frame_sidebar")
         self.homePushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.homePushButton.setGeometry(QtCore.QRect(40, 30, 91, 31))
+        self.homePushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.homePushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -110,6 +111,7 @@ class Ui_Form(object):
         self.homePushButton.setObjectName("homePushButton")
         self.inventoryPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.inventoryPushButton.setGeometry(QtCore.QRect(40, 80, 91, 31))
+        self.inventoryPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.inventoryPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -137,6 +139,7 @@ class Ui_Form(object):
         self.inventoryPushButton.setObjectName("inventoryPushButton")
         self.salesPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.salesPushButton.setGeometry(QtCore.QRect(40, 130, 91, 31))
+        self.salesPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.salesPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -164,6 +167,7 @@ class Ui_Form(object):
         self.salesPushButton.setObjectName("salesPushButton")
         self.predictionPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.predictionPushButton.setGeometry(QtCore.QRect(40, 180, 91, 31))
+        self.predictionPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.predictionPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -192,6 +196,7 @@ class Ui_Form(object):
         self.predictionPushButton.setObjectName("predictionPushButton")
         self.incomePushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.incomePushButton.setGeometry(QtCore.QRect(40, 230, 91, 31))
+        self.incomePushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.incomePushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -219,6 +224,7 @@ class Ui_Form(object):
         self.incomePushButton.setObjectName("incomePushButton")
         self.logOutPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.logOutPushButton.setGeometry(QtCore.QRect(40, 480, 91, 31))
+        self.logOutPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.logOutPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
@@ -246,6 +252,8 @@ class Ui_Form(object):
         self.logOutPushButton.setObjectName("logOutPushButton")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainwidget)
         self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 701, 531))
+        self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.UpArrowCursor))
+        self.stackedWidget.setStyleSheet("background : transparent")
         self.stackedWidget.setObjectName("stackedWidget")
         self.inventory_widget = QtWidgets.QWidget()
         self.inventory_widget.setObjectName("inventory_widget")
@@ -307,6 +315,7 @@ class Ui_Form(object):
         self.lineEdit_search.setObjectName("lineEdit_search")
         self.addbutton = QtWidgets.QPushButton(parent=self.widget_inventory)
         self.addbutton.setGeometry(QtCore.QRect(30, 120, 91, 31))
+        self.addbutton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.addbutton.setStyleSheet("#addbutton {\n"
 "    background-color: #002B5B;    /* Very light cyan tint */\n"
 "    border: 2px solid #031b3d;                  /* Deep navy border */\n"
@@ -329,6 +338,7 @@ class Ui_Form(object):
         self.addbutton.setObjectName("addbutton")
         self.deletebutton = QtWidgets.QPushButton(parent=self.widget_inventory)
         self.deletebutton.setGeometry(QtCore.QRect(130, 120, 101, 31))
+        self.deletebutton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.deletebutton.setStyleSheet("#deletebutton {\n"
 "    background-color: #002B5B;    /* Soft coral tint (less aggressive than red) */\n"
 "    border: 2px solid #031b3d;\n"
@@ -470,7 +480,7 @@ class Ui_Form(object):
 "")
         self.label_tips.setObjectName("label_tips")
         self.label_bullet = QtWidgets.QLabel(parent=self.frame_tips)
-        self.label_bullet.setGeometry(QtCore.QRect(20, 60, 261, 71))
+        self.label_bullet.setGeometry(QtCore.QRect(20, 70, 261, 71))
         self.label_bullet.setStyleSheet("#label_bullet{\n"
 "    font-size: 11pt;          /* Similar to summary/last update */\n"
 "    font-weight: normal;       /* Keep it readable */\n"
@@ -496,6 +506,450 @@ class Ui_Form(object):
         self.stackedWidget.addWidget(self.home_widget)
         self.prediction_widget = QtWidgets.QWidget()
         self.prediction_widget.setObjectName("prediction_widget")
+        self.widget_inventory_3 = QtWidgets.QWidget(parent=self.prediction_widget)
+        self.widget_inventory_3.setGeometry(QtCore.QRect(10, 10, 671, 481))
+        self.widget_inventory_3.setStyleSheet("#widget_inventory_3 {\n"
+"    background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */\n"
+"    border: 2px solid #031b3d;                 /* navy border */\n"
+"    border-radius: 15px;                       /* smoother corners */\n"
+"    backdrop-filter: blur(10px);               /* subtle blur for depth */\n"
+"    padding: 15px;\n"
+"}\n"
+"")
+        self.widget_inventory_3.setObjectName("widget_inventory_3")
+        self.label_inventory_3 = QtWidgets.QLabel(parent=self.widget_inventory_3)
+        self.label_inventory_3.setGeometry(QtCore.QRect(20, 20, 151, 31))
+        self.label_inventory_3.setStyleSheet("#label_inventory_3 {\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 22px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_inventory_3.setObjectName("label_inventory_3")
+        self.plainTextEdit_prediction = QtWidgets.QPlainTextEdit(parent=self.widget_inventory_3)
+        self.plainTextEdit_prediction.setGeometry(QtCore.QRect(20, 60, 351, 51))
+        self.plainTextEdit_prediction.setStyleSheet("#plainTextEdit_prediction {\n"
+"    font-family: \"Poppins\";\n"
+"    font-size: 11pt;\n"
+"    font-weight: 500;\n"
+"    color: #002B5B; /* Black text */\n"
+"    background-color: transparent; /* Transparent background */\n"
+"    border:none;\n"
+"}\n"
+"")
+        self.plainTextEdit_prediction.setObjectName("plainTextEdit_prediction")
+        self.frame = QtWidgets.QFrame(parent=self.widget_inventory_3)
+        self.frame.setGeometry(QtCore.QRect(30, 120, 291, 331))
+        self.frame.setStyleSheet("#frame {\n"
+"    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 #c8f1ff, stop:1 #e2fbff);\n"
+"    border: 2px solid #031b3d;\n"
+"    border-radius: 12px;\n"
+"    padding: 8px;\n"
+"}")
+        self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame.setObjectName("frame")
+        self.netIncomeQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.netIncomeQLine.setGeometry(QtCore.QRect(160, 50, 111, 31))
+        self.netIncomeQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.netIncomeQLine.setObjectName("netIncomeQLine")
+        self.label_totalliabilities = QtWidgets.QLabel(parent=self.frame)
+        self.label_totalliabilities.setGeometry(QtCore.QRect(10, 90, 111, 21))
+        self.label_totalliabilities.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_totalliabilities.setObjectName("label_totalliabilities")
+        self.totalAssetsQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.totalAssetsQLine.setGeometry(QtCore.QRect(20, 50, 111, 31))
+        self.totalAssetsQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.totalAssetsQLine.setObjectName("totalAssetsQLine")
+        self.label_equity = QtWidgets.QLabel(parent=self.frame)
+        self.label_equity.setGeometry(QtCore.QRect(10, 150, 81, 21))
+        self.label_equity.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_equity.setObjectName("label_equity")
+        self.operatingIncomeQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.operatingIncomeQLine.setGeometry(QtCore.QRect(160, 110, 111, 31))
+        self.operatingIncomeQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.operatingIncomeQLine.setObjectName("operatingIncomeQLine")
+        self.totalEquityQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.totalEquityQLine.setGeometry(QtCore.QRect(20, 170, 113, 31))
+        self.totalEquityQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.totalEquityQLine.setObjectName("totalEquityQLine")
+        self.label_totalassets = QtWidgets.QLabel(parent=self.frame)
+        self.label_totalassets.setGeometry(QtCore.QRect(10, 30, 81, 21))
+        self.label_totalassets.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_totalassets.setObjectName("label_totalassets")
+        self.label_net = QtWidgets.QLabel(parent=self.frame)
+        self.label_net.setGeometry(QtCore.QRect(150, 30, 91, 21))
+        self.label_net.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_net.setObjectName("label_net")
+        self.label_currentliabilities = QtWidgets.QLabel(parent=self.frame)
+        self.label_currentliabilities.setGeometry(QtCore.QRect(10, 210, 121, 21))
+        self.label_currentliabilities.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_currentliabilities.setObjectName("label_currentliabilities")
+        self.label_operating = QtWidgets.QLabel(parent=self.frame)
+        self.label_operating.setGeometry(QtCore.QRect(150, 90, 131, 21))
+        self.label_operating.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_operating.setObjectName("label_operating")
+        self.totalLiabilitiesQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.totalLiabilitiesQLine.setGeometry(QtCore.QRect(20, 110, 111, 31))
+        self.totalLiabilitiesQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.totalLiabilitiesQLine.setObjectName("totalLiabilitiesQLine")
+        self.currentAssetsQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.currentAssetsQLine.setGeometry(QtCore.QRect(160, 170, 113, 31))
+        self.currentAssetsQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.currentAssetsQLine.setObjectName("currentAssetsQLine")
+        self.currentLiabilitiesQLine = QtWidgets.QLineEdit(parent=self.frame)
+        self.currentLiabilitiesQLine.setGeometry(QtCore.QRect(20, 230, 111, 31))
+        self.currentLiabilitiesQLine.setStyleSheet("QLineEdit {\n"
+"    background-color: #ffffff;\n"
+"    border: 2px solid #1c3f63;\n"
+"    border-radius: 6px;\n"
+"    padding: 5px 8px;\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 13px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #00b4d8;\n"
+"    background-color: #f0faff;\n"
+"    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);\n"
+"}\n"
+"")
+        self.currentLiabilitiesQLine.setObjectName("currentLiabilitiesQLine")
+        self.label_currentassets = QtWidgets.QLabel(parent=self.frame)
+        self.label_currentassets.setGeometry(QtCore.QRect(150, 150, 111, 21))
+        self.label_currentassets.setStyleSheet("QLabel {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Semibold\";\n"
+"    font-size: 14px;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"QLabel#title_label {\n"
+"    color: #0a1f33;\n"
+"    font-family: \"Segoe UI Black\";\n"
+"    font-size: 24px;\n"
+"    letter-spacing: 1px;\n"
+"}\n"
+"\n"
+"QLabel#subtitle_label {\n"
+"    color: #1a3e57;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-style: italic;\n"
+"    font-size: 13px;\n"
+"    background-color: rgba(255, 255, 255, 0.4);\n"
+"    border-radius: 8px;\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"")
+        self.label_currentassets.setObjectName("label_currentassets")
+        self.predictButton = QtWidgets.QPushButton(parent=self.frame)
+        self.predictButton.setGeometry(QtCore.QRect(100, 280, 91, 31))
+        self.predictButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.predictButton.setStyleSheet("#donebutton {\n"
+"    background-color: #002B5B;    /* Very light cyan tint */\n"
+"    border: 2px solid #031b3d;                  /* Deep navy border */\n"
+"    border-radius: 9px;\n"
+"    color: #FFFFFF;\n"
+"    font-weight: 500;\n"
+"    font-size: 11px;                            /* Smaller text */\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"\n"
+"#donebutton:hover {\n"
+"    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */\n"
+"    border: 2px solid #00ffff;                  /* Cyan glow */\n"
+"}\n"
+"\n"
+"#donebutton:pressed {\n"
+"    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */\n"
+"}\n"
+"")
+        self.predictButton.setObjectName("predictButton")
+        self.frame_2 = QtWidgets.QFrame(parent=self.widget_inventory_3)
+        self.frame_2.setGeometry(QtCore.QRect(350, 190, 291, 171))
+        self.frame_2.setStyleSheet("#frame_2 {\n"
+"    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 #c8f1ff, stop:1 #e2fbff);\n"
+"    border: 2px solid #031b3d;\n"
+"    border-radius: 12px;\n"
+"    padding: 8px;\n"
+"}")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.result_label = QtWidgets.QLabel(parent=self.frame_2)
+        self.result_label.setGeometry(QtCore.QRect(20, 10, 151, 51))
+        self.result_label.setStyleSheet("#result_label {\n"
+"                  \n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 22px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 2px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.result_label.setObjectName("result_label")
+        self.percentage_label = QtWidgets.QLabel(parent=self.frame_2)
+        self.percentage_label.setGeometry(QtCore.QRect(20, 60, 81, 31))
+        self.percentage_label.setStyleSheet("#percentage_label{\n"
+"                  \n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 20px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"               /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.percentage_label.setText("")
+        self.percentage_label.setObjectName("percentage_label")
+        self.message_label = QtWidgets.QLabel(parent=self.frame_2)
+        self.message_label.setGeometry(QtCore.QRect(20, 100, 241, 51))
+        self.message_label.setStyleSheet("background: transparent;\n"
+" font-weight: 900; ")
+        self.message_label.setText("")
+        self.message_label.setObjectName("message_label")
         self.stackedWidget.addWidget(self.prediction_widget)
         self.income_widget = QtWidgets.QWidget()
         self.income_widget.setObjectName("income_widget")
@@ -503,7 +957,7 @@ class Ui_Form(object):
         self.sales_widget = QtWidgets.QWidget()
         self.sales_widget.setObjectName("sales_widget")
         self.widget_inventory_2 = QtWidgets.QWidget(parent=self.sales_widget)
-        self.widget_inventory_2.setGeometry(QtCore.QRect(10, 10, 671, 481))
+        self.widget_inventory_2.setGeometry(QtCore.QRect(10, 10, 671, 491))
         self.widget_inventory_2.setStyleSheet("#widget_inventory_2 {\n"
 "    background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */\n"
 "    border: 2px solid #031b3d;                 /* navy border */\n"
@@ -658,7 +1112,7 @@ class Ui_Form(object):
 "}")
         self.label_product.setObjectName("label_product")
         self.frame_monthly = QtWidgets.QFrame(parent=self.widget_inventory_2)
-        self.frame_monthly.setGeometry(QtCore.QRect(50, 210, 561, 231))
+        self.frame_monthly.setGeometry(QtCore.QRect(50, 210, 551, 211))
         self.frame_monthly.setStyleSheet("#frame_monthly {\n"
 "    background-color: rgba(255, 255, 255, 0.6);\n"
 "    border: 2px solid #031b3d;\n"
@@ -721,7 +1175,7 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -748,6 +1202,17 @@ class Ui_Form(object):
         self.label_tips.setText(_translate("Form", "Tips for Improvement "))
         self.label_bullet.setText(_translate("Form", "<html><head/><body><ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maintain sales growth</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Reduce slow-moving inventory</li><li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Monitor next month\'s expenses</li></ul></body></html>"))
         self.label_username.setText(_translate("Form", "[USERNAME]"))
+        self.label_inventory_3.setText(_translate("Form", "PREDICTION"))
+        self.plainTextEdit_prediction.setPlainText(_translate("Form", "Input your financial data to forecast future sales performance."))
+        self.label_totalliabilities.setText(_translate("Form", "Total Liabilities:"))
+        self.label_equity.setText(_translate("Form", "Total Equity:"))
+        self.label_totalassets.setText(_translate("Form", "Total Assets:"))
+        self.label_net.setText(_translate("Form", "Net  Income:"))
+        self.label_currentliabilities.setText(_translate("Form", "Current Liabilities:"))
+        self.label_operating.setText(_translate("Form", "Operating Income:"))
+        self.label_currentassets.setText(_translate("Form", "Current Assets:"))
+        self.predictButton.setText(_translate("Form", "PREDICT"))
+        self.result_label.setText(_translate("Form", "Result"))
         self.label_inventory_2.setText(_translate("Form", "SALES"))
         self.label_search_2.setText(_translate("Form", "Search:"))
         self.lineEdit_search_2.setPlaceholderText(_translate("Form", "Search"))
@@ -757,7 +1222,7 @@ class Ui_Form(object):
         self.label_amount.setText(_translate("Form", "125,000"))
         self.label_top.setText(_translate("Form", "Top Product"))
         self.label_product.setText(_translate("Form", "Product X"))
-        self.label_monthly.setText(_translate("Form", "Monthly Sales"))
+        self.label_monthly.setText(_translate("Form", "Daily Sales"))
         self.label_month.setText(_translate("Form", "Month:"))
         self.label_month1.setText(_translate("Form", "October"))
 
