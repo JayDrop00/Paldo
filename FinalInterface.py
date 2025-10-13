@@ -276,7 +276,7 @@ class Ui_Form(object):
 "}")
         self.label_inventory.setObjectName("label_inventory")
         self.label_search = QtWidgets.QLabel(parent=self.widget_inventory)
-        self.label_search.setGeometry(QtCore.QRect(360, 60, 61, 31))
+        self.label_search.setGeometry(QtCore.QRect(410, 60, 61, 31))
         self.label_search.setStyleSheet("#label_search {\n"
 "    color: #031b3d;            /* Same navy tone for consistency */\n"
 "    font-weight: 600;\n"
@@ -288,7 +288,7 @@ class Ui_Form(object):
 "")
         self.label_search.setObjectName("label_search")
         self.lineEdit_search = QtWidgets.QLineEdit(parent=self.widget_inventory)
-        self.lineEdit_search.setGeometry(QtCore.QRect(420, 60, 151, 31))
+        self.lineEdit_search.setGeometry(QtCore.QRect(480, 60, 151, 31))
         self.lineEdit_search.setStyleSheet("#lineEdit_search {\n"
 "    background: rgba(255, 255, 255, 70);  /* Semi-transparent white */\n"
 "    border: 2px solid #031b3d;\n"
@@ -305,49 +305,6 @@ class Ui_Form(object):
 "    background: rgba(255, 255, 255, 90);\n"
 "}")
         self.lineEdit_search.setObjectName("lineEdit_search")
-        self.table_inventory = QtWidgets.QTableWidget(parent=self.widget_inventory)
-        self.table_inventory.setGeometry(QtCore.QRect(30, 170, 601, 241))
-        self.table_inventory.setStyleSheet("/* ===============================\n"
-"   QTABLEWIDGET EXCLUSIVE STYLESHEET\n"
-"   =============================== */\n"
-"\n"
-"#table_inventory {\n"
-"    background-color: transparent;               /* Seamless with main widget */\n"
-"    border: 2px solid #031b3d;                   /* Deep navy border */\n"
-"    border-radius: 10px;                         /* Soft corners */\n"
-"    gridline-color: #031b3d;                     /* Matching navy gridlines */\n"
-"    color: #031b3d;                              /* Text color */\n"
-"    font-size: 12px;\n"
-"    font-weight: 500;\n"
-"    selection-background-color: rgba(0, 255, 255, 60); /* Soft cyan glow */\n"
-"    selection-color: #031b3d;                    /* Readable text color */\n"
-"    alternate-background-color: rgba(3, 27, 61, 10);   /* Subtle striped rows */\n"
-"}\n"
-"\n"
-"/* --- TABLE HEADERS --- */\n"
-"#table_inventory::section {\n"
-"    background-color: rgba(3, 27, 61, 20);       /* Transparent navy tint */\n"
-"    color: #031b3d;\n"
-"    font-weight: 600;\n"
-"    font-size: 12px;\n"
-"    border: 1px solid #031b3d;\n"
-"    border-radius: 5px;\n"
-"    padding: 4px;\n"
-"}\n"
-"\n"
-"/* --- CORNER BUTTON (top-left cell) --- */\n"
-"#table_inventory::section {\n"
-"    background-color: rgba(3, 27, 61, 30);\n"
-"    border: 1px solid #031b3d;\n"
-"    border-top-left-radius: 10px;\n"
-"}\n"
-"")
-        self.table_inventory.setDragEnabled(False)
-        self.table_inventory.setAlternatingRowColors(True)
-        self.table_inventory.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
-        self.table_inventory.setRowCount(3)
-        self.table_inventory.setColumnCount(5)
-        self.table_inventory.setObjectName("table_inventory")
         self.addbutton = QtWidgets.QPushButton(parent=self.widget_inventory)
         self.addbutton.setGeometry(QtCore.QRect(30, 120, 91, 31))
         self.addbutton.setStyleSheet("#addbutton {\n"
@@ -391,6 +348,9 @@ class Ui_Form(object):
 "    background-color: rgba(255, 99, 71, 90);\n"
 "}")
         self.deletebutton.setObjectName("deletebutton")
+        self.table_inventory = QtWidgets.QTableView(parent=self.widget_inventory)
+        self.table_inventory.setGeometry(QtCore.QRect(30, 160, 611, 291))
+        self.table_inventory.setObjectName("table_inventory")
         self.stackedWidget.addWidget(self.inventory_widget)
         self.home_widget = QtWidgets.QWidget()
         self.home_widget.setObjectName("home_widget")
@@ -761,7 +721,7 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
