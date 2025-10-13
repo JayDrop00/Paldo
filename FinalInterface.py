@@ -929,7 +929,7 @@ class Ui_Form(object):
 "}")
         self.result_label.setObjectName("result_label")
         self.percentage_label = QtWidgets.QLabel(parent=self.frame_2)
-        self.percentage_label.setGeometry(QtCore.QRect(20, 60, 81, 31))
+        self.percentage_label.setGeometry(QtCore.QRect(20, 60, 261, 31))
         self.percentage_label.setStyleSheet("#percentage_label{\n"
 "                  \n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -945,7 +945,7 @@ class Ui_Form(object):
         self.percentage_label.setText("")
         self.percentage_label.setObjectName("percentage_label")
         self.message_label = QtWidgets.QLabel(parent=self.frame_2)
-        self.message_label.setGeometry(QtCore.QRect(20, 100, 241, 51))
+        self.message_label.setGeometry(QtCore.QRect(20, 100, 261, 51))
         self.message_label.setStyleSheet("background: transparent;\n"
 " font-weight: 900; ")
         self.message_label.setText("")

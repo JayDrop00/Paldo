@@ -1,4 +1,6 @@
 import sqlite3, os
+import pandas as pd
+import joblib
 from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QPoint, Qt, QSortFilterProxyModel, QEvent, QTimer
@@ -119,7 +121,7 @@ class MainWindow(QtWidgets.QWidget):
         print("Frame found:", bool(self.frame))
         print("===============================\n")
 
-        # Connect signals
+        # Connect signals$
         if self.button:
             self.button.clicked.connect(self.start_transition)
 
@@ -284,7 +286,7 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "label_username"):
             self.ui.label_username.setText(self.username)
 
-        # Button to widget mapping for stacked navigation
+        
         self.button_widget_map = {
             self.ui.homePushButton: self.ui.home_widget,
             self.ui.inventoryPushButton: self.ui.inventory_widget,
@@ -308,6 +310,103 @@ class WelcomeWindow(QtWidgets.QWidget):
 
         # Modernize inventory table UI
         self.setup_inventory_table_ui()
+
+        if hasattr(self.ui, "predictButton"):
+            self.ui.predictButton.clicked.connect(self.handle_prediction)
+
+
+    # ----------------------
+    # Prediction
+    # ----------------------
+    def compute_ratios(self, raw):
+        """Compute financial ratios from raw inputs."""
+        data = {}
+        data["ROA(C) before interest and depreciation before interest"] = raw["Operating_Income"] / raw["Total_Assets"]
+        data["ROA(A) before interest and % after tax"] = raw["Net_Income"] / raw["Total_Assets"]
+        data["Net Income to Stockholder's Equity"] = raw["Net_Income"] / raw["Total_Equity"]
+        data["Current Ratio"] = raw["Current_Assets"] / raw["Current_Liabilities"]
+        data["Quick Ratio"] = (raw["Current_Assets"] - (raw["Current_Assets"] * 0.3)) / raw["Current_Liabilities"]
+        data["Debt ratio %"] = (raw["Total_Liabilities"] / raw["Total_Assets"]) * 100
+        data["Interest Coverage Ratio (Interest expense to EBIT)"] = raw["Operating_Income"] / (0.1 * raw["Total_Liabilities"])
+        return pd.DataFrame([data])
+    
+    def handle_prediction(self):
+        """Triggered when predictButton is clicked."""
+        try:
+            # 1️⃣ Get numeric values from input fields
+            raw_input = {
+                "Total_Assets": float(self.ui.totalAssetsQLine.text()),
+                "Total_Liabilities": float(self.ui.totalLiabilitiesQLine.text()),
+                "Total_Equity": float(self.ui.totalEquityQLine.text()),
+                "Net_Income": float(self.ui.netIncomeQLine.text()),
+                "Operating_Income": float(self.ui.operatingIncomeQLine.text()),
+                "Current_Assets": float(self.ui.currentAssetsQLine.text()),
+                "Current_Liabilities": float(self.ui.currentLiabilitiesQLine.text())
+            }
+
+            # 2️⃣ Compute ratios
+            df_input = self.compute_ratios(raw_input)
+
+            # 3️⃣ Load model
+            model = joblib.load("bankruptcy_Simple.pkl")
+
+            # 4️⃣ Ensure same order as training
+            df_input = df_input[model.feature_names_in_]
+
+            # 5️⃣ Make prediction
+            prediction = model.predict(df_input)[0]
+            proba = model.predict_proba(df_input)[0]
+            prob_bankrupt = proba[1] * 100
+            prob_healthy = proba[0] * 100
+
+            # 6️⃣ Show results on labels
+            if prediction == 1:
+                status_text = "Bankrupt"
+                
+                self.ui.result_label.setStyleSheet("""
+                    #result_label {
+                        color: red;
+                        font-weight: 900;
+                        font-size: 22px;
+                        background: transparent;
+                        letter-spacing: 2px;
+                        text-transform: uppercase;
+                        border: none;
+                        text-shadow: 0px 0px 6px #ff4d4d; /* red glow */
+                    }
+                """)
+                probability = (f"Confidence: {prob_bankrupt}%")
+                message_text = "⚠️ Your Business is at\n risk for bankruptcy"
+            else:
+                status_text = "Healthy"
+                self.ui.result_label.setStyleSheet("""
+                    #result_label {
+                        color: green;
+                        font-weight: 900;
+                        font-size: 22px;
+                        background: transparent;
+                        letter-spacing: 2px;
+                        text-transform: uppercase;
+                        border: none;
+                        text-shadow: 0px 0px 6px #00ff99; /* green glow */
+                    }
+                """)
+                probability = (f"Confidence: {prob_healthy}%")
+                message_text = "✅ Your business seems healthy,\n keep it up!"
+
+                
+
+            # Update UI labels (make sure they exist in your .ui)
+            self.ui.result_label.setText(status_text)
+            self.ui.percentage_label.setText(probability)
+            self.ui.message_label.setText(message_text)
+
+        except ValueError:
+            QMessageBox.warning(self, "Input Error", "Please enter valid numeric values in all fields.")
+        except Exception as e:
+            QMessageBox.critical(self, "Prediction Error", f"An error occurred:\n{e}")
+    
+
 
     # -------------------------
     # Inventory DB + QSqlTableModel

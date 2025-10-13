@@ -1538,7 +1538,7 @@ QLabel#subtitle_label {
           <rect>
            <x>20</x>
            <y>60</y>
-           <width>81</width>
+           <width>261</width>
            <height>31</height>
           </rect>
          </property>
@@ -1565,7 +1565,7 @@ QLabel#subtitle_label {
           <rect>
            <x>20</x>
            <y>100</y>
-           <width>241</width>
+           <width>261</width>
            <height>51</height>
           </rect>
          </property>
