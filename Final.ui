@@ -316,48 +316,6 @@ QPushButton:checked {
        <string>Prediction</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="incomePushButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>230</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-    background-color: transparent;
-    color: #00E5FF;
-    font-family: &quot;Segoe UI&quot;;
-    font-size: 9pt;
-    font-weight: 500;
-    border: 2px solid #00E5FF;
-    border-radius: 12px;
-    padding: 5px 15px;
-}
-
-QPushButton:hover {
-    background-color: rgba(0, 229, 255, 0.1);
-}
-
-QPushButton:pressed {
-    background-color: rgba(0, 229, 255, 0.2);
-}
-
-QPushButton:checked {
-    background-color: #00E5FF;
-    color: #001F3F;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>Income</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="logOutPushButton">
       <property name="geometry">
        <rect>
@@ -411,13 +369,13 @@ QPushButton:checked {
       </rect>
      </property>
      <property name="cursor">
-      <cursorShape>UpArrowCursor</cursorShape>
+      <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background : transparent</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="inventory_widget">
       <widget class="QWidget" name="widget_inventory" native="true">
@@ -715,7 +673,7 @@ QPushButton:checked {
          <rect>
           <x>40</x>
           <y>40</y>
-          <width>491</width>
+          <width>531</width>
           <height>51</height>
          </rect>
         </property>
@@ -729,7 +687,7 @@ QPushButton:checked {
 </string>
         </property>
         <property name="text">
-         <string>PREDICTED SUCCESS!</string>
+         <string>Proceed to prediction.</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_confidence">
@@ -737,7 +695,7 @@ QPushButton:checked {
          <rect>
           <x>50</x>
           <y>100</y>
-          <width>271</width>
+          <width>471</width>
           <height>31</height>
          </rect>
         </property>
@@ -751,7 +709,7 @@ QPushButton:checked {
 </string>
         </property>
         <property name="text">
-         <string>Confidence Level: 87%</string>
+         <string>Confidence Level: N/A</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_last">
@@ -759,7 +717,7 @@ QPushButton:checked {
          <rect>
           <x>50</x>
           <y>140</y>
-          <width>231</width>
+          <width>431</width>
           <height>21</height>
          </rect>
         </property>
@@ -774,7 +732,7 @@ QPushButton:checked {
 </string>
         </property>
         <property name="text">
-         <string>Last Prediction update  10/09/25</string>
+         <string>Last Prediction update  N/A</string>
         </property>
        </widget>
       </widget>
@@ -1511,7 +1469,7 @@ QLabel#subtitle_label {
           <rect>
            <x>20</x>
            <y>10</y>
-           <width>151</width>
+           <width>251</width>
            <height>51</height>
           </rect>
          </property>

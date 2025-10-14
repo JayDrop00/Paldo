@@ -194,34 +194,6 @@ class Ui_Form(object):
 "\n"
 "")
         self.predictionPushButton.setObjectName("predictionPushButton")
-        self.incomePushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.incomePushButton.setGeometry(QtCore.QRect(40, 230, 91, 31))
-        self.incomePushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.incomePushButton.setStyleSheet("QPushButton {\n"
-"    background-color: transparent;\n"
-"    color: #00E5FF;\n"
-"    font-family: \"Segoe UI\";\n"
-"    font-size: 9pt;\n"
-"    font-weight: 500;\n"
-"    border: 2px solid #00E5FF;\n"
-"    border-radius: 12px;\n"
-"    padding: 5px 15px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgba(0, 229, 255, 0.1);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgba(0, 229, 255, 0.2);\n"
-"}\n"
-"\n"
-"QPushButton:checked {\n"
-"    background-color: #00E5FF;\n"
-"    color: #001F3F;\n"
-"}\n"
-"")
-        self.incomePushButton.setObjectName("incomePushButton")
         self.logOutPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
         self.logOutPushButton.setGeometry(QtCore.QRect(40, 480, 91, 31))
         self.logOutPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
@@ -252,7 +224,7 @@ class Ui_Form(object):
         self.logOutPushButton.setObjectName("logOutPushButton")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainwidget)
         self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 701, 531))
-        self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.UpArrowCursor))
+        self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.stackedWidget.setStyleSheet("background : transparent")
         self.stackedWidget.setObjectName("stackedWidget")
         self.inventory_widget = QtWidgets.QWidget()
@@ -421,7 +393,7 @@ class Ui_Form(object):
 "")
         self.label_status.setObjectName("label_status")
         self.label_predicted = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_predicted.setGeometry(QtCore.QRect(40, 40, 491, 51))
+        self.label_predicted.setGeometry(QtCore.QRect(40, 40, 531, 51))
         self.label_predicted.setStyleSheet("#label_predicted {\n"
 "    font-size: 36pt;      /* Adjust bigger or smaller depending on your layout */\n"
 "    font-weight: bold;\n"
@@ -431,7 +403,7 @@ class Ui_Form(object):
 "")
         self.label_predicted.setObjectName("label_predicted")
         self.label_confidence = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_confidence.setGeometry(QtCore.QRect(50, 100, 271, 31))
+        self.label_confidence.setGeometry(QtCore.QRect(50, 100, 471, 31))
         self.label_confidence.setStyleSheet("#label_confidence {\n"
 "    font-size: 15pt;      /* Smaller than 36pt of PREDICTED SUCCESS */\n"
 "    font-weight: semi-bold;\n"
@@ -441,7 +413,7 @@ class Ui_Form(object):
 "")
         self.label_confidence.setObjectName("label_confidence")
         self.label_last = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_last.setGeometry(QtCore.QRect(50, 140, 231, 21))
+        self.label_last.setGeometry(QtCore.QRect(50, 140, 431, 21))
         self.label_last.setStyleSheet("#label_last {\n"
 "    font-family: \"Poppins\";\n"
 "    font-size: 11pt;\n"
@@ -914,7 +886,7 @@ class Ui_Form(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_2.setObjectName("frame_2")
         self.result_label = QtWidgets.QLabel(parent=self.frame_2)
-        self.result_label.setGeometry(QtCore.QRect(20, 10, 151, 51))
+        self.result_label.setGeometry(QtCore.QRect(20, 10, 251, 51))
         self.result_label.setStyleSheet("#result_label {\n"
 "                  \n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -1175,7 +1147,7 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1186,7 +1158,6 @@ class Ui_Form(object):
         self.inventoryPushButton.setText(_translate("Form", "Inventory"))
         self.salesPushButton.setText(_translate("Form", "Sales"))
         self.predictionPushButton.setText(_translate("Form", "Prediction"))
-        self.incomePushButton.setText(_translate("Form", "Income"))
         self.logOutPushButton.setText(_translate("Form", "Log Out"))
         self.label_inventory.setText(_translate("Form", "Inventory"))
         self.label_search.setText(_translate("Form", "Search:"))
@@ -1196,9 +1167,9 @@ class Ui_Form(object):
         self.label_welcome.setText(_translate("Form", "Welcome!"))
         self.label_summary.setText(_translate("Form", "Here\'s your business summary."))
         self.label_status.setText(_translate("Form", "Business Status"))
-        self.label_predicted.setText(_translate("Form", "PREDICTED SUCCESS!"))
-        self.label_confidence.setText(_translate("Form", "Confidence Level: 87%"))
-        self.label_last.setText(_translate("Form", "Last Prediction update  10/09/25"))
+        self.label_predicted.setText(_translate("Form", "Proceed to prediction."))
+        self.label_confidence.setText(_translate("Form", "Confidence Level: N/A"))
+        self.label_last.setText(_translate("Form", "Last Prediction update  N/A"))
         self.label_tips.setText(_translate("Form", "Tips for Improvement "))
         self.label_bullet.setText(_translate("Form", "<html><head/><body><ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maintain sales growth</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Reduce slow-moving inventory</li><li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Monitor next month\'s expenses</li></ul></body></html>"))
         self.label_username.setText(_translate("Form", "[USERNAME]"))

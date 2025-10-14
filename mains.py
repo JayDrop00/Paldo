@@ -1,6 +1,7 @@
 import sqlite3, os
 import pandas as pd
 import joblib
+from datetime import datetime
 from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QPoint, Qt, QSortFilterProxyModel, QEvent, QTimer
@@ -46,6 +47,22 @@ def init_inventory_db(username: str) -> str:
             original_price REAL,
             retail_price REAL,
             stocks INTEGER
+        )
+    """)
+    conn.commit()
+    conn.close()
+    return db_name
+
+def init_prediction_db(username: str) -> str:
+    db_name = f"prediction_{safe_filename(username)}.db"
+    conn = sqlite3.connect(db_name)
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS predictions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT, 
+            status TEXT,
+            probability REAL
         )
     """)
     conn.commit()
@@ -279,10 +296,13 @@ class WelcomeWindow(QtWidgets.QWidget):
         # Initialize per-user DB
         self.db_name = init_inventory_db(self.username)
         self.setup_inventory_model()
+        self.prediction_db_name = init_prediction_db(self.username)
 
+        self.load_latest_prediction()
         self.ui.stackedWidget.setCurrentWidget(self.ui.home_widget)
+        
 
-        # Display username if label exists
+        # Display username if label exists^
         if hasattr(self.ui, "label_username"):
             self.ui.label_username.setText(self.username)
 
@@ -292,7 +312,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             self.ui.inventoryPushButton: self.ui.inventory_widget,
             self.ui.salesPushButton: self.ui.sales_widget,
             self.ui.predictionPushButton: self.ui.prediction_widget,
-            self.ui.incomePushButton: self.ui.income_widget,
+            
         }
 
         # Store default styles to restore later
@@ -314,6 +334,67 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "predictButton"):
             self.ui.predictButton.clicked.connect(self.handle_prediction)
 
+    
+
+    # ----------------------
+    # Load latest prediction for home widget
+    # ----------------------
+    def load_latest_prediction(self):
+        """Load the latest prediction from the user's prediction database."""
+        try:
+            conn = sqlite3.connect(self.prediction_db_name)
+            cur = conn.cursor()
+
+            # Get the most recent prediction (by latest id or date)
+            cur.execute("""
+                SELECT date, status, probability 
+                FROM predictions 
+                ORDER BY id DESC 
+                LIMIT 1
+            """)
+            row = cur.fetchone()
+            conn.close()
+
+            # If no prediction record exists
+            if not row:
+                if hasattr(self.ui, "label_last"):
+                    self.ui.label_last.setText("No previous prediction.")
+                return
+
+            # Otherwise, unpack the data
+            date, status, probability = row
+
+            # Update labels if they exist in the UI
+            if hasattr(self.ui, "label_last"):
+                self.ui.label_last.setText(f"Last Prediction: {date}")
+            if hasattr(self.ui, "label_predicted"):
+                self.ui.label_predicted.setText(f"Status: {status}")
+                if status.lower() == "bankrupt !":
+                    self.ui.label_predicted.setStyleSheet('''#label_predicted {
+                    font-size: 36pt;      
+                    font-weight: bold;
+                    color: #eb152e;       
+                    background: transparent;
+                    }
+                    ''')
+                else:
+                    self.ui.label_predicted.setStyleSheet('''#label_predicted {
+                    font-size: 36pt;      
+                    font-weight: bold;
+                    color: #14e314;       
+                    background: transparent;
+                    }
+                    ''')
+
+
+            if hasattr(self.ui, "label_confidence"):
+                self.ui.label_confidence.setText(f"{probability}")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to load previous prediction:\n{e}")
+
+
+
 
     # ----------------------
     # Prediction
@@ -331,7 +412,8 @@ class WelcomeWindow(QtWidgets.QWidget):
         return pd.DataFrame([data])
     
     def handle_prediction(self):
-        """Triggered when predictButton is clicked."""
+    
+    
         try:
             # 1️⃣ Get numeric values from input fields
             raw_input = {
@@ -344,67 +426,81 @@ class WelcomeWindow(QtWidgets.QWidget):
                 "Current_Liabilities": float(self.ui.currentLiabilitiesQLine.text())
             }
 
-            # 2️⃣ Compute ratios
-            df_input = self.compute_ratios(raw_input)
-
-            # 3️⃣ Load model
-            model = joblib.load("bankruptcy_Simple.pkl")
-
-            # 4️⃣ Ensure same order as training
-            df_input = df_input[model.feature_names_in_]
-
-            # 5️⃣ Make prediction
-            prediction = model.predict(df_input)[0]
-            proba = model.predict_proba(df_input)[0]
-            prob_bankrupt = proba[1] * 100
-            prob_healthy = proba[0] * 100
-
-            # 6️⃣ Show results on labels
-            if prediction == 1:
-                status_text = "Bankrupt"
-                
-                self.ui.result_label.setStyleSheet("""
-                    #result_label {
-                        color: red;
-                        font-weight: 900;
-                        font-size: 22px;
-                        background: transparent;
-                        letter-spacing: 2px;
-                        text-transform: uppercase;
-                        border: none;
-                        text-shadow: 0px 0px 6px #ff4d4d; /* red glow */
-                    }
-                """)
-                probability = (f"Confidence: {prob_bankrupt}%")
-                message_text = "⚠️ Your Business is at\n risk for bankruptcy"
-            else:
-                status_text = "Healthy"
-                self.ui.result_label.setStyleSheet("""
-                    #result_label {
-                        color: green;
-                        font-weight: 900;
-                        font-size: 22px;
-                        background: transparent;
-                        letter-spacing: 2px;
-                        text-transform: uppercase;
-                        border: none;
-                        text-shadow: 0px 0px 6px #00ff99; /* green glow */
-                    }
-                """)
-                probability = (f"Confidence: {prob_healthy}%")
-                message_text = "✅ Your business seems healthy,\n keep it up!"
-
-                
-
-            # Update UI labels (make sure they exist in your .ui)
-            self.ui.result_label.setText(status_text)
-            self.ui.percentage_label.setText(probability)
-            self.ui.message_label.setText(message_text)
-
         except ValueError:
             QMessageBox.warning(self, "Input Error", "Please enter valid numeric values in all fields.")
+            return  # ⛔ Stop immediately if invalid
+
+        # 2️⃣ Compute ratios
+        df_input = self.compute_ratios(raw_input)
+
+        # 3️⃣ Load model
+        model = joblib.load("bankruptcy_Simple.pkl")
+
+        # 4️⃣ Ensure same order as training
+        df_input = df_input[model.feature_names_in_]
+
+        # 5️⃣ Make prediction
+        prediction = model.predict(df_input)[0]
+        proba = model.predict_proba(df_input)[0]
+        prob_bankrupt = proba[1] * 100
+        prob_healthy = proba[0] * 100
+        limiter = 45.0
+
+        # 6️⃣ Show results on labels
+        if prob_bankrupt > limiter:
+            status_text = "Bankrupt !"
+            self.ui.result_label.setStyleSheet("""
+                #result_label {
+                    color: red;
+                    font-weight: 900;
+                    font-size: 22px;
+                    background: transparent;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    border: none;
+                    text-shadow: 0px 0px 6px #ff4d4d; /* red glow */
+                }
+            """)
+            probability = (f"Confidence: {prob_bankrupt}%")
+            message_text = "⚠️ Your Business is at\n risk for bankruptcy"
+        else:
+            status_text = "Healthy !"
+            self.ui.result_label.setStyleSheet("""
+                #result_label {
+                    color: green;
+                    font-weight: 900;
+                    font-size: 22px;
+                    background: transparent;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    border: none;
+                    text-shadow: 0px 0px 6px #00ff99; /* green glow */
+                }
+            """)
+            probability = (f"Confidence: {prob_healthy:.2f}%")
+            message_text = "✅ Your business seems healthy,\n keep it up!"
+
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
+
+        # Update UI labels (make sure they exist in your .ui)
+        self.ui.result_label.setText(status_text)
+        self.ui.percentage_label.setText(probability)
+        self.ui.message_label.setText(message_text)
+
+        try:
+            conn = sqlite3.connect(self.prediction_db_name)
+            cur = conn.cursor()
+            cur.execute("""
+                INSERT INTO predictions (date, status, probability)
+                VALUES (?, ?, ?)
+            """, (current_time, status_text, probability))
+            conn.commit()
+            conn.close()
         except Exception as e:
-            QMessageBox.critical(self, "Prediction Error", f"An error occurred:\n{e}")
+            QMessageBox.critical(self, "Database Error", f"Failed to insert prediction data:\n{e}")
+            return
+
+            
     
 
 
