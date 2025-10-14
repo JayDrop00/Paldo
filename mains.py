@@ -5,11 +5,12 @@ from datetime import datetime
 from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QPoint, Qt, QSortFilterProxyModel, QEvent, QTimer
-from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QMessageBox, QInputDialog, QHeaderView, QAbstractItemView
-from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QVBoxLayout, QTableView, QComboBox, QStyledItemDelegate, QGraphicsDropShadowEffect, QMessageBox, QInputDialog, QHeaderView, QAbstractItemView
+from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from FinalInterface import Ui_Form as FinalInterfaceForm  # Welcome UI import
+from reportPopUp import Ui_Form as ReportPopUpForm
 
 
 
@@ -282,7 +283,119 @@ class MainWindow(QtWidgets.QWidget):
         anim.start(QtCore.QAbstractAnimation.DeletionPolicy.DeleteWhenStopped)
         self._anim = anim
 
+# --- Combo Box Delegate for editing ---
+class ComboBoxDelegate(QStyledItemDelegate):
+    def __init__(self, items, parent=None):
+        super().__init__(parent)
+        self.items = items
 
+    def createEditor(self, parent, option, index):
+        combo = QComboBox(parent)
+        combo.addItems(self.items)
+        combo.currentIndexChanged.connect(lambda _: self.commitData.emit(combo))
+        return combo
+
+    def setEditorData(self, editor, index):
+        current_text = index.data(Qt.ItemDataRole.DisplayRole)
+        idx = editor.findText(current_text)
+        if idx >= 0:
+            editor.setCurrentIndex(idx)
+
+    def setModelData(self, editor, model, index):
+        selected_name = editor.currentText()
+        model.setData(index, selected_name)
+        # Populate other columns except stocks
+        conn = sqlite3.connect(f"inventory_{self.parent().username}.db")
+        cur = conn.cursor()
+        cur.execute("SELECT original_price, retail_price FROM inventory WHERE name=?", (selected_name,))
+        row = cur.fetchone()
+        if row:
+            model.setData(model.index(index.row(), 1), row[0])  # original_price
+            model.setData(model.index(index.row(), 2), row[1])  # retail_price
+        conn.close()
+
+
+# --- SALES REPORT POP-UP WINDOW ---
+class SalesReportWindow(QtWidgets.QWidget):
+    def __init__(self, username: str):
+        super().__init__()
+        self.ui = ReportPopUpForm()
+        self.ui.setupUi(self)
+        self.setWindowTitle('Sales Report')
+        self.username = username
+
+        self.inventory_data = self.load_inventory()
+        self.setup_report_table()
+
+    def load_inventory(self):
+        """Load inventory names and prices from user DB."""
+        conn = sqlite3.connect(f"inventory_{self.username}.db")
+        cur = conn.cursor()
+        cur.execute("SELECT name, original_price, retail_price FROM inventory")
+        data = cur.fetchall()
+        conn.close()
+        return data  # list of tuples: (name, original_price, retail_price)
+
+    def setup_report_table(self):
+        table: QTableView = self.ui.reportTableView
+
+        # Model: 4 columns - Name, Original Price, Retail Price, Stocks
+        self.model = QStandardItemModel(0, 4)
+        self.model.setHorizontalHeaderLabels(["Name", "Original Price", "Retail Price", "Stocks"])
+        table.setModel(self.model)
+
+        table.setAlternatingRowColors(True)
+        table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        table.verticalHeader().setVisible(False)
+        table.setShowGrid(True)
+        table.horizontalHeader().setStretchLastSection(True)
+
+        # Add initial empty row
+        self.add_empty_row()
+
+    def add_empty_row(self):
+        """Add a new row with a visible name dropdown starting with no selection."""
+        row_index = self.model.rowCount()
+        self.model.insertRow(row_index)
+
+        # Add empty items for other columns
+        for col in range(1, 4):
+            self.model.setItem(row_index, col, QStandardItem(""))
+
+        # Create visible combo for name column
+        combo = QComboBox()
+        combo.addItem("None")  # default empty point
+        for name, _, _ in self.inventory_data:
+            combo.addItem(name)
+        combo.setCurrentIndex(0)
+        combo.setEditable(False)
+
+        self.ui.reportTableView.setIndexWidget(self.model.index(row_index, 0), combo)
+
+        # Connect selection signal
+        def on_name_selected(index):
+            if combo.currentIndex() == 0:
+                # Nothing selected yet
+                return
+
+            selected_name = combo.currentText()
+            # Populate other columns
+            for name, orig, retail in self.inventory_data:
+                if name == selected_name:
+                    self.model.setItem(row_index, 1, QStandardItem(str(orig)))
+                    self.model.setItem(row_index, 2, QStandardItem(str(retail)))
+                    break
+
+            # Make stocks column editable
+            self.model.setItem(row_index, 3, QStandardItem(""))  # user fills manually
+
+            # Disconnect signal to avoid multiple triggers
+            combo.currentIndexChanged.disconnect()
+            # Add next empty row
+            self.add_empty_row()
+
+        combo.currentIndexChanged.connect(on_name_selected)
 
 # --- WELCOME WINDOW (manages logout and returns to MainWindow) ---
 class WelcomeWindow(QtWidgets.QWidget):
@@ -334,7 +447,19 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "predictButton"):
             self.ui.predictButton.clicked.connect(self.handle_prediction)
 
-    
+        if hasattr(self.ui, "addbutton_2"):
+            print('qpal qpal qpal')
+            self.ui.addbutton_2.clicked.connect(self.show_report_popup)
+        
+
+    # ----------------------
+    # Sales Report Pop - up
+    # ----------------------
+    def show_report_popup(self):
+        # Create the popup window and show it
+        self.report_popup = SalesReportWindow(self.username)
+        self.report_popup.show()
+
 
     # ----------------------
     # Load latest prediction for home widget
@@ -461,7 +586,7 @@ class WelcomeWindow(QtWidgets.QWidget):
                     text-shadow: 0px 0px 6px #ff4d4d; /* red glow */
                 }
             """)
-            probability = (f"Confidence: {prob_bankrupt}%")
+            probability = (f"Confidence: {prob_bankrupt:.2f}%")
             message_text = "⚠️ Your Business is at\n risk for bankruptcy"
         else:
             status_text = "Healthy !"
@@ -499,10 +624,6 @@ class WelcomeWindow(QtWidgets.QWidget):
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to insert prediction data:\n{e}")
             return
-
-            
-    
-
 
     # -------------------------
     # Inventory DB + QSqlTableModel

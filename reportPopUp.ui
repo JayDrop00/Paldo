@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>487</width>
+    <height>328</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>491</width>
+     <height>331</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: qlineargradient(
+        spread:pad,
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #ffffff,
+        stop:0.4 #cbf7ff,
+        stop:1 #a6ecf7
+    );
+}</string>
+   </property>
+   <widget class="QTableView" name="reportTableView">
+    <property name="geometry">
+     <rect>
+      <x>45</x>
+      <y>41</y>
+      <width>411</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="submitPushButton">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>283</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#submitPushButton {
+    background-color: #002B5B;    /* Very light cyan tint */
+    border: 2px solid #031b3d;                  /* Deep navy border */
+    border-radius: 9px;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 11px;                            /* Smaller text */
+    padding: 4px 10px;
+}
+
+#donebutton:hover {
+    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */
+    border: 2px solid #00ffff;                  /* Cyan glow */
+}
+
+#donebutton:pressed {
+    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */
+}
+</string>
+    </property>
+    <property name="text">
+     <string>SUBMIT</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
