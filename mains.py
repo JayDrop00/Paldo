@@ -1,5 +1,8 @@
 import sqlite3, os
 import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+import re
 import joblib
 from datetime import datetime
 from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
@@ -12,8 +15,8 @@ from CREATE import Ui_Form as Ui_CreateForm
 from FinalInterface import Ui_Form as FinalInterfaceForm  # Welcome UI import
 from reportPopUp import Ui_Form as ReportPopUpForm
 
-
-
+#DataNeeded_Prediction = ['totalassets', 'totalliabilities', 'totalequity', 'netincome', 'operatingincome', 'currentassets', 'currentliabilities']
+#DataNeeded_Graph = ['expense', 'income', 'liabilities']
 # --- DATABASE SETUP ---
 def init_database():
     conn = sqlite3.connect("users.db")
@@ -32,27 +35,6 @@ def init_database():
 def safe_filename(name: str) -> str:
     """Convert a name to a safe filename for DB."""
     return "".join(c if c.isalnum() or c in "._-" else "_" for c in name.strip())
-
-# -----------------------------
-# Per-user inventory DB
-# -----------------------------
-def init_inventory_db(username: str) -> str:
-    """Ensure inventory DB exists per user, return DB path."""
-    db_name = f"inventory_{safe_filename(username)}.db"
-    conn = sqlite3.connect(db_name)
-    cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS inventory (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT UNIQUE,
-            original_price REAL,
-            retail_price REAL,
-            stocks INTEGER
-        )
-    """)
-    conn.commit()
-    conn.close()
-    return db_name
 
 def init_prediction_db(username: str) -> str:
     db_name = f"prediction_{safe_filename(username)}.db"
@@ -82,10 +64,18 @@ class CreateAccountWindow(QtWidgets.QWidget):
             self.ui.frameCreate.setEnabled(True)
         except Exception:
             pass
-
+        self.center_on_screen()    
         # Connect create button
         self.ui.pushButton_login.clicked.connect(self.create_account)
         print("✅ Create Account page loaded!")
+
+    def center_on_screen(self):
+        from PyQt6.QtWidgets import QApplication
+        screen = QApplication.primaryScreen()
+        screen_geometry = screen.availableGeometry()
+        window_geometry = self.frameGeometry()
+        window_geometry.moveCenter(screen_geometry.center())
+        self.move(window_geometry.topLeft())
 
     def create_account(self):
         fullname = self.ui.lineEdit_fullnameCreate.text().strip()
@@ -123,6 +113,7 @@ class MainWindow(QtWidgets.QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        self.center_on_screen()
         # Get widget references
         self.logo = self.findChild(QtWidgets.QLabel, "label_logo")
         self.welcome = self.findChild(QtWidgets.QLabel, "label_welcome")
@@ -241,6 +232,13 @@ class MainWindow(QtWidgets.QWidget):
         else:
             QtWidgets.QMessageBox.warning(self, "Error", "Invalid username or password.")
 
+    def center_on_screen(self):
+        from PyQt6.QtWidgets import QApplication
+        screen = QApplication.primaryScreen()
+        screen_geometry = screen.availableGeometry()
+        window_geometry = self.frameGeometry()
+        window_geometry.moveCenter(screen_geometry.center())
+        self.move(window_geometry.topLeft())
     # --- OPEN WELCOME WINDOW ---
     def open_welcome(self, username):
         # create the WelcomeWindow (defined below)
@@ -283,120 +281,6 @@ class MainWindow(QtWidgets.QWidget):
         anim.start(QtCore.QAbstractAnimation.DeletionPolicy.DeleteWhenStopped)
         self._anim = anim
 
-# --- Combo Box Delegate for editing ---
-class ComboBoxDelegate(QStyledItemDelegate):
-    def __init__(self, items, parent=None):
-        super().__init__(parent)
-        self.items = items
-
-    def createEditor(self, parent, option, index):
-        combo = QComboBox(parent)
-        combo.addItems(self.items)
-        combo.currentIndexChanged.connect(lambda _: self.commitData.emit(combo))
-        return combo
-
-    def setEditorData(self, editor, index):
-        current_text = index.data(Qt.ItemDataRole.DisplayRole)
-        idx = editor.findText(current_text)
-        if idx >= 0:
-            editor.setCurrentIndex(idx)
-
-    def setModelData(self, editor, model, index):
-        selected_name = editor.currentText()
-        model.setData(index, selected_name)
-        # Populate other columns except stocks
-        conn = sqlite3.connect(f"inventory_{self.parent().username}.db")
-        cur = conn.cursor()
-        cur.execute("SELECT original_price, retail_price FROM inventory WHERE name=?", (selected_name,))
-        row = cur.fetchone()
-        if row:
-            model.setData(model.index(index.row(), 1), row[0])  # original_price
-            model.setData(model.index(index.row(), 2), row[1])  # retail_price
-        conn.close()
-
-
-# --- SALES REPORT POP-UP WINDOW ---
-class SalesReportWindow(QtWidgets.QWidget):
-    def __init__(self, username: str):
-        super().__init__()
-        self.ui = ReportPopUpForm()
-        self.ui.setupUi(self)
-        self.setWindowTitle('Sales Report')
-        self.username = username
-
-        self.inventory_data = self.load_inventory()
-        self.setup_report_table()
-
-    def load_inventory(self):
-        """Load inventory names and prices from user DB."""
-        conn = sqlite3.connect(f"inventory_{self.username}.db")
-        cur = conn.cursor()
-        cur.execute("SELECT name, original_price, retail_price FROM inventory")
-        data = cur.fetchall()
-        conn.close()
-        return data  # list of tuples: (name, original_price, retail_price)
-
-    def setup_report_table(self):
-        table: QTableView = self.ui.reportTableView
-
-        # Model: 4 columns - Name, Original Price, Retail Price, Stocks
-        self.model = QStandardItemModel(0, 4)
-        self.model.setHorizontalHeaderLabels(["Name", "Original Price", "Retail Price", "Stocks"])
-        table.setModel(self.model)
-
-        table.setAlternatingRowColors(True)
-        table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-        table.verticalHeader().setVisible(False)
-        table.setShowGrid(True)
-        table.horizontalHeader().setStretchLastSection(True)
-
-        # Add initial empty row
-        self.add_empty_row()
-
-    def add_empty_row(self):
-        """Add a new row with a visible name dropdown starting with no selection."""
-        row_index = self.model.rowCount()
-        self.model.insertRow(row_index)
-
-        # Add empty items for other columns
-        for col in range(1, 4):
-            self.model.setItem(row_index, col, QStandardItem(""))
-
-        # Create visible combo for name column
-        combo = QComboBox()
-        combo.addItem("None")  # default empty point
-        for name, _, _ in self.inventory_data:
-            combo.addItem(name)
-        combo.setCurrentIndex(0)
-        combo.setEditable(False)
-
-        self.ui.reportTableView.setIndexWidget(self.model.index(row_index, 0), combo)
-
-        # Connect selection signal
-        def on_name_selected(index):
-            if combo.currentIndex() == 0:
-                # Nothing selected yet
-                return
-
-            selected_name = combo.currentText()
-            # Populate other columns
-            for name, orig, retail in self.inventory_data:
-                if name == selected_name:
-                    self.model.setItem(row_index, 1, QStandardItem(str(orig)))
-                    self.model.setItem(row_index, 2, QStandardItem(str(retail)))
-                    break
-
-            # Make stocks column editable
-            self.model.setItem(row_index, 3, QStandardItem(""))  # user fills manually
-
-            # Disconnect signal to avoid multiple triggers
-            combo.currentIndexChanged.disconnect()
-            # Add next empty row
-            self.add_empty_row()
-
-        combo.currentIndexChanged.connect(on_name_selected)
-
 # --- WELCOME WINDOW (manages logout and returns to MainWindow) ---
 class WelcomeWindow(QtWidgets.QWidget):
     def __init__(self, username: str):
@@ -406,28 +290,25 @@ class WelcomeWindow(QtWidgets.QWidget):
         self.setWindowTitle(f"Welcome - {username}")
         self.username = username
 
+        self.center_on_screen()
+
         # Initialize per-user DB
-        self.db_name = init_inventory_db(self.username)
-        self.setup_inventory_model()
         self.prediction_db_name = init_prediction_db(self.username)
 
         self.load_latest_prediction()
         self.ui.stackedWidget.setCurrentWidget(self.ui.home_widget)
         
-
         # Display username if label exists^
         if hasattr(self.ui, "label_username"):
             self.ui.label_username.setText(self.username)
 
-        
         self.button_widget_map = {
             self.ui.homePushButton: self.ui.home_widget,
-            self.ui.inventoryPushButton: self.ui.inventory_widget,
-            self.ui.salesPushButton: self.ui.sales_widget,
+            
+            self.ui.statsPushButton: self.ui.stats_widget,
             self.ui.predictionPushButton: self.ui.prediction_widget,
             
         }
-
         # Store default styles to restore later
         self.default_styles = {btn: btn.styleSheet() for btn in self.button_widget_map.keys()}
         self.button_original_pos = {btn: btn.pos() for btn in self.button_widget_map.keys()}
@@ -442,24 +323,340 @@ class WelcomeWindow(QtWidgets.QWidget):
             self.ui.logOutPushButton.clicked.connect(self.handle_logout)
 
         # Modernize inventory table UI
-        self.setup_inventory_table_ui()
-
+        
         if hasattr(self.ui, "predictButton"):
             self.ui.predictButton.clicked.connect(self.handle_prediction)
-
-        if hasattr(self.ui, "addbutton_2"):
-            print('qpal qpal qpal')
-            self.ui.addbutton_2.clicked.connect(self.show_report_popup)
         
+                # --- CSV Drag & Drop for Prediction Inputs ---
+        if hasattr(self.ui, "csvLabelDropPredict"):
+            self.ui.csvLabelDropPredict.setAcceptDrops(True)
+            self.ui.csvLabelDropPredict.setText("Drag and Drop Prediction CSV Here")
+            self.ui.csvLabelDropPredict.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            
+            # Attach event handlers dynamically
+            self.ui.csvLabelDropPredict.dragEnterEvent = self.dragEnterEvent
+            self.ui.csvLabelDropPredict.dropEvent = self.dropEvent
 
-    # ----------------------
-    # Sales Report Pop - up
-    # ----------------------
-    def show_report_popup(self):
-        # Create the popup window and show it
-        self.report_popup = SalesReportWindow(self.username)
-        self.report_popup.show()
+        # Columns to extract (normalized for comparison)
+        self.DataNeeded_Prediction = [
+            'totalassets', 'totalliabilities', 'totalequity',
+            'netincome', 'operatingincome', 'currentassets', 'currentliabilities'
+        ]
 
+                # --- CSV Drag & Drop for Graph Data ---
+        if hasattr(self.ui, "csvLabelDropStats"):
+            self.ui.csvLabelDropStats.setAcceptDrops(True)
+            self.ui.csvLabelDropStats.setText("Drag CSV File Here")
+            self.ui.csvLabelDropStats.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            
+
+            self.ui.csvLabelDropStats.dragEnterEvent = self.dragEnterEvent
+            self.ui.csvLabelDropStats.dropEvent = self.dropEventGraph
+
+        self.DataNeeded_Graph = ['expense', 'income', 'liabilities']
+
+        # Initialize DB for storing graph data
+        self.init_graph_db()
+        self.load_graph_files()
+
+        # Connect graph button
+        if hasattr(self.ui, "graphPushButton"):
+            self.ui.graphPushButton.clicked.connect(self.display_graph)
+
+    def center_on_screen(self):
+        from PyQt6.QtWidgets import QApplication
+        screen = QApplication.primaryScreen()
+        screen_geometry = screen.availableGeometry()
+        window_geometry = self.frameGeometry()
+        window_geometry.moveCenter(screen_geometry.center())
+        self.move(window_geometry.topLeft())
+
+
+    def load_graph_files(self):
+        """Load previously saved CSV filenames into the combo box."""
+        if not hasattr(self.ui, "statsComboBox"):
+            return
+
+        conn = sqlite3.connect(self.graph_db)
+        cur = conn.cursor()
+        cur.execute("SELECT DISTINCT filename FROM graph_data WHERE username = ?", (self.username,))
+        files = [row[0] for row in cur.fetchall()]
+        conn.close()
+
+        self.ui.statsComboBox.clear()
+        self.ui.statsComboBox.addItems(files)
+
+    def init_graph_db(self):
+        import sqlite3
+        self.graph_db = f"{self.username}_graph_data.db"
+        conn = sqlite3.connect(self.graph_db)
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS graph_data (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT,
+                filename TEXT,
+                expense REAL,
+                netincome REAL,
+                liabilities REAL
+            )
+        """)
+        conn.commit()
+        conn.close()
+        return self.graph_db
+
+    def dropEventGraph(self, event):
+        for url in event.mimeData().urls():
+            file_path = url.toLocalFile()
+            if file_path.endswith(".csv"):
+                self.process_graph_csv(file_path)
+            else:
+                self.ui.csvLabelDropStats.setText("❌ Invalid file! Please drop a .csv file.")
+    
+    def process_graph_csv(self, file_path: str):
+        
+        try:
+            df = pd.read_csv(file_path)
+            headers = list(df.columns)
+
+            # Clean headers
+            header_map = {self.clean_header(h): h for h in headers}
+
+            # Needed data (allow "net income" column)
+            DataNeeded_Graph = ['expense', 'netincome', 'liabilities']
+
+            # Match headers
+            matched = {}
+            for needed in DataNeeded_Graph:
+                for cleaned, original in header_map.items():
+                    if cleaned == needed:
+                        matched[needed] = original
+                        break
+
+            if not matched:
+                self.ui.csvLabelDropStats.setText("⚠️ No matching columns found.")
+                return
+
+            row = df.iloc[0] if not df.empty else {}
+
+            # Helper for safety
+            def safe_get(key):
+                if key in matched:
+                    val = row.get(matched[key], None)
+                    try:
+                        return float(val)
+                    except (ValueError, TypeError):
+                        return "N/A"
+                return "N/A"
+
+            expense = safe_get('expense')
+            netincome = safe_get('netincome')
+            liabilities = safe_get('liabilities')
+
+            # Convert "N/A" to 0 for DB
+            def to_num(v): return 0 if v == "N/A" else v
+
+            conn = sqlite3.connect(self.graph_db)
+            cur = conn.cursor()
+
+            # ✅ Map netincome → income if your DB still uses 'income' column
+            cur.execute("""
+                INSERT INTO graph_data (username, filename, expense, netincome, liabilities)
+                VALUES (?, ?, ?, ?, ?)
+            """, (
+                self.username,
+                os.path.basename(file_path),
+                to_num(expense),
+                to_num(netincome),  # notice this maps netincome → income
+                to_num(liabilities)
+            ))
+            conn.commit()
+            conn.close()
+
+            self.load_graph_files()
+            self.ui.csvLabelDropStats.setText(f"✅ Saved: {os.path.basename(file_path)}")
+
+        except Exception as e:
+            self.ui.csvLabelDropStats.setText(f"⚠️ Error loading CSV: {e}")
+
+    def display_graph(self):
+        selected_file = self.ui.statsComboBox.currentText()
+        if not selected_file:
+            self.ui.csvLabelDropStats.setText("⚠️ Select a file from the combo box.")
+            return
+
+        conn = sqlite3.connect(self.graph_db)
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT expense, netincome, liabilities 
+            FROM graph_data
+            WHERE username = ? AND filename = ?
+        """, (self.username, selected_file))
+        result = cur.fetchone()
+        conn.close()
+
+        if not result:
+            self.ui.csvLabelDropStats.setText("⚠️ No data found for that file.")
+            return
+
+        expense, netincome, liabilities = result  # 👈 changed here
+
+        # Convert safely to numeric
+        def safe_value(v):
+            if v is None:
+                return 0
+            try:
+                return float(v)
+            except (ValueError, TypeError):
+                return 0
+
+        expense_val = safe_value(expense)
+        netincome_val = safe_value(netincome)
+        liabilities_val = safe_value(liabilities)
+
+        categories = ['Expense', 'Net Income', 'Liabilities']  # 👈 label changed
+        values = [expense_val, netincome_val, liabilities_val]
+
+
+        # Labels shown *inside* bars
+        def label_text(v):
+            if v is None or v == 0:
+                return "N/A"
+            return str(v)
+
+        display_texts = [label_text(expense), label_text(netincome), label_text(liabilities)]
+
+        # --- Colors (gray for missing) ---
+        colors = []
+        for v in [expense, netincome, liabilities]:
+            if v is None or v == 0 or v == "N/A":
+                colors.append('#B0BEC5')  # gray for N/A
+            else:
+                colors.append('#66bb6a' if v == netincome else '#ef5350' if v == expense else '#42a5f5')
+
+        # --- Ensure layout exists ---
+        layout = self.ui.graphFrame.layout()
+        if layout is None:
+            layout = QtWidgets.QVBoxLayout(self.ui.graphFrame)
+            self.ui.graphFrame.setLayout(layout)
+
+        # Clear old graph
+        while layout.count():
+            child = layout.takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
+
+        # --- Create Matplotlib Figure ---
+        fig, ax = plt.subplots(figsize=(5.5, 3.5))
+        bars = ax.bar(categories, values, color=colors)
+
+        for bar, value, color in zip(bars, values, colors):
+            height = bar.get_height()
+
+            # Handle invalid or missing values safely
+            if not isinstance(value, (int, float)):
+                value = 0
+            if value is None:
+                value = 0
+
+            # Determine text color for contrast
+            text_color = "black" if color == '#B0BEC5' else "white"
+
+            # Display logic
+            if value == 0:
+                # Show 0 above the bar
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height + (max(values) * 0.05 if max(values) > 0 else 0.2),
+                    "0",
+                    ha='center',
+                    va='bottom',
+                    fontsize=11,
+                    fontweight='bold',
+                    color='black'  # always black for visibility
+                )
+            else:
+                # Show value inside the bar
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height / 2,
+                    f"{value:.2f}".rstrip('0').rstrip('.'),  # clean numeric formatting
+                    ha='center',
+                    va='center',
+                    fontsize=11,
+                    fontweight='bold',
+                    color=text_color
+                )
+   
+        ax.set_xlabel("Business Data", fontsize=12, fontweight='bold')
+        ax.set_ylabel("Value", fontsize=12, fontweight='bold')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        fig.tight_layout()
+
+        canvas = FigureCanvas(fig)
+        layout.addWidget(canvas)
+
+    def clean_header(self, header_name: str) -> str:
+        return re.sub(r'[^a-z0-9]', '', header_name.lower())
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        for url in event.mimeData().urls():
+            file_path = url.toLocalFile()
+            if file_path.endswith(".csv"):
+                self.process_csv(file_path)
+            else:
+                self.ui.csvLabelDropPredict.setText("❌ Invalid file! Please drop a .csv file.")
+
+    def process_csv(self, file_path: str):
+        import pandas as pd
+        import os
+
+        try:
+            df = pd.read_csv(file_path)
+            headers = list(df.columns)
+
+            # Clean headers
+            header_map = {self.clean_header(h): h for h in headers}
+
+            # Match headers to needed ones
+            matched = {}
+            for needed in self.DataNeeded_Prediction:
+                for cleaned, original in header_map.items():
+                    if cleaned == needed:
+                        matched[needed] = original
+                        break
+
+            if not matched:
+                self.ui.csvLabelDropPredict.setText("⚠️ No matching columns found.")
+                return
+
+            # Use the first row (assuming it's the latest/only entry)
+            row = df.iloc[0]
+
+            # Fill each QLineEdit if available
+            def set_if_exists(attr, value):
+                if hasattr(self.ui, attr):
+                    getattr(self.ui, attr).setText(str(value))
+
+            # Assign values
+            set_if_exists("totalAssetsQLine", row.get(matched.get("totalassets", ""), ""))
+            set_if_exists("totalLiabilitiesQLine", row.get(matched.get("totalliabilities", ""), ""))
+            set_if_exists("totalEquityQLine", row.get(matched.get("totalequity", ""), ""))
+            set_if_exists("netIncomeQLine", row.get(matched.get("netincome", ""), ""))
+            set_if_exists("operatingIncomeQLine", row.get(matched.get("operatingincome", ""), ""))
+            set_if_exists("currentAssetsQLine", row.get(matched.get("currentassets", ""), ""))
+            set_if_exists("currentLiabilitiesQLine", row.get(matched.get("currentliabilities", ""), ""))
+
+            # Update label
+            self.ui.csvLabelDropPredict.setText(f"✅ Loaded: {os.path.basename(file_path)}")
+
+        except Exception as e:
+            self.ui.csvLabelDropPredict.setText(f"⚠️ Error loading CSV: {e}")
 
     # ----------------------
     # Load latest prediction for home widget
@@ -493,10 +690,10 @@ class WelcomeWindow(QtWidgets.QWidget):
             if hasattr(self.ui, "label_last"):
                 self.ui.label_last.setText(f"Last Prediction: {date}")
             if hasattr(self.ui, "label_predicted"):
-                self.ui.label_predicted.setText(f"Status: {status}")
+                self.ui.label_predicted.setText(status)
                 if status.lower() == "bankrupt !":
                     self.ui.label_predicted.setStyleSheet('''#label_predicted {
-                    font-size: 36pt;      
+                    font-size: 24pt;      
                     font-weight: bold;
                     color: #eb152e;       
                     background: transparent;
@@ -504,22 +701,18 @@ class WelcomeWindow(QtWidgets.QWidget):
                     ''')
                 else:
                     self.ui.label_predicted.setStyleSheet('''#label_predicted {
-                    font-size: 36pt;      
+                    font-size: 24pt;      
                     font-weight: bold;
                     color: #14e314;       
                     background: transparent;
                     }
                     ''')
 
-
             if hasattr(self.ui, "label_confidence"):
                 self.ui.label_confidence.setText(f"{probability}")
 
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to load previous prediction:\n{e}")
-
-
-
 
     # ----------------------
     # Prediction
@@ -625,207 +818,6 @@ class WelcomeWindow(QtWidgets.QWidget):
             QMessageBox.critical(self, "Database Error", f"Failed to insert prediction data:\n{e}")
             return
 
-    # -------------------------
-    # Inventory DB + QSqlTableModel
-    # -------------------------
-    def setup_inventory_model(self):
-        """Setup QSqlTableModel and proxy for inventory."""
-        # Remove previous connection if exists
-        if QSqlDatabase.contains("inventory_conn"):
-            QSqlDatabase.removeDatabase("inventory_conn")
-
-        self.db = QSqlDatabase.addDatabase("QSQLITE", "inventory_conn")
-        self.db.setDatabaseName(self.db_name)
-        if not self.db.open():
-            QMessageBox.critical(self, "DB Error", self.db.lastError().text())
-            return
-
-        # Table model
-        self.model = QSqlTableModel(self, self.db)
-        self.model.setTable("inventory")
-        self.model.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)
-        self.model.select()
-        # Set headers
-        self.model.setHeaderData(1, Qt.Orientation.Horizontal, "Product Name")
-        self.model.setHeaderData(2, Qt.Orientation.Horizontal, "Original Price")
-        self.model.setHeaderData(3, Qt.Orientation.Horizontal, "Retail Price")
-        self.model.setHeaderData(4, Qt.Orientation.Horizontal, "Stocks")
-
-        # Proxy model for search
-        self.proxy = QSortFilterProxyModel(self)
-        self.proxy.setSourceModel(self.model)
-        self.proxy.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        self.proxy.setFilterKeyColumn(1)  # Product Name
-
-        # Connect model auto-save
-        self.model.dataChanged.connect(self.save_edits)
-
-    # -------------------------
-    # Inventory Table UI
-    # -------------------------
-    def setup_inventory_table_ui(self):
-        table = getattr(self.ui, "table_inventory", None)
-        if table is None:
-            return
-
-        table.setModel(self.proxy)
-        table.setAlternatingRowColors(True)
-        table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-        table.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked)
-        table.verticalHeader().setVisible(False)
-        table.setShowGrid(True)
-        table.setSortingEnabled(True)
-        header = table.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-
-        table.setColumnHidden(0, True)  # Hide ID column
-        # Modern style
-        table.setStyleSheet("""
-            QTableView {
-                border: 2px solid #031b3d;
-                border-radius: 1px;
-                gridline-color: #cfd6dc;
-                selection-background-color: #4a90e2;
-                selection-color: white;
-                background: white;
-                alternate-background-color: #f8fafc;
-                font-family: 'Segoe UI', sans-serif;
-                font-size: 13px;
-            }
-            QHeaderView::section {
-                background-color: #e9eff6;
-                padding: 6px;
-                border: 1px solid #cfd6dc;
-                font-weight: 600;
-                color: #333;
-            }
-        """)
-
-        # Connect search bar
-        search_bar = getattr(self.ui, "lineEdit_search", None)
-        if search_bar:
-            search_bar.textChanged.connect(self.proxy.setFilterFixedString)
-
-        # Connect add/delete buttons
-        add_btn = getattr(self.ui, "addbutton", None)
-        delete_btn = getattr(self.ui, "deletebutton", None)
-        if add_btn:
-            add_btn.clicked.connect(self.add_product)
-        if delete_btn:
-            delete_btn.clicked.connect(self.delete_product)
-
-    # -------------------------
-    # Add product
-    # -------------------------
-    def add_product(self):
-        name, ok = QtWidgets.QInputDialog.getText(self, "Add Product", "Enter Product Name:")
-        if not ok or not name.strip():
-            return
-        name = name.strip()
-
-        orig_price, ok = QtWidgets.QInputDialog.getDouble(self, "Add Product", "Original Price:", 0, 0)
-        if not ok:
-            return
-
-        retail_price, ok = QtWidgets.QInputDialog.getDouble(self, "Add Product", "Retail Price:", 0, 0)
-        if not ok:
-            return
-
-        stocks, ok = QtWidgets.QInputDialog.getInt(self, "Add Product", "Stock Quantity:", 0, 0)
-        if not ok:
-            return
-
-        # Insert record
-        record = self.model.record()
-        record.setValue("name", name)
-        record.setValue("original_price", orig_price)
-        record.setValue("retail_price", retail_price)
-        record.setValue("stocks", stocks)
-
-        if not self.model.insertRecord(-1, record):
-            QMessageBox.warning(self, "Error", "Failed to add product.")
-            return
-        if not self.model.submitAll():
-            QMessageBox.warning(self, "Error", self.model.lastError().text())
-            self.model.revertAll()
-            return
-
-        self.model.select()
-
-    # -------------------------
-    # Delete product
-    # -------------------------
-    def delete_product(self):
-        table = getattr(self.ui, "table_inventory", None)
-        if table is None:
-            return
-
-        index = table.currentIndex()
-        if not index.isValid():
-            QMessageBox.warning(self, "Delete", "Select a product to delete.")
-            return
-
-        source_index = self.proxy.mapToSource(index)
-        row = source_index.row()
-        confirm = QMessageBox.question(self, "Delete", "Are you sure you want to delete this product?")
-        if confirm == QMessageBox.StandardButton.Yes:
-            self.model.removeRow(row)
-            if not self.model.submitAll():
-                QMessageBox.warning(self, "Error", self.model.lastError().text())
-                self.model.revertAll()
-                return
-            self.model.select()
-
-    # -------------------------
-    # Auto-save edits
-    # -------------------------
-    def save_edits(self):
-        if not self.model.submitAll():
-            QMessageBox.warning(self, "Error", self.model.lastError().text())
-            self.model.revertAll()
-        else:
-            self.model.select()
-
-
-    def setup_modern_inventory_table(self):
-        table = getattr(self.ui, "table_inventory", None)
-        if table is None:
-            return
-
-        table.setAlternatingRowColors(True)
-        table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
-        table.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
-        table.verticalHeader().setVisible(False)
-        table.setShowGrid(True)
-        table.setSortingEnabled(True)
-        header = table.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        header.setHighlightSections(False)
-
-        table.setStyleSheet("""
-            QTableView {
-                border: 1px solid #d0d7de;
-                border-radius: 8px;
-                gridline-color: #cfd6dc;
-                selection-background-color: #4a90e2;
-                selection-color: white;
-                background: white;
-                alternate-background-color: #f8fafc;
-                font-family: 'Segoe UI', sans-serif;
-                font-size: 13px;
-            }
-            QHeaderView::section {
-                background-color: #e9eff6;
-                padding: 6px;
-                border: 1px solid #cfd6dc;
-                font-weight: 600;
-                color: #333;
-            }
-        """)
-
-        
-
     # --- HANDLE NAVIGATION ---
     def handle_nav(self, button, widget):
         # Restore previous button's position and style
@@ -874,11 +866,6 @@ class WelcomeWindow(QtWidgets.QWidget):
         button.setStyleSheet(original)
         button.setGraphicsEffect(None)
 
-    
-
-
-
-
     def handle_logout(self):
         reply = QtWidgets.QMessageBox.question(
             self,
@@ -892,7 +879,6 @@ class WelcomeWindow(QtWidgets.QWidget):
             self._reopened_main.show()
             # Close the welcome window
             self.close()
-
 
 # --- MAIN EXECUTION ---
 if __name__ == "__main__":

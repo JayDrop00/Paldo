@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
-    <height>631</height>
+    <width>875</width>
+    <height>628</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>-10</x>
       <y>0</y>
       <width>941</width>
       <height>631</height>
@@ -150,10 +150,10 @@ border:none;
      <widget class="QPushButton" name="homePushButton">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>30</x>
         <y>30</y>
-        <width>91</width>
-        <height>31</height>
+        <width>101</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="cursor">
@@ -186,16 +186,16 @@ QPushButton:checked {
 </string>
       </property>
       <property name="text">
-       <string>Home</string>
+       <string>HOME</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="inventoryPushButton">
+     <widget class="QPushButton" name="statsPushButton">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>80</y>
-        <width>91</width>
-        <height>31</height>
+        <x>30</x>
+        <y>90</y>
+        <width>101</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="cursor">
@@ -228,58 +228,16 @@ QPushButton:checked {
 </string>
       </property>
       <property name="text">
-       <string>Inventory</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="salesPushButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>130</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-    background-color: transparent;
-    color: #00E5FF;
-    font-family: &quot;Segoe UI&quot;;
-    font-size: 9pt;
-    font-weight: 500;
-    border: 2px solid #00E5FF;
-    border-radius: 12px;
-    padding: 5px 15px;
-}
-
-QPushButton:hover {
-    background-color: rgba(0, 229, 255, 0.1);
-}
-
-QPushButton:pressed {
-    background-color: rgba(0, 229, 255, 0.2);
-}
-
-QPushButton:checked {
-    background-color: #00E5FF;
-    color: #001F3F;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>Sales</string>
+       <string>STATISTICS</string>
       </property>
      </widget>
      <widget class="QPushButton" name="predictionPushButton">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>180</y>
-        <width>91</width>
-        <height>31</height>
+        <x>30</x>
+        <y>150</y>
+        <width>101</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="cursor">
@@ -313,7 +271,7 @@ QPushButton:checked {
 </string>
       </property>
       <property name="text">
-       <string>Prediction</string>
+       <string>PREDICTION</string>
       </property>
      </widget>
      <widget class="QPushButton" name="logOutPushButton">
@@ -355,7 +313,7 @@ QPushButton:checked {
 </string>
       </property>
       <property name="text">
-       <string>Log Out</string>
+       <string>LOG OUT</string>
       </property>
      </widget>
     </widget>
@@ -364,8 +322,8 @@ QPushButton:checked {
       <rect>
        <x>200</x>
        <y>80</y>
-       <width>701</width>
-       <height>531</height>
+       <width>691</width>
+       <height>521</height>
       </rect>
      </property>
      <property name="cursor">
@@ -375,7 +333,7 @@ QPushButton:checked {
       <string notr="true">background : transparent</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="inventory_widget">
       <widget class="QWidget" name="widget_inventory" native="true">
@@ -630,7 +588,7 @@ QPushButton:checked {
     background-color: qlineargradient(
         spread:pad, x1:0, y1:0, x2:1, y2:1,
         stop:0 rgba(224, 247, 250, 255),  /* light cyan */
-        stop:1 rgba(255, 255, 255, 255)   /* soft white */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
     );
     border-radius: 20px;
     border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
@@ -671,15 +629,15 @@ QPushButton:checked {
        <widget class="QLabel" name="label_predicted">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>40</y>
-          <width>531</width>
-          <height>51</height>
+          <x>170</x>
+          <y>60</y>
+          <width>341</width>
+          <height>41</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">#label_predicted {
-    font-size: 36pt;      /* Adjust bigger or smaller depending on your layout */
+    font-size: 25pt;      /* Adjust bigger or smaller depending on your layout */
     font-weight: bold;
     color: #002B5B;       /* Replace with the exact color of your sidebar frame */
     background: transparent;
@@ -694,7 +652,7 @@ QPushButton:checked {
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>100</y>
+          <y>110</y>
           <width>471</width>
           <height>31</height>
          </rect>
@@ -716,7 +674,7 @@ QPushButton:checked {
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>140</y>
+          <y>150</y>
           <width>431</width>
           <height>21</height>
          </rect>
@@ -733,6 +691,28 @@ QPushButton:checked {
         </property>
         <property name="text">
          <string>Last Prediction update  N/A</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>60</y>
+          <width>131</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#label {
+    font-size: 25pt;      /* Adjust bigger or smaller depending on your layout */
+    font-weight: bold;
+    color: #002B5B;       /* Replace with the exact color of your sidebar frame */
+    background: transparent;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Status:</string>
         </property>
        </widget>
       </widget>
@@ -788,7 +768,7 @@ QPushButton:checked {
          <string>Tips for Improvement </string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_bullet">
+       <widget class="QLabel" name="homeTipsLabel">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -798,7 +778,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#label_bullet{
+         <string notr="true">#homeTipsLabel{
     font-size: 11pt;          /* Similar to summary/last update */
     font-weight: normal;       /* Keep it readable */
     color: #001F3F;            /* Consistent text color */
@@ -845,13 +825,13 @@ QPushButton:checked {
          <x>10</x>
          <y>10</y>
          <width>671</width>
-         <height>481</height>
+         <height>521</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">#widget_inventory_3 {
     background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */
-    border: 2px solid #031b3d;                 /* navy border */
+                   /* navy border */
     border-radius: 15px;                       /* smoother corners */
     backdrop-filter: blur(10px);               /* subtle blur for depth */
     padding: 15px;
@@ -861,8 +841,8 @@ QPushButton:checked {
        <widget class="QLabel" name="label_inventory_3">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>20</y>
+          <x>30</x>
+          <y>10</y>
           <width>151</width>
           <height>31</height>
          </rect>
@@ -891,8 +871,8 @@ QPushButton:checked {
         </property>
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>60</y>
+          <x>40</x>
+          <y>40</y>
           <width>351</width>
           <height>51</height>
          </rect>
@@ -909,25 +889,28 @@ QPushButton:checked {
 </string>
         </property>
         <property name="plainText">
-         <string>Input your financial data to forecast future sales performance.</string>
+         <string>Input or upload your financial data to forecast future performance.</string>
         </property>
        </widget>
        <widget class="QFrame" name="frame">
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>120</y>
+          <y>190</y>
           <width>291</width>
-          <height>331</height>
+          <height>321</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">#frame {
-    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-        stop:0 #c8f1ff, stop:1 #e2fbff);
-    border: 2px solid #031b3d;
-    border-radius: 12px;
-    padding: 8px;
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    padding: 15px;
 }</string>
         </property>
         <property name="frameShape">
@@ -940,7 +923,7 @@ QPushButton:checked {
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>50</y>
+           <y>40</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -968,7 +951,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>90</y>
+           <y>80</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -1007,7 +990,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>50</y>
+           <y>40</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1035,7 +1018,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>150</y>
+           <y>140</y>
            <width>81</width>
            <height>21</height>
           </rect>
@@ -1074,7 +1057,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>110</y>
+           <y>100</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1102,7 +1085,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>170</y>
+           <y>160</y>
            <width>113</width>
            <height>31</height>
           </rect>
@@ -1130,7 +1113,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>30</y>
+           <y>20</y>
            <width>81</width>
            <height>21</height>
           </rect>
@@ -1169,7 +1152,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>150</x>
-           <y>30</y>
+           <y>20</y>
            <width>91</width>
            <height>21</height>
           </rect>
@@ -1208,7 +1191,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>210</y>
+           <y>200</y>
            <width>121</width>
            <height>21</height>
           </rect>
@@ -1247,7 +1230,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>150</x>
-           <y>90</y>
+           <y>80</y>
            <width>131</width>
            <height>21</height>
           </rect>
@@ -1286,7 +1269,7 @@ QLabel#subtitle_label {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>110</y>
+           <y>100</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1314,7 +1297,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>170</y>
+           <y>160</y>
            <width>113</width>
            <height>31</height>
           </rect>
@@ -1342,7 +1325,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>230</y>
+           <y>220</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1370,7 +1353,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>150</x>
-           <y>150</y>
+           <y>140</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -1408,9 +1391,9 @@ QLabel#subtitle_label {
         <widget class="QPushButton" name="predictButton">
          <property name="geometry">
           <rect>
-           <x>100</x>
-           <y>280</y>
-           <width>91</width>
+           <x>20</x>
+           <y>270</y>
+           <width>251</width>
            <height>31</height>
           </rect>
          </property>
@@ -1449,16 +1432,19 @@ QLabel#subtitle_label {
           <x>350</x>
           <y>190</y>
           <width>291</width>
-          <height>171</height>
+          <height>161</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">#frame_2 {
-    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-        stop:0 #c8f1ff, stop:1 #e2fbff);
-    border: 2px solid #031b3d;
-    border-radius: 12px;
-    padding: 8px;
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    padding: 15px;
 }</string>
         </property>
         <property name="frameShape">
@@ -1509,6 +1495,9 @@ QLabel#subtitle_label {
            <height>31</height>
           </rect>
          </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
          <property name="styleSheet">
           <string notr="true">#percentage_label{
                   
@@ -1536,7 +1525,7 @@ QLabel#subtitle_label {
            <x>20</x>
            <y>100</y>
            <width>261</width>
-           <height>51</height>
+           <height>41</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1548,9 +1537,312 @@ QLabel#subtitle_label {
          </property>
         </widget>
        </widget>
+       <widget class="QLabel" name="csvLabelDropPredict">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>120</y>
+          <width>611</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+    border: 3px dashed #aaaaaa;
+    font-size: 18px;
+    color: #444;
+    
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    text-align: center;  /* Centers text horizontally */
+}</string>
+        </property>
+        <property name="text">
+         <string>DROP CSV FILE HERE</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame_4">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>370</y>
+          <width>291</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#frame_4 {
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    padding: 15px;
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="result_label_5">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>0</y>
+           <width>251</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#result_label_5 {
+                  
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 15px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+    letter-spacing: 2px;             /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+         </property>
+         <property name="text">
+          <string>Tips for improvement</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tipsLabelPredict">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>251</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#tipsLabelPredict{
+                  
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 20px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+               /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="income_widget"/>
+     <widget class="QWidget" name="stats_widget">
+      <widget class="QLabel" name="label_inventory_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#label_inventory_4 {
+    color: #031b3d;                  /* Deep navy text for contrast */
+    font-weight: 900;                /* Bold emphasis */
+    font-size: 22px;                 /* Slightly larger title */
+    background: transparent;         /* Keep background clean */
+    letter-spacing: 1px;             /* Space out letters slightly */
+    text-transform: uppercase;       /* Make “Inventory” more assertive */
+    border: none;                    /* Remove any frame borders */
+    
+    /* Subtle cyan glow for elegance */
+    text-shadow: 0px 0px 6px #00ffff;
+}</string>
+       </property>
+       <property name="text">
+        <string>Statistics</string>
+       </property>
+      </widget>
+      <widget class="QFrame" name="graphFrame">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>220</y>
+         <width>561</width>
+         <height>291</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#graphFrame
+{
+    background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
+    
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="graphPushButton">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>170</y>
+         <width>101</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#graphPushButton {
+    background-color: #002B5B;    /* Very light cyan tint */
+    border: 2px solid #031b3d;                  /* Deep navy border */
+    border-radius: 9px;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 11px;                            /* Smaller text */
+    padding: 4px 10px;
+}
+
+#donebutton:hover {
+    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */
+    border: 2px solid #00ffff;                  /* Cyan glow */
+}
+
+#donebutton:pressed {
+    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */
+}
+</string>
+       </property>
+       <property name="text">
+        <string>View Graph</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="csvLabelDropStats">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>130</y>
+         <width>331</width>
+         <height>81</height>
+        </rect>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    border: 3px dashed #aaaaaa;
+    font-size: 18px;
+    color: #444;
+    
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    text-align: center;  /* Centers text horizontally */
+}</string>
+       </property>
+       <property name="text">
+        <string>DROP CSV FILE HERE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="statsComboBox">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>130</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid rgba(0, 188, 212, 60); 
+ background-color: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(224, 247, 250, 255),  /* light cyan */
+        stop:1 rgba(255, 255, 255, 255)    /* soft white */
+    );
+</string>
+       </property>
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPlainTextEdit" name="plainTextEdit_prediction_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>581</width>
+         <height>81</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#plainTextEdit_prediction_2 {
+    font-family: &quot;Poppins&quot;;
+    font-size: 11pt;
+    font-weight: 500;
+    color: #002B5B; /* Black text */
+    background-color: transparent; /* Transparent background */
+    border:none;
+}
+</string>
+       </property>
+       <property name="plainText">
+        <string>Upload your financial data to and load the graph. This graph only shows: Expense, 
+Net Income and Liabilities
+
+*NOTE: These data assumes that you have already summed them up.</string>
+       </property>
+      </widget>
+     </widget>
      <widget class="QWidget" name="sales_widget">
       <widget class="QWidget" name="widget_inventory_2" native="true">
        <property name="geometry">

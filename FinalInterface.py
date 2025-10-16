@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(941, 631)
+        Form.resize(875, 628)
         self.widget = QtWidgets.QWidget(parent=Form)
         self.widget.setGeometry(QtCore.QRect(0, 0, 941, 631))
         self.widget.setStyleSheet("QWidget {\n"
@@ -27,7 +27,7 @@ class Ui_Form(object):
         self.widget.setObjectName("widget")
         self.mainwidget = QtWidgets.QWidget(parent=self.widget)
         self.mainwidget.setEnabled(True)
-        self.mainwidget.setGeometry(QtCore.QRect(0, 0, 941, 631))
+        self.mainwidget.setGeometry(QtCore.QRect(-10, 0, 941, 631))
         self.mainwidget.setStyleSheet("#label_phrase{\n"
 "    font-family: \"Open Sans Light\";\n"
 "    font-size: 12pt;\n"
@@ -82,7 +82,7 @@ class Ui_Form(object):
         self.frame_sidebar.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_sidebar.setObjectName("frame_sidebar")
         self.homePushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.homePushButton.setGeometry(QtCore.QRect(40, 30, 91, 31))
+        self.homePushButton.setGeometry(QtCore.QRect(30, 30, 101, 41))
         self.homePushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.homePushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
@@ -109,10 +109,10 @@ class Ui_Form(object):
 "}\n"
 "")
         self.homePushButton.setObjectName("homePushButton")
-        self.inventoryPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.inventoryPushButton.setGeometry(QtCore.QRect(40, 80, 91, 31))
-        self.inventoryPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.inventoryPushButton.setStyleSheet("QPushButton {\n"
+        self.statsPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
+        self.statsPushButton.setGeometry(QtCore.QRect(30, 90, 101, 41))
+        self.statsPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.statsPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
 "    color: #00E5FF;\n"
 "    font-family: \"Segoe UI\";\n"
@@ -136,37 +136,9 @@ class Ui_Form(object):
 "    color: #001F3F;\n"
 "}\n"
 "")
-        self.inventoryPushButton.setObjectName("inventoryPushButton")
-        self.salesPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.salesPushButton.setGeometry(QtCore.QRect(40, 130, 91, 31))
-        self.salesPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.salesPushButton.setStyleSheet("QPushButton {\n"
-"    background-color: transparent;\n"
-"    color: #00E5FF;\n"
-"    font-family: \"Segoe UI\";\n"
-"    font-size: 9pt;\n"
-"    font-weight: 500;\n"
-"    border: 2px solid #00E5FF;\n"
-"    border-radius: 12px;\n"
-"    padding: 5px 15px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgba(0, 229, 255, 0.1);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgba(0, 229, 255, 0.2);\n"
-"}\n"
-"\n"
-"QPushButton:checked {\n"
-"    background-color: #00E5FF;\n"
-"    color: #001F3F;\n"
-"}\n"
-"")
-        self.salesPushButton.setObjectName("salesPushButton")
+        self.statsPushButton.setObjectName("statsPushButton")
         self.predictionPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.predictionPushButton.setGeometry(QtCore.QRect(40, 180, 91, 31))
+        self.predictionPushButton.setGeometry(QtCore.QRect(30, 150, 101, 41))
         self.predictionPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.predictionPushButton.setStyleSheet("QPushButton {\n"
 "    background-color: transparent;\n"
@@ -223,7 +195,7 @@ class Ui_Form(object):
 "")
         self.logOutPushButton.setObjectName("logOutPushButton")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 701, 531))
+        self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 691, 521))
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.stackedWidget.setStyleSheet("background : transparent")
         self.stackedWidget.setObjectName("stackedWidget")
@@ -370,7 +342,7 @@ class Ui_Form(object):
 "    background-color: qlineargradient(\n"
 "        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
 "        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
-"        stop:1 rgba(255, 255, 255, 255)   /* soft white */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
 "    );\n"
 "    border-radius: 20px;\n"
 "    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
@@ -393,9 +365,9 @@ class Ui_Form(object):
 "")
         self.label_status.setObjectName("label_status")
         self.label_predicted = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_predicted.setGeometry(QtCore.QRect(40, 40, 531, 51))
+        self.label_predicted.setGeometry(QtCore.QRect(170, 60, 341, 41))
         self.label_predicted.setStyleSheet("#label_predicted {\n"
-"    font-size: 36pt;      /* Adjust bigger or smaller depending on your layout */\n"
+"    font-size: 25pt;      /* Adjust bigger or smaller depending on your layout */\n"
 "    font-weight: bold;\n"
 "    color: #002B5B;       /* Replace with the exact color of your sidebar frame */\n"
 "    background: transparent;\n"
@@ -403,7 +375,7 @@ class Ui_Form(object):
 "")
         self.label_predicted.setObjectName("label_predicted")
         self.label_confidence = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_confidence.setGeometry(QtCore.QRect(50, 100, 471, 31))
+        self.label_confidence.setGeometry(QtCore.QRect(50, 110, 471, 31))
         self.label_confidence.setStyleSheet("#label_confidence {\n"
 "    font-size: 15pt;      /* Smaller than 36pt of PREDICTED SUCCESS */\n"
 "    font-weight: semi-bold;\n"
@@ -413,7 +385,7 @@ class Ui_Form(object):
 "")
         self.label_confidence.setObjectName("label_confidence")
         self.label_last = QtWidgets.QLabel(parent=self.frame_status)
-        self.label_last.setGeometry(QtCore.QRect(50, 140, 431, 21))
+        self.label_last.setGeometry(QtCore.QRect(50, 150, 431, 21))
         self.label_last.setStyleSheet("#label_last {\n"
 "    font-family: \"Poppins\";\n"
 "    font-size: 11pt;\n"
@@ -423,6 +395,16 @@ class Ui_Form(object):
 "}\n"
 "")
         self.label_last.setObjectName("label_last")
+        self.label = QtWidgets.QLabel(parent=self.frame_status)
+        self.label.setGeometry(QtCore.QRect(50, 60, 131, 41))
+        self.label.setStyleSheet("#label {\n"
+"    font-size: 25pt;      /* Adjust bigger or smaller depending on your layout */\n"
+"    font-weight: bold;\n"
+"    color: #002B5B;       /* Replace with the exact color of your sidebar frame */\n"
+"    background: transparent;\n"
+"}\n"
+"")
+        self.label.setObjectName("label")
         self.frame_tips = QtWidgets.QFrame(parent=self.home_widget)
         self.frame_tips.setGeometry(QtCore.QRect(30, 320, 301, 191))
         self.frame_tips.setStyleSheet("#frame_tips {\n"
@@ -451,9 +433,9 @@ class Ui_Form(object):
 "}\n"
 "")
         self.label_tips.setObjectName("label_tips")
-        self.label_bullet = QtWidgets.QLabel(parent=self.frame_tips)
-        self.label_bullet.setGeometry(QtCore.QRect(20, 70, 261, 71))
-        self.label_bullet.setStyleSheet("#label_bullet{\n"
+        self.homeTipsLabel = QtWidgets.QLabel(parent=self.frame_tips)
+        self.homeTipsLabel.setGeometry(QtCore.QRect(20, 70, 261, 71))
+        self.homeTipsLabel.setStyleSheet("#homeTipsLabel{\n"
 "    font-size: 11pt;          /* Similar to summary/last update */\n"
 "    font-weight: normal;       /* Keep it readable */\n"
 "    color: #001F3F;            /* Consistent text color */\n"
@@ -461,7 +443,7 @@ class Ui_Form(object):
 "    border: none;              /* No border */\n"
 "}\n"
 "")
-        self.label_bullet.setObjectName("label_bullet")
+        self.homeTipsLabel.setObjectName("homeTipsLabel")
         self.label_username = QtWidgets.QLabel(parent=self.home_widget)
         self.label_username.setGeometry(QtCore.QRect(270, 30, 151, 31))
         self.label_username.setStyleSheet("#label_username {\n"
@@ -479,10 +461,10 @@ class Ui_Form(object):
         self.prediction_widget = QtWidgets.QWidget()
         self.prediction_widget.setObjectName("prediction_widget")
         self.widget_inventory_3 = QtWidgets.QWidget(parent=self.prediction_widget)
-        self.widget_inventory_3.setGeometry(QtCore.QRect(10, 10, 671, 481))
+        self.widget_inventory_3.setGeometry(QtCore.QRect(10, 10, 671, 521))
         self.widget_inventory_3.setStyleSheet("#widget_inventory_3 {\n"
 "    background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */\n"
-"    border: 2px solid #031b3d;                 /* navy border */\n"
+"                   /* navy border */\n"
 "    border-radius: 15px;                       /* smoother corners */\n"
 "    backdrop-filter: blur(10px);               /* subtle blur for depth */\n"
 "    padding: 15px;\n"
@@ -490,7 +472,7 @@ class Ui_Form(object):
 "")
         self.widget_inventory_3.setObjectName("widget_inventory_3")
         self.label_inventory_3 = QtWidgets.QLabel(parent=self.widget_inventory_3)
-        self.label_inventory_3.setGeometry(QtCore.QRect(20, 20, 151, 31))
+        self.label_inventory_3.setGeometry(QtCore.QRect(30, 10, 151, 31))
         self.label_inventory_3.setStyleSheet("#label_inventory_3 {\n"
 "    color: #031b3d;                  /* Deep navy text for contrast */\n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -506,7 +488,7 @@ class Ui_Form(object):
         self.label_inventory_3.setObjectName("label_inventory_3")
         self.plainTextEdit_prediction = QtWidgets.QPlainTextEdit(parent=self.widget_inventory_3)
         self.plainTextEdit_prediction.setEnabled(False)
-        self.plainTextEdit_prediction.setGeometry(QtCore.QRect(20, 60, 351, 51))
+        self.plainTextEdit_prediction.setGeometry(QtCore.QRect(40, 40, 351, 51))
         self.plainTextEdit_prediction.setStyleSheet("#plainTextEdit_prediction {\n"
 "    font-family: \"Poppins\";\n"
 "    font-size: 11pt;\n"
@@ -518,19 +500,22 @@ class Ui_Form(object):
 "")
         self.plainTextEdit_prediction.setObjectName("plainTextEdit_prediction")
         self.frame = QtWidgets.QFrame(parent=self.widget_inventory_3)
-        self.frame.setGeometry(QtCore.QRect(30, 120, 291, 331))
+        self.frame.setGeometry(QtCore.QRect(30, 190, 291, 321))
         self.frame.setStyleSheet("#frame {\n"
-"    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"        stop:0 #c8f1ff, stop:1 #e2fbff);\n"
-"    border: 2px solid #031b3d;\n"
-"    border-radius: 12px;\n"
-"    padding: 8px;\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    padding: 15px;\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
         self.netIncomeQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.netIncomeQLine.setGeometry(QtCore.QRect(160, 50, 111, 31))
+        self.netIncomeQLine.setGeometry(QtCore.QRect(160, 40, 111, 31))
         self.netIncomeQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -549,7 +534,7 @@ class Ui_Form(object):
 "")
         self.netIncomeQLine.setObjectName("netIncomeQLine")
         self.label_totalliabilities = QtWidgets.QLabel(parent=self.frame)
-        self.label_totalliabilities.setGeometry(QtCore.QRect(10, 90, 111, 21))
+        self.label_totalliabilities.setGeometry(QtCore.QRect(10, 80, 111, 21))
         self.label_totalliabilities.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -576,7 +561,7 @@ class Ui_Form(object):
 "")
         self.label_totalliabilities.setObjectName("label_totalliabilities")
         self.totalAssetsQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.totalAssetsQLine.setGeometry(QtCore.QRect(20, 50, 111, 31))
+        self.totalAssetsQLine.setGeometry(QtCore.QRect(20, 40, 111, 31))
         self.totalAssetsQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -595,7 +580,7 @@ class Ui_Form(object):
 "")
         self.totalAssetsQLine.setObjectName("totalAssetsQLine")
         self.label_equity = QtWidgets.QLabel(parent=self.frame)
-        self.label_equity.setGeometry(QtCore.QRect(10, 150, 81, 21))
+        self.label_equity.setGeometry(QtCore.QRect(10, 140, 81, 21))
         self.label_equity.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -622,7 +607,7 @@ class Ui_Form(object):
 "")
         self.label_equity.setObjectName("label_equity")
         self.operatingIncomeQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.operatingIncomeQLine.setGeometry(QtCore.QRect(160, 110, 111, 31))
+        self.operatingIncomeQLine.setGeometry(QtCore.QRect(160, 100, 111, 31))
         self.operatingIncomeQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -641,7 +626,7 @@ class Ui_Form(object):
 "")
         self.operatingIncomeQLine.setObjectName("operatingIncomeQLine")
         self.totalEquityQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.totalEquityQLine.setGeometry(QtCore.QRect(20, 170, 113, 31))
+        self.totalEquityQLine.setGeometry(QtCore.QRect(20, 160, 113, 31))
         self.totalEquityQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -660,7 +645,7 @@ class Ui_Form(object):
 "")
         self.totalEquityQLine.setObjectName("totalEquityQLine")
         self.label_totalassets = QtWidgets.QLabel(parent=self.frame)
-        self.label_totalassets.setGeometry(QtCore.QRect(10, 30, 81, 21))
+        self.label_totalassets.setGeometry(QtCore.QRect(10, 20, 81, 21))
         self.label_totalassets.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -687,7 +672,7 @@ class Ui_Form(object):
 "")
         self.label_totalassets.setObjectName("label_totalassets")
         self.label_net = QtWidgets.QLabel(parent=self.frame)
-        self.label_net.setGeometry(QtCore.QRect(150, 30, 91, 21))
+        self.label_net.setGeometry(QtCore.QRect(150, 20, 91, 21))
         self.label_net.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -714,7 +699,7 @@ class Ui_Form(object):
 "")
         self.label_net.setObjectName("label_net")
         self.label_currentliabilities = QtWidgets.QLabel(parent=self.frame)
-        self.label_currentliabilities.setGeometry(QtCore.QRect(10, 210, 121, 21))
+        self.label_currentliabilities.setGeometry(QtCore.QRect(10, 200, 121, 21))
         self.label_currentliabilities.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -741,7 +726,7 @@ class Ui_Form(object):
 "")
         self.label_currentliabilities.setObjectName("label_currentliabilities")
         self.label_operating = QtWidgets.QLabel(parent=self.frame)
-        self.label_operating.setGeometry(QtCore.QRect(150, 90, 131, 21))
+        self.label_operating.setGeometry(QtCore.QRect(150, 80, 131, 21))
         self.label_operating.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -768,7 +753,7 @@ class Ui_Form(object):
 "")
         self.label_operating.setObjectName("label_operating")
         self.totalLiabilitiesQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.totalLiabilitiesQLine.setGeometry(QtCore.QRect(20, 110, 111, 31))
+        self.totalLiabilitiesQLine.setGeometry(QtCore.QRect(20, 100, 111, 31))
         self.totalLiabilitiesQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -787,7 +772,7 @@ class Ui_Form(object):
 "")
         self.totalLiabilitiesQLine.setObjectName("totalLiabilitiesQLine")
         self.currentAssetsQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.currentAssetsQLine.setGeometry(QtCore.QRect(160, 170, 113, 31))
+        self.currentAssetsQLine.setGeometry(QtCore.QRect(160, 160, 113, 31))
         self.currentAssetsQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -806,7 +791,7 @@ class Ui_Form(object):
 "")
         self.currentAssetsQLine.setObjectName("currentAssetsQLine")
         self.currentLiabilitiesQLine = QtWidgets.QLineEdit(parent=self.frame)
-        self.currentLiabilitiesQLine.setGeometry(QtCore.QRect(20, 230, 111, 31))
+        self.currentLiabilitiesQLine.setGeometry(QtCore.QRect(20, 220, 111, 31))
         self.currentLiabilitiesQLine.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
 "    border: 2px solid #1c3f63;\n"
@@ -825,7 +810,7 @@ class Ui_Form(object):
 "")
         self.currentLiabilitiesQLine.setObjectName("currentLiabilitiesQLine")
         self.label_currentassets = QtWidgets.QLabel(parent=self.frame)
-        self.label_currentassets.setGeometry(QtCore.QRect(150, 150, 111, 21))
+        self.label_currentassets.setGeometry(QtCore.QRect(150, 140, 111, 21))
         self.label_currentassets.setStyleSheet("QLabel {\n"
 "    color: #0a1f33;\n"
 "    font-family: \"Segoe UI Semibold\";\n"
@@ -852,7 +837,7 @@ class Ui_Form(object):
 "")
         self.label_currentassets.setObjectName("label_currentassets")
         self.predictButton = QtWidgets.QPushButton(parent=self.frame)
-        self.predictButton.setGeometry(QtCore.QRect(100, 280, 91, 31))
+        self.predictButton.setGeometry(QtCore.QRect(20, 270, 251, 31))
         self.predictButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.predictButton.setStyleSheet("#predictButton {\n"
 "    background-color: #002B5B;    /* Very light cyan tint */\n"
@@ -875,13 +860,16 @@ class Ui_Form(object):
 "")
         self.predictButton.setObjectName("predictButton")
         self.frame_2 = QtWidgets.QFrame(parent=self.widget_inventory_3)
-        self.frame_2.setGeometry(QtCore.QRect(350, 190, 291, 171))
+        self.frame_2.setGeometry(QtCore.QRect(350, 190, 291, 161))
         self.frame_2.setStyleSheet("#frame_2 {\n"
-"    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"        stop:0 #c8f1ff, stop:1 #e2fbff);\n"
-"    border: 2px solid #031b3d;\n"
-"    border-radius: 12px;\n"
-"    padding: 8px;\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    padding: 15px;\n"
 "}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -905,6 +893,7 @@ class Ui_Form(object):
         self.percentage_label = QtWidgets.QLabel(parent=self.frame_2)
         self.percentage_label.setEnabled(True)
         self.percentage_label.setGeometry(QtCore.QRect(20, 60, 261, 31))
+        self.percentage_label.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.percentage_label.setStyleSheet("#percentage_label{\n"
 "                  \n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -921,15 +910,172 @@ class Ui_Form(object):
         self.percentage_label.setObjectName("percentage_label")
         self.message_label = QtWidgets.QLabel(parent=self.frame_2)
         self.message_label.setEnabled(True)
-        self.message_label.setGeometry(QtCore.QRect(20, 100, 261, 51))
+        self.message_label.setGeometry(QtCore.QRect(20, 100, 261, 41))
         self.message_label.setStyleSheet("background: transparent;\n"
 " font-weight: 900; ")
         self.message_label.setText("")
         self.message_label.setObjectName("message_label")
+        self.csvLabelDropPredict = QtWidgets.QLabel(parent=self.widget_inventory_3)
+        self.csvLabelDropPredict.setGeometry(QtCore.QRect(30, 120, 611, 61))
+        self.csvLabelDropPredict.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
+        self.csvLabelDropPredict.setStyleSheet("QLabel {\n"
+"    border: 3px dashed #aaaaaa;\n"
+"    font-size: 18px;\n"
+"    color: #444;\n"
+"    \n"
+"    border-radius: 12px;\n"
+"    background-color: #f9f9f9;\n"
+"    text-align: center;  /* Centers text horizontally */\n"
+"}")
+        self.csvLabelDropPredict.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.csvLabelDropPredict.setObjectName("csvLabelDropPredict")
+        self.frame_4 = QtWidgets.QFrame(parent=self.widget_inventory_3)
+        self.frame_4.setGeometry(QtCore.QRect(350, 370, 291, 141))
+        self.frame_4.setStyleSheet("#frame_4 {\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    padding: 15px;\n"
+"}")
+        self.frame_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.result_label_5 = QtWidgets.QLabel(parent=self.frame_4)
+        self.result_label_5.setEnabled(True)
+        self.result_label_5.setGeometry(QtCore.QRect(20, 0, 251, 51))
+        self.result_label_5.setStyleSheet("#result_label_5 {\n"
+"                  \n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 15px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 2px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.result_label_5.setObjectName("result_label_5")
+        self.tipsLabelPredict = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabelPredict.setEnabled(True)
+        self.tipsLabelPredict.setGeometry(QtCore.QRect(20, 50, 251, 81))
+        self.tipsLabelPredict.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.tipsLabelPredict.setStyleSheet("#tipsLabelPredict{\n"
+"                  \n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 20px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"               /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.tipsLabelPredict.setText("")
+        self.tipsLabelPredict.setObjectName("tipsLabelPredict")
         self.stackedWidget.addWidget(self.prediction_widget)
-        self.income_widget = QtWidgets.QWidget()
-        self.income_widget.setObjectName("income_widget")
-        self.stackedWidget.addWidget(self.income_widget)
+        self.stats_widget = QtWidgets.QWidget()
+        self.stats_widget.setObjectName("stats_widget")
+        self.label_inventory_4 = QtWidgets.QLabel(parent=self.stats_widget)
+        self.label_inventory_4.setGeometry(QtCore.QRect(0, 0, 151, 31))
+        self.label_inventory_4.setStyleSheet("#label_inventory_4 {\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 900;                /* Bold emphasis */\n"
+"    font-size: 22px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_inventory_4.setObjectName("label_inventory_4")
+        self.graphFrame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.graphFrame.setGeometry(QtCore.QRect(30, 220, 561, 291))
+        self.graphFrame.setStyleSheet("#graphFrame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.graphFrame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.graphFrame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.graphFrame.setObjectName("graphFrame")
+        self.graphPushButton = QtWidgets.QPushButton(parent=self.stats_widget)
+        self.graphPushButton.setGeometry(QtCore.QRect(380, 170, 101, 41))
+        self.graphPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.graphPushButton.setStyleSheet("#graphPushButton {\n"
+"    background-color: #002B5B;    /* Very light cyan tint */\n"
+"    border: 2px solid #031b3d;                  /* Deep navy border */\n"
+"    border-radius: 9px;\n"
+"    color: #FFFFFF;\n"
+"    font-weight: 500;\n"
+"    font-size: 11px;                            /* Smaller text */\n"
+"    padding: 4px 10px;\n"
+"}\n"
+"\n"
+"#donebutton:hover {\n"
+"    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */\n"
+"    border: 2px solid #00ffff;                  /* Cyan glow */\n"
+"}\n"
+"\n"
+"#donebutton:pressed {\n"
+"    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */\n"
+"}\n"
+"")
+        self.graphPushButton.setObjectName("graphPushButton")
+        self.csvLabelDropStats = QtWidgets.QLabel(parent=self.stats_widget)
+        self.csvLabelDropStats.setGeometry(QtCore.QRect(30, 130, 331, 81))
+        self.csvLabelDropStats.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
+        self.csvLabelDropStats.setStyleSheet("QLabel {\n"
+"    border: 3px dashed #aaaaaa;\n"
+"    font-size: 18px;\n"
+"    color: #444;\n"
+"    \n"
+"    border-radius: 12px;\n"
+"    background-color: #f9f9f9;\n"
+"    text-align: center;  /* Centers text horizontally */\n"
+"}")
+        self.csvLabelDropStats.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.csvLabelDropStats.setObjectName("csvLabelDropStats")
+        self.statsComboBox = QtWidgets.QComboBox(parent=self.stats_widget)
+        self.statsComboBox.setGeometry(QtCore.QRect(380, 130, 101, 31))
+        self.statsComboBox.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.statsComboBox.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.statsComboBox.setStyleSheet("border: 1px solid rgba(0, 188, 212, 60); \n"
+" background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"")
+        self.statsComboBox.setEditable(False)
+        self.statsComboBox.setObjectName("statsComboBox")
+        self.plainTextEdit_prediction_2 = QtWidgets.QPlainTextEdit(parent=self.stats_widget)
+        self.plainTextEdit_prediction_2.setEnabled(False)
+        self.plainTextEdit_prediction_2.setGeometry(QtCore.QRect(30, 40, 581, 81))
+        self.plainTextEdit_prediction_2.setStyleSheet("#plainTextEdit_prediction_2 {\n"
+"    font-family: \"Poppins\";\n"
+"    font-size: 11pt;\n"
+"    font-weight: 500;\n"
+"    color: #002B5B; /* Black text */\n"
+"    background-color: transparent; /* Transparent background */\n"
+"    border:none;\n"
+"}\n"
+"")
+        self.plainTextEdit_prediction_2.setObjectName("plainTextEdit_prediction_2")
+        self.stackedWidget.addWidget(self.stats_widget)
         self.sales_widget = QtWidgets.QWidget()
         self.sales_widget.setObjectName("sales_widget")
         self.widget_inventory_2 = QtWidgets.QWidget(parent=self.sales_widget)
@@ -1147,18 +1293,17 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.plainTextEdit_Entrep.setPlainText(_translate("Form", "ENTREPREDICT"))
-        self.homePushButton.setText(_translate("Form", "Home"))
-        self.inventoryPushButton.setText(_translate("Form", "Inventory"))
-        self.salesPushButton.setText(_translate("Form", "Sales"))
-        self.predictionPushButton.setText(_translate("Form", "Prediction"))
-        self.logOutPushButton.setText(_translate("Form", "Log Out"))
+        self.homePushButton.setText(_translate("Form", "HOME"))
+        self.statsPushButton.setText(_translate("Form", "STATISTICS"))
+        self.predictionPushButton.setText(_translate("Form", "PREDICTION"))
+        self.logOutPushButton.setText(_translate("Form", "LOG OUT"))
         self.label_inventory.setText(_translate("Form", "Inventory"))
         self.label_search.setText(_translate("Form", "Search:"))
         self.lineEdit_search.setPlaceholderText(_translate("Form", "Search"))
@@ -1170,11 +1315,12 @@ class Ui_Form(object):
         self.label_predicted.setText(_translate("Form", "Proceed to prediction."))
         self.label_confidence.setText(_translate("Form", "Confidence Level: N/A"))
         self.label_last.setText(_translate("Form", "Last Prediction update  N/A"))
+        self.label.setText(_translate("Form", "Status:"))
         self.label_tips.setText(_translate("Form", "Tips for Improvement "))
-        self.label_bullet.setText(_translate("Form", "<html><head/><body><ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maintain sales growth</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Reduce slow-moving inventory</li><li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Monitor next month\'s expenses</li></ul></body></html>"))
+        self.homeTipsLabel.setText(_translate("Form", "<html><head/><body><ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maintain sales growth</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Reduce slow-moving inventory</li><li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Monitor next month\'s expenses</li></ul></body></html>"))
         self.label_username.setText(_translate("Form", "[USERNAME]"))
         self.label_inventory_3.setText(_translate("Form", "PREDICTION"))
-        self.plainTextEdit_prediction.setPlainText(_translate("Form", "Input your financial data to forecast future sales performance."))
+        self.plainTextEdit_prediction.setPlainText(_translate("Form", "Input or upload your financial data to forecast future performance."))
         self.label_totalliabilities.setText(_translate("Form", "Total Liabilities:"))
         self.label_equity.setText(_translate("Form", "Total Equity:"))
         self.label_totalassets.setText(_translate("Form", "Total Assets:"))
@@ -1184,6 +1330,15 @@ class Ui_Form(object):
         self.label_currentassets.setText(_translate("Form", "Current Assets:"))
         self.predictButton.setText(_translate("Form", "PREDICT"))
         self.result_label.setText(_translate("Form", "Result"))
+        self.csvLabelDropPredict.setText(_translate("Form", "DROP CSV FILE HERE"))
+        self.result_label_5.setText(_translate("Form", "Tips for improvement"))
+        self.label_inventory_4.setText(_translate("Form", "Statistics"))
+        self.graphPushButton.setText(_translate("Form", "View Graph"))
+        self.csvLabelDropStats.setText(_translate("Form", "DROP CSV FILE HERE"))
+        self.plainTextEdit_prediction_2.setPlainText(_translate("Form", "Upload your financial data to and load the graph. This graph only shows: Expense, \n"
+"Net Income and Liabilities\n"
+"\n"
+"*NOTE: These data assumes that you have already summed them up."))
         self.label_inventory_2.setText(_translate("Form", "SALES"))
         self.label_title.setText(_translate("Form", "Total Sales"))
         self.label_text.setText(_translate("Form", "125"))
