@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(958, 651)
+        Form.resize(399, 498)
         Form.setStyleSheet("#Form{\n"
 "    font-family: \"Open Sans Light\";\n"
 "    font-size: 12pt;\n"
@@ -63,19 +63,6 @@ class Ui_Form(object):
 "    );\n"
 "}")
         self.widget.setObjectName("widget")
-        self.pushButton_2 = QtWidgets.QPushButton(parent=self.widget)
-        self.pushButton_2.setGeometry(QtCore.QRect(0, 0, 81, 31))
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
-"    border: none;\n"
-"    background-color: transparent;\n"
-"}\n"
-"")
-        self.pushButton_2.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../../Downloads/11453740.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.pushButton_2.setIcon(icon)
-        self.pushButton_2.setIconSize(QtCore.QSize(35, 35))
-        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -83,7 +70,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.label_2.setText(_translate("Form", "ENTREPREDICT"))
+        self.label_2.setText(_translate("Form", "HOW TO USE"))
 
 
 if __name__ == "__main__":
