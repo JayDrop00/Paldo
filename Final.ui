@@ -333,7 +333,7 @@ QPushButton:checked {
       <string notr="true">background : transparent</string>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="inventory_widget">
       <widget class="QWidget" name="widget_inventory" native="true">
@@ -721,8 +721,8 @@ QPushButton:checked {
         <rect>
          <x>30</x>
          <y>320</y>
-         <width>301</width>
-         <height>191</height>
+         <width>381</width>
+         <height>201</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -734,7 +734,7 @@ QPushButton:checked {
     );
     border-radius: 20px;
     border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
-    padding: 15px;
+    
 }
 </string>
        </property>
@@ -747,8 +747,8 @@ QPushButton:checked {
        <widget class="QLabel" name="label_tips">
         <property name="geometry">
          <rect>
-          <x>8</x>
-          <y>19</y>
+          <x>10</x>
+          <y>10</y>
           <width>231</width>
           <height>31</height>
          </rect>
@@ -768,27 +768,84 @@ QPushButton:checked {
          <string>Tips for Improvement </string>
         </property>
        </widget>
-       <widget class="QLabel" name="homeTipsLabel">
+       <widget class="QLabel" name="tipsLabelH_2">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>30</x>
           <y>70</y>
-          <width>261</width>
-          <height>71</height>
+          <width>331</width>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#homeTipsLabel{
-    font-size: 11pt;          /* Similar to summary/last update */
-    font-weight: normal;       /* Keep it readable */
-    color: #001F3F;            /* Consistent text color */
-    background: transparent;
-    border: none;              /* No border */
-}
-</string>
+         <string notr="true"/>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maintain sales growth&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reduce slow-moving inventory&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Monitor next month's expenses&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="tipsLabelH_5">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>160</y>
+          <width>331</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="tipsLabelH_4">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>130</y>
+          <width>331</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">tipsLabelH_4</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="tipsLabelH_1">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>40</y>
+          <width>331</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="tipsLabelH_3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>100</y>
+          <width>331</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>
@@ -841,8 +898,8 @@ QPushButton:checked {
        <widget class="QLabel" name="label_inventory_3">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>10</y>
+          <x>0</x>
+          <y>0</y>
           <width>151</width>
           <height>31</height>
          </rect>
@@ -871,16 +928,23 @@ QPushButton:checked {
         </property>
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>40</y>
-          <width>351</width>
-          <height>51</height>
+          <x>0</x>
+          <y>30</y>
+          <width>521</width>
+          <height>61</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Poppins</family>
+          <pointsize>14</pointsize>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="styleSheet">
          <string notr="true">#plainTextEdit_prediction {
     font-family: &quot;Poppins&quot;;
-    font-size: 11pt;
+    font-size: 14pt;
     font-weight: 500;
     color: #002B5B; /* Black text */
     background-color: transparent; /* Transparent background */
@@ -889,16 +953,16 @@ QPushButton:checked {
 </string>
         </property>
         <property name="plainText">
-         <string>Input or upload your financial data to forecast future performance.</string>
+         <string>Input or upload your financial data to forecast future business performance.</string>
         </property>
        </widget>
        <widget class="QFrame" name="frame">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>190</y>
+          <x>0</x>
+          <y>170</y>
           <width>291</width>
-          <height>321</height>
+          <height>341</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1429,10 +1493,10 @@ QLabel#subtitle_label {
        <widget class="QFrame" name="frame_2">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>190</y>
-          <width>291</width>
-          <height>161</height>
+          <x>300</x>
+          <y>170</y>
+          <width>341</width>
+          <height>151</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1540,9 +1604,9 @@ QLabel#subtitle_label {
        <widget class="QLabel" name="csvLabelDropPredict">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>120</y>
-          <width>611</width>
+          <x>0</x>
+          <y>100</y>
+          <width>641</width>
           <height>61</height>
          </rect>
         </property>
@@ -1570,10 +1634,10 @@ QLabel#subtitle_label {
        <widget class="QFrame" name="frame_4">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>370</y>
-          <width>291</width>
-          <height>141</height>
+          <x>300</x>
+          <y>330</y>
+          <width>341</width>
+          <height>181</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1585,7 +1649,7 @@ QLabel#subtitle_label {
     );
     border-radius: 20px;
     border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */
-    padding: 15px;
+    
 }</string>
         </property>
         <property name="frameShape">
@@ -1600,8 +1664,8 @@ QLabel#subtitle_label {
          </property>
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>0</y>
+           <x>60</x>
+           <y>-10</y>
            <width>251</width>
            <height>51</height>
           </rect>
@@ -1624,34 +1688,81 @@ QLabel#subtitle_label {
           <string>Tips for improvement</string>
          </property>
         </widget>
-        <widget class="QLabel" name="tipsLabelPredict">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
+        <widget class="QLabel" name="tipsLabel_1">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>50</y>
-           <width>251</width>
-           <height>81</height>
+           <y>30</y>
+           <width>301</width>
+           <height>20</height>
           </rect>
          </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tipsLabel_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>301</width>
+           <height>20</height>
+          </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">#tipsLabelPredict{
-                  
-    font-weight: 900;                /* Bold emphasis */
-    font-size: 20px;                 /* Slightly larger title */
-    background: transparent;         /* Keep background clean */
-               /* Space out letters slightly */
-    text-transform: uppercase;       /* Make “Inventory” more assertive */
-    border: none;                    /* Remove any frame borders */
-    
-    /* Subtle cyan glow for elegance */
-    text-shadow: 0px 0px 6px #00ffff;
-}</string>
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tipsLabel_3">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>301</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tipsLabel_4">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>120</y>
+           <width>301</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="tipsLabel_5">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>150</y>
+           <width>301</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>

@@ -406,7 +406,7 @@ class Ui_Form(object):
 "")
         self.label.setObjectName("label")
         self.frame_tips = QtWidgets.QFrame(parent=self.home_widget)
-        self.frame_tips.setGeometry(QtCore.QRect(30, 320, 301, 191))
+        self.frame_tips.setGeometry(QtCore.QRect(30, 320, 381, 201))
         self.frame_tips.setStyleSheet("#frame_tips {\n"
 "    background-color: qlineargradient(\n"
 "        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
@@ -415,14 +415,14 @@ class Ui_Form(object):
 "    );\n"
 "    border-radius: 20px;\n"
 "    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
-"    padding: 15px;\n"
+"    \n"
 "}\n"
 "")
         self.frame_tips.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_tips.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_tips.setObjectName("frame_tips")
         self.label_tips = QtWidgets.QLabel(parent=self.frame_tips)
-        self.label_tips.setGeometry(QtCore.QRect(8, 19, 231, 31))
+        self.label_tips.setGeometry(QtCore.QRect(10, 10, 231, 31))
         self.label_tips.setStyleSheet("#label_tips{\n"
 "    background-color: transparent;\n"
 "    font-family: \"Poppins\";\n"
@@ -433,17 +433,31 @@ class Ui_Form(object):
 "}\n"
 "")
         self.label_tips.setObjectName("label_tips")
-        self.homeTipsLabel = QtWidgets.QLabel(parent=self.frame_tips)
-        self.homeTipsLabel.setGeometry(QtCore.QRect(20, 70, 261, 71))
-        self.homeTipsLabel.setStyleSheet("#homeTipsLabel{\n"
-"    font-size: 11pt;          /* Similar to summary/last update */\n"
-"    font-weight: normal;       /* Keep it readable */\n"
-"    color: #001F3F;            /* Consistent text color */\n"
-"    background: transparent;\n"
-"    border: none;              /* No border */\n"
-"}\n"
-"")
-        self.homeTipsLabel.setObjectName("homeTipsLabel")
+        self.tipsLabelH_2 = QtWidgets.QLabel(parent=self.frame_tips)
+        self.tipsLabelH_2.setGeometry(QtCore.QRect(30, 70, 331, 20))
+        self.tipsLabelH_2.setStyleSheet("")
+        self.tipsLabelH_2.setText("")
+        self.tipsLabelH_2.setObjectName("tipsLabelH_2")
+        self.tipsLabelH_5 = QtWidgets.QLabel(parent=self.frame_tips)
+        self.tipsLabelH_5.setGeometry(QtCore.QRect(30, 160, 331, 20))
+        self.tipsLabelH_5.setStyleSheet("")
+        self.tipsLabelH_5.setText("")
+        self.tipsLabelH_5.setObjectName("tipsLabelH_5")
+        self.tipsLabelH_4 = QtWidgets.QLabel(parent=self.frame_tips)
+        self.tipsLabelH_4.setGeometry(QtCore.QRect(30, 130, 331, 20))
+        self.tipsLabelH_4.setStyleSheet("tipsLabelH_4")
+        self.tipsLabelH_4.setText("")
+        self.tipsLabelH_4.setObjectName("tipsLabelH_4")
+        self.tipsLabelH_1 = QtWidgets.QLabel(parent=self.frame_tips)
+        self.tipsLabelH_1.setGeometry(QtCore.QRect(30, 40, 331, 20))
+        self.tipsLabelH_1.setStyleSheet("")
+        self.tipsLabelH_1.setText("")
+        self.tipsLabelH_1.setObjectName("tipsLabelH_1")
+        self.tipsLabelH_3 = QtWidgets.QLabel(parent=self.frame_tips)
+        self.tipsLabelH_3.setGeometry(QtCore.QRect(30, 100, 331, 20))
+        self.tipsLabelH_3.setStyleSheet("")
+        self.tipsLabelH_3.setText("")
+        self.tipsLabelH_3.setObjectName("tipsLabelH_3")
         self.label_username = QtWidgets.QLabel(parent=self.home_widget)
         self.label_username.setGeometry(QtCore.QRect(270, 30, 151, 31))
         self.label_username.setStyleSheet("#label_username {\n"
@@ -472,7 +486,7 @@ class Ui_Form(object):
 "")
         self.widget_inventory_3.setObjectName("widget_inventory_3")
         self.label_inventory_3 = QtWidgets.QLabel(parent=self.widget_inventory_3)
-        self.label_inventory_3.setGeometry(QtCore.QRect(30, 10, 151, 31))
+        self.label_inventory_3.setGeometry(QtCore.QRect(0, 0, 151, 31))
         self.label_inventory_3.setStyleSheet("#label_inventory_3 {\n"
 "    color: #031b3d;                  /* Deep navy text for contrast */\n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -488,10 +502,15 @@ class Ui_Form(object):
         self.label_inventory_3.setObjectName("label_inventory_3")
         self.plainTextEdit_prediction = QtWidgets.QPlainTextEdit(parent=self.widget_inventory_3)
         self.plainTextEdit_prediction.setEnabled(False)
-        self.plainTextEdit_prediction.setGeometry(QtCore.QRect(40, 40, 351, 51))
+        self.plainTextEdit_prediction.setGeometry(QtCore.QRect(0, 30, 521, 61))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(14)
+        font.setBold(False)
+        self.plainTextEdit_prediction.setFont(font)
         self.plainTextEdit_prediction.setStyleSheet("#plainTextEdit_prediction {\n"
 "    font-family: \"Poppins\";\n"
-"    font-size: 11pt;\n"
+"    font-size: 14pt;\n"
 "    font-weight: 500;\n"
 "    color: #002B5B; /* Black text */\n"
 "    background-color: transparent; /* Transparent background */\n"
@@ -500,7 +519,7 @@ class Ui_Form(object):
 "")
         self.plainTextEdit_prediction.setObjectName("plainTextEdit_prediction")
         self.frame = QtWidgets.QFrame(parent=self.widget_inventory_3)
-        self.frame.setGeometry(QtCore.QRect(30, 190, 291, 321))
+        self.frame.setGeometry(QtCore.QRect(0, 170, 291, 341))
         self.frame.setStyleSheet("#frame {\n"
 "    background-color: qlineargradient(\n"
 "        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
@@ -860,7 +879,7 @@ class Ui_Form(object):
 "")
         self.predictButton.setObjectName("predictButton")
         self.frame_2 = QtWidgets.QFrame(parent=self.widget_inventory_3)
-        self.frame_2.setGeometry(QtCore.QRect(350, 190, 291, 161))
+        self.frame_2.setGeometry(QtCore.QRect(300, 170, 341, 151))
         self.frame_2.setStyleSheet("#frame_2 {\n"
 "    background-color: qlineargradient(\n"
 "        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
@@ -916,7 +935,7 @@ class Ui_Form(object):
         self.message_label.setText("")
         self.message_label.setObjectName("message_label")
         self.csvLabelDropPredict = QtWidgets.QLabel(parent=self.widget_inventory_3)
-        self.csvLabelDropPredict.setGeometry(QtCore.QRect(30, 120, 611, 61))
+        self.csvLabelDropPredict.setGeometry(QtCore.QRect(0, 100, 641, 61))
         self.csvLabelDropPredict.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
         self.csvLabelDropPredict.setStyleSheet("QLabel {\n"
 "    border: 3px dashed #aaaaaa;\n"
@@ -930,7 +949,7 @@ class Ui_Form(object):
         self.csvLabelDropPredict.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.csvLabelDropPredict.setObjectName("csvLabelDropPredict")
         self.frame_4 = QtWidgets.QFrame(parent=self.widget_inventory_3)
-        self.frame_4.setGeometry(QtCore.QRect(350, 370, 291, 141))
+        self.frame_4.setGeometry(QtCore.QRect(300, 330, 341, 181))
         self.frame_4.setStyleSheet("#frame_4 {\n"
 "    background-color: qlineargradient(\n"
 "        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
@@ -939,14 +958,14 @@ class Ui_Form(object):
 "    );\n"
 "    border-radius: 20px;\n"
 "    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
-"    padding: 15px;\n"
+"    \n"
 "}")
         self.frame_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_4.setObjectName("frame_4")
         self.result_label_5 = QtWidgets.QLabel(parent=self.frame_4)
         self.result_label_5.setEnabled(True)
-        self.result_label_5.setGeometry(QtCore.QRect(20, 0, 251, 51))
+        self.result_label_5.setGeometry(QtCore.QRect(60, -10, 251, 51))
         self.result_label_5.setStyleSheet("#result_label_5 {\n"
 "                  \n"
 "    font-weight: 900;                /* Bold emphasis */\n"
@@ -960,24 +979,31 @@ class Ui_Form(object):
 "    text-shadow: 0px 0px 6px #00ffff;\n"
 "}")
         self.result_label_5.setObjectName("result_label_5")
-        self.tipsLabelPredict = QtWidgets.QLabel(parent=self.frame_4)
-        self.tipsLabelPredict.setEnabled(True)
-        self.tipsLabelPredict.setGeometry(QtCore.QRect(20, 50, 251, 81))
-        self.tipsLabelPredict.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
-        self.tipsLabelPredict.setStyleSheet("#tipsLabelPredict{\n"
-"                  \n"
-"    font-weight: 900;                /* Bold emphasis */\n"
-"    font-size: 20px;                 /* Slightly larger title */\n"
-"    background: transparent;         /* Keep background clean */\n"
-"               /* Space out letters slightly */\n"
-"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
-"    border: none;                    /* Remove any frame borders */\n"
-"    \n"
-"    /* Subtle cyan glow for elegance */\n"
-"    text-shadow: 0px 0px 6px #00ffff;\n"
-"}")
-        self.tipsLabelPredict.setText("")
-        self.tipsLabelPredict.setObjectName("tipsLabelPredict")
+        self.tipsLabel_1 = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabel_1.setGeometry(QtCore.QRect(20, 30, 301, 20))
+        self.tipsLabel_1.setStyleSheet("")
+        self.tipsLabel_1.setText("")
+        self.tipsLabel_1.setObjectName("tipsLabel_1")
+        self.tipsLabel_2 = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabel_2.setGeometry(QtCore.QRect(20, 60, 301, 20))
+        self.tipsLabel_2.setStyleSheet("")
+        self.tipsLabel_2.setText("")
+        self.tipsLabel_2.setObjectName("tipsLabel_2")
+        self.tipsLabel_3 = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabel_3.setGeometry(QtCore.QRect(20, 90, 301, 20))
+        self.tipsLabel_3.setStyleSheet("")
+        self.tipsLabel_3.setText("")
+        self.tipsLabel_3.setObjectName("tipsLabel_3")
+        self.tipsLabel_4 = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabel_4.setGeometry(QtCore.QRect(20, 120, 301, 20))
+        self.tipsLabel_4.setStyleSheet("")
+        self.tipsLabel_4.setText("")
+        self.tipsLabel_4.setObjectName("tipsLabel_4")
+        self.tipsLabel_5 = QtWidgets.QLabel(parent=self.frame_4)
+        self.tipsLabel_5.setGeometry(QtCore.QRect(20, 150, 301, 20))
+        self.tipsLabel_5.setStyleSheet("")
+        self.tipsLabel_5.setText("")
+        self.tipsLabel_5.setObjectName("tipsLabel_5")
         self.stackedWidget.addWidget(self.prediction_widget)
         self.stats_widget = QtWidgets.QWidget()
         self.stats_widget.setObjectName("stats_widget")
@@ -1293,7 +1319,7 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1317,10 +1343,9 @@ class Ui_Form(object):
         self.label_last.setText(_translate("Form", "Last Prediction update  N/A"))
         self.label.setText(_translate("Form", "Status:"))
         self.label_tips.setText(_translate("Form", "Tips for Improvement "))
-        self.homeTipsLabel.setText(_translate("Form", "<html><head/><body><ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maintain sales growth</li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Reduce slow-moving inventory</li><li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Monitor next month\'s expenses</li></ul></body></html>"))
         self.label_username.setText(_translate("Form", "[USERNAME]"))
         self.label_inventory_3.setText(_translate("Form", "PREDICTION"))
-        self.plainTextEdit_prediction.setPlainText(_translate("Form", "Input or upload your financial data to forecast future performance."))
+        self.plainTextEdit_prediction.setPlainText(_translate("Form", "Input or upload your financial data to forecast future business performance."))
         self.label_totalliabilities.setText(_translate("Form", "Total Liabilities:"))
         self.label_equity.setText(_translate("Form", "Total Equity:"))
         self.label_totalassets.setText(_translate("Form", "Total Assets:"))

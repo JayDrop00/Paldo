@@ -45,7 +45,12 @@ def init_prediction_db(username: str) -> str:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             date TEXT, 
             status TEXT,
-            probability REAL
+            probability REAL,
+            tips_1 TEXT,
+            tips_2 TEXT,
+            tips_3 TEXT,
+            tips_4 TEXT,
+            tips_5 TEXT
         )
     """)
     conn.commit()
@@ -662,57 +667,148 @@ class WelcomeWindow(QtWidgets.QWidget):
     # Load latest prediction for home widget
     # ----------------------
     def load_latest_prediction(self):
-        """Load the latest prediction from the user's prediction database."""
+        """Load the latest prediction and its 5 tips from the user's database."""
         try:
             conn = sqlite3.connect(self.prediction_db_name)
             cur = conn.cursor()
 
-            # Get the most recent prediction (by latest id or date)
+            # Get the most recent prediction (with tips)
             cur.execute("""
-                SELECT date, status, probability 
-                FROM predictions 
-                ORDER BY id DESC 
+                SELECT date, status, probability, tips_1, tips_2, tips_3, tips_4, tips_5
+                FROM predictions
+                ORDER BY id DESC
                 LIMIT 1
             """)
             row = cur.fetchone()
             conn.close()
 
-            # If no prediction record exists
+            # If no record found
             if not row:
                 if hasattr(self.ui, "label_last"):
                     self.ui.label_last.setText("No previous prediction.")
                 return
 
-            # Otherwise, unpack the data
-            date, status, probability = row
+            # Unpack the data
+            date, status, probability, tip1, tip2, tip3, tip4, tip5 = row
 
-            # Update labels if they exist in the UI
+            # Display prediction info
             if hasattr(self.ui, "label_last"):
                 self.ui.label_last.setText(f"Last Prediction: {date}")
+
             if hasattr(self.ui, "label_predicted"):
                 self.ui.label_predicted.setText(status)
                 if status.lower() == "bankrupt !":
-                    self.ui.label_predicted.setStyleSheet('''#label_predicted {
-                    font-size: 24pt;      
-                    font-weight: bold;
-                    color: #eb152e;       
-                    background: transparent;
-                    }
-                    ''')
+                    self.ui.label_predicted.setStyleSheet("""
+                        #label_predicted {
+                            font-size: 24pt;      
+                            font-weight: bold;
+                            color: #eb152e;       
+                            background: transparent;
+                        }
+                    """)
                 else:
-                    self.ui.label_predicted.setStyleSheet('''#label_predicted {
-                    font-size: 24pt;      
-                    font-weight: bold;
-                    color: #14e314;       
-                    background: transparent;
-                    }
-                    ''')
+                    self.ui.label_predicted.setStyleSheet("""
+                        #label_predicted {
+                            font-size: 24pt;      
+                            font-weight: bold;
+                            color: #14e314;       
+                            background: transparent;
+                        }
+                    """)
 
             if hasattr(self.ui, "label_confidence"):
                 self.ui.label_confidence.setText(f"{probability}")
 
+            # Display saved tips (if labels exist)
+            tips_labels = [
+                getattr(self.ui, f"tipsLabelH_{i}", None)
+                for i in range(1, 6)
+            ]
+            saved_tips = [f"• {tip1}", f"• {tip2}", f"• {tip3}", f"• {tip4}", f"• {tip5}"]
+
+            for label, tip in zip(tips_labels, saved_tips):
+                if label is not None:
+                    label.setText(tip if tip else "—")
+
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to load previous prediction:\n{e}")
+
+
+
+    # ----------------------
+    # Prediction Tips
+    # ----------------------
+    def generate_tips(self, ratios, status_text):
+        """Generate up to 15 short business tips based on computed ratios."""
+        tips = []
+
+        # --- Liquidity (Current Ratio) ---
+        current_ratio = ratios["Current Ratio"]
+        if current_ratio < 1.0:
+            tips.append("Low liquidity: Add more cash or reduce short-term debts.")
+        elif 1.0 <= current_ratio <= 3.0:
+            tips.append("Good liquidity: Balance looks fine — keep it steady.")
+        else:
+            tips.append("High liquidity: Too much idle cash — use it to grow.")
+
+        # --- Debt (Debt-to-Equity Ratio) ---
+        debt_to_equity = ratios["Debt ratio %"] / (100 - ratios["Debt ratio %"] + 1e-6)
+        if debt_to_equity > 2.0:
+            tips.append("High debt: Pay down loans to lower risk.")
+        elif 0.5 <= debt_to_equity <= 2.0:
+            tips.append("Balanced debt: Debt level is healthy — maintain it.")
+        else:
+            tips.append("Low debt: Safe, but small loans could help growth.")
+
+        # --- Profitability (ROA and ROE) ---
+        roa = ratios["ROA(A) before interest and % after tax"]
+        roe = ratios["Net Income to Stockholder's Equity"]
+
+        if roa < 0.05:
+            tips.append("Low ROA: Use assets better to raise profit.")
+        else:
+            tips.append("Good ROA: Assets are producing solid profit.")
+
+        if roe < 0.10:
+            tips.append("Low ROE: Grow sales or reduce costs.")
+        elif roe > 0.15:
+            tips.append("High ROE: Great return — keep it up.")
+        else:
+            tips.append("Balanced ROE: Earnings are steady — maintain performance.")
+
+        # --- Operations (Operating Margin using Operating/Net Income ratio as proxy) ---
+        op_margin = ratios["ROA(C) before interest and depreciation before interest"]
+        if op_margin < 0.05:
+            tips.append("Low margin: Cut costs or boost income.")
+        elif 0.05 <= op_margin <= 0.20:
+            tips.append("Good margin: Operations running well.")
+        else:
+            tips.append("High margin: Excellent — keep improving.")
+
+        # --- Overall Health (based on combined strength) ---
+        strong = sum([
+            current_ratio >= 1.0,
+            0.5 <= debt_to_equity <= 2.0,
+            roa >= 0.05,
+            roe >= 0.10,
+            op_margin >= 0.05
+        ])
+
+        if strong >= 4:
+            tips.append("🌟 Strong overall: Business is solid — keep growing.")
+        elif strong >= 2:
+            tips.append("⚠️ Weak areas: Focus on lowering debt and raising profit.")
+        else:
+            tips.append("❗ Unstable: Review all key financial areas.")
+
+        # --- Ensure 15 tips total (duplicate general reminders if fewer) ---
+        while len(tips) < 15:
+            tips.append("💡 Keep reviewing finances monthly to stay stable.")
+
+        return tips[:15]
+
+
+
 
     # ----------------------
     # Prediction
@@ -730,10 +826,7 @@ class WelcomeWindow(QtWidgets.QWidget):
         return pd.DataFrame([data])
     
     def handle_prediction(self):
-    
-    
         try:
-            # 1️⃣ Get numeric values from input fields
             raw_input = {
                 "Total_Assets": float(self.ui.totalAssetsQLine.text()),
                 "Total_Liabilities": float(self.ui.totalLiabilitiesQLine.text()),
@@ -743,80 +836,84 @@ class WelcomeWindow(QtWidgets.QWidget):
                 "Current_Assets": float(self.ui.currentAssetsQLine.text()),
                 "Current_Liabilities": float(self.ui.currentLiabilitiesQLine.text())
             }
-
         except ValueError:
             QMessageBox.warning(self, "Input Error", "Please enter valid numeric values in all fields.")
-            return  # ⛔ Stop immediately if invalid
+            return
 
-        # 2️⃣ Compute ratios
+        # 1️⃣ Compute ratios
         df_input = self.compute_ratios(raw_input)
+        ratios = df_input.iloc[0].to_dict()
 
-        # 3️⃣ Load model
+        # 2️⃣ Load model
         model = joblib.load("bankruptcy_Simple.pkl")
-
-        # 4️⃣ Ensure same order as training
         df_input = df_input[model.feature_names_in_]
 
-        # 5️⃣ Make prediction
+        # 3️⃣ Predict
         prediction = model.predict(df_input)[0]
         proba = model.predict_proba(df_input)[0]
         prob_bankrupt = proba[1] * 100
         prob_healthy = proba[0] * 100
         limiter = 45.0
 
-        # 6️⃣ Show results on labels
+        # 4️⃣ Determine status
         if prob_bankrupt > limiter:
             status_text = "Bankrupt !"
             self.ui.result_label.setStyleSheet("""
                 #result_label {
-                    color: red;
-                    font-weight: 900;
-                    font-size: 22px;
-                    background: transparent;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    border: none;
-                    text-shadow: 0px 0px 6px #ff4d4d; /* red glow */
+                    color: red; font-weight: 900; font-size: 22px;
+                    text-shadow: 0px 0px 6px #ff4d4d;
                 }
             """)
-            probability = (f"Confidence: {prob_bankrupt:.2f}%")
-            message_text = "⚠️ Your Business is at\n risk for bankruptcy"
+            probability = f"Confidence: {prob_bankrupt:.2f}%"
+            message_text = "⚠️ Your Business is at\nrisk for bankruptcy"
         else:
             status_text = "Healthy !"
             self.ui.result_label.setStyleSheet("""
                 #result_label {
-                    color: green;
-                    font-weight: 900;
-                    font-size: 22px;
-                    background: transparent;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    border: none;
-                    text-shadow: 0px 0px 6px #00ff99; /* green glow */
+                    color: green; font-weight: 900; font-size: 22px;
+                    text-shadow: 0px 0px 6px #00ff99;
                 }
             """)
-            probability = (f"Confidence: {prob_healthy:.2f}%")
-            message_text = "✅ Your business seems healthy,\n keep it up!"
+            probability = f"Confidence: {prob_healthy:.2f}%"
+            message_text = "✅ Your business seems healthy,\nkeep it up!"
 
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
+        # 5️⃣ Generate financial tips (based on ratios and status)
+        tips = self.generate_tips(ratios, status_text)
 
-        # Update UI labels (make sure they exist in your .ui)
+        # Ensure exactly 5 tips (padding if fewer)
+        tips = (tips + [""] * 5)[:5]
+
+        # 6️⃣ Update UI
         self.ui.result_label.setText(status_text)
         self.ui.percentage_label.setText(probability)
         self.ui.message_label.setText(message_text)
 
+        for i, tip in enumerate(tips, start=1):
+            label = getattr(self.ui, f"tipsLabel_{i}", None)
+            if label:
+                label.setText(f"• {tip}")
+
+        # 7️⃣ Save prediction + tips to database
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             conn = sqlite3.connect(self.prediction_db_name)
             cur = conn.cursor()
             cur.execute("""
-                INSERT INTO predictions (date, status, probability)
-                VALUES (?, ?, ?)
-            """, (current_time, status_text, probability))
+                INSERT INTO predictions (
+                    date, status, probability,
+                    tips_1, tips_2, tips_3, tips_4, tips_5
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                current_time, status_text, probability,
+                tips[0], tips[1], tips[2], tips[3], tips[4]
+            ))
             conn.commit()
             conn.close()
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to insert prediction data:\n{e}")
-            return
+
+
 
     # --- HANDLE NAVIGATION ---
     def handle_nav(self, button, widget):
