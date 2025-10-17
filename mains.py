@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QTableView, QComboBox, QStyledItemDeleg
 from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
-from FinalInterface import Ui_Form as FinalInterfaceForm  # Welcome UI import
+from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
 from reportPopUp import Ui_Form as ReportPopUpForm
 
 #DataNeeded_Prediction = ['totalassets', 'totalliabilities', 'totalequity', 'netincome', 'operatingincome', 'currentassets', 'currentliabilities']

@@ -40,7 +40,7 @@ class Ui_Form(object):
         sizePolicy.setHeightForWidth(self.label_logo.sizePolicy().hasHeightForWidth())
         self.label_logo.setSizePolicy(sizePolicy)
         self.label_logo.setStyleSheet("#label_logo{\n"
-"border-image: url(\"C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
+"border-image: url(\"C:/Users/USER/Documents/system_90/nagao_backend/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
 "border-radius: 25px;\n"
 "background:none;\n"
 "}")
@@ -69,7 +69,7 @@ class Ui_Form(object):
         self.label_smalllogo.setGeometry(QtCore.QRect(10, 0, 51, 61))
         self.label_smalllogo.setStyleSheet("#label_smalllogo{\n"
 "background-color:#031b3d;\n"
-"border-image: url(\"C:/Users/Missy/Downloads/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
+"border-image: url(\"C:/Users/USER/Documents/system_90/nagao_backend/ENTREPREDICT_Icon_Option_1_-_Circuit-Graph_E-removebg-preview.png\");\n"
 "}")
         self.label_smalllogo.setText("")
         self.label_smalllogo.setObjectName("label_smalllogo")
