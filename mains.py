@@ -14,7 +14,7 @@ from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
 from reportPopUp import Ui_Form as ReportPopUpForm
-
+from tuturialfinal import Ui_Form as Help
 #DataNeeded_Prediction = ['totalassets', 'totalliabilities', 'totalequity', 'netincome', 'operatingincome', 'currentassets', 'currentliabilities']
 #DataNeeded_Graph = ['expense', 'income', 'liabilities']
 # --- DATABASE SETUP ---
@@ -286,6 +286,16 @@ class MainWindow(QtWidgets.QWidget):
         anim.start(QtCore.QAbstractAnimation.DeletionPolicy.DeleteWhenStopped)
         self._anim = anim
 
+class Helpwidget(QtWidgets.QWidget):
+    def __init__(self,username:str):
+        super().__init__()
+        self.ui = Help()
+        self.ui.setupUi(self)
+        self.setWindowTitle("Help")
+        if hasattr(self.ui, "pushButton_2"):
+            self.ui.logOutPushButton.clicked.connect(self.handle_logout)    
+         
+
 # --- WELCOME WINDOW (manages logout and returns to MainWindow) ---
 class WelcomeWindow(QtWidgets.QWidget):
     def __init__(self, username: str):
@@ -367,6 +377,13 @@ class WelcomeWindow(QtWidgets.QWidget):
         # Connect graph button
         if hasattr(self.ui, "graphPushButton"):
             self.ui.graphPushButton.clicked.connect(self.display_graph)
+
+        self.ui.pangutan_button.clicked.connect(self.open_help_window)  
+
+    def open_help_window(self):
+        # 🪄 Create and open Help window
+        self.help_window = Helpwidget(self.username)
+        self.help_window.show()
 
     def center_on_screen(self):
         from PyQt6.QtWidgets import QApplication
