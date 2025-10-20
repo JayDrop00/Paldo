@@ -112,7 +112,7 @@ class CreateAccountWindow(QtWidgets.QWidget):
 
 
 # --- MAIN LOGIN WINDOW ---
-class MainWindow(QtWidgets.QWidget):
+class MainWindow(QtWidgets.QWidget): 
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
