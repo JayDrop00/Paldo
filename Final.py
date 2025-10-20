@@ -1445,7 +1445,7 @@ class Ui_Form(object):
         self.label_operating.setText(_translate("Form", "Operating Income:"))
         self.label_currentassets.setText(_translate("Form", "Current Assets:"))
         self.predictButton.setText(_translate("Form", "PREDICT"))
-        self.label_totalassets_2.setText(_translate("Form", "Staring Date:"))
+        self.label_totalassets_2.setText(_translate("Form", "Starting Date:"))
         self.result_label.setText(_translate("Form", "Result"))
         self.csvLabelDropPredict.setText(_translate("Form", "DROP FILE HERE"))
         self.result_label_5.setText(_translate("Form", "Tips for improvement"))
