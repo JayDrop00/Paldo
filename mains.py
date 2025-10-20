@@ -13,10 +13,9 @@ from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
-from reportPopUp import Ui_Form as ReportPopUpForm
-from tuturialfinal import Ui_Form as Help
-#DataNeeded_Prediction = ['totalassets', 'totalliabilities', 'totalequity', 'netincome', 'operatingincome', 'currentassets', 'currentliabilities']
-#DataNeeded_Graph = ['expense', 'income', 'liabilities']
+
+from Tutorial import Ui_Form as Help
+
 # --- DATABASE SETUP ---
 def init_database():
     conn = sqlite3.connect("users.db")
@@ -46,6 +45,13 @@ def init_prediction_db(username: str) -> str:
             date TEXT, 
             status TEXT,
             probability REAL,
+            total_assets REAL,
+            total_liabilities REAL,
+            total_equity REAL,
+            net_income REAL,
+            operating_income REAL,
+            current_assets REAL,
+            current_liabilities REAL,
             tips_1 TEXT,
             tips_2 TEXT,
             tips_3 TEXT,
@@ -56,7 +62,6 @@ def init_prediction_db(username: str) -> str:
     conn.commit()
     conn.close()
     return db_name
-
 
 # --- CREATE ACCOUNT WINDOW ---
 class CreateAccountWindow(QtWidgets.QWidget):
@@ -109,7 +114,6 @@ class CreateAccountWindow(QtWidgets.QWidget):
             self.close()
         except sqlite3.IntegrityError:
             QtWidgets.QMessageBox.warning(self, "Error", "Username already exists!")
-
 
 # --- MAIN LOGIN WINDOW ---
 class MainWindow(QtWidgets.QWidget): 
@@ -293,9 +297,8 @@ class Helpwidget(QtWidgets.QWidget):
         self.ui.setupUi(self)
         self.setWindowTitle("Help")
         if hasattr(self.ui, "pushButton_2"):
-            self.ui.logOutPushButton.clicked.connect(self.handle_logout)    
+            self.ui.logOutPushButton.clicked.connect(self.handle_logout)  
          
-
 # --- WELCOME WINDOW (manages logout and returns to MainWindow) ---
 class WelcomeWindow(QtWidgets.QWidget):
     def __init__(self, username: str):
@@ -345,7 +348,7 @@ class WelcomeWindow(QtWidgets.QWidget):
                 # --- CSV Drag & Drop for Prediction Inputs ---
         if hasattr(self.ui, "csvLabelDropPredict"):
             self.ui.csvLabelDropPredict.setAcceptDrops(True)
-            self.ui.csvLabelDropPredict.setText("Drag and Drop Prediction CSV Here")
+            self.ui.csvLabelDropPredict.setText("Drag File Here")
             self.ui.csvLabelDropPredict.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             
             # Attach event handlers dynamically
@@ -361,9 +364,8 @@ class WelcomeWindow(QtWidgets.QWidget):
                 # --- CSV Drag & Drop for Graph Data ---
         if hasattr(self.ui, "csvLabelDropStats"):
             self.ui.csvLabelDropStats.setAcceptDrops(True)
-            self.ui.csvLabelDropStats.setText("Drag CSV File Here")
+            self.ui.csvLabelDropStats.setText("Drag File Here")
             self.ui.csvLabelDropStats.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            
 
             self.ui.csvLabelDropStats.dragEnterEvent = self.dragEnterEvent
             self.ui.csvLabelDropStats.dropEvent = self.dropEventGraph
@@ -429,25 +431,45 @@ class WelcomeWindow(QtWidgets.QWidget):
 
     def dropEventGraph(self, event):
         for url in event.mimeData().urls():
-            file_path = url.toLocalFile()
-            if file_path.endswith(".csv"):
-                self.process_graph_csv(file_path)
+            file_path = url.toLocalFile().strip()
+            valid_exts = (".csv", ".xlsx", ".xls", ".xlsm", ".xlsb", ".ods")
+            ext = os.path.splitext(file_path)[1].lower()
+            if ext in valid_exts:
+                self.process_graph_file(file_path)
             else:
-                self.ui.csvLabelDropStats.setText("❌ Invalid file! Please drop a .csv file.")
-    
-    def process_graph_csv(self, file_path: str):
-        
+                self.ui.csvLabelDropStats.setText("❌ Unsupported file type!")
+
+    def process_graph_file(self, file_path: str):
         try:
-            df = pd.read_csv(file_path)
+            ext = os.path.splitext(file_path)[1].lower()
+
+            # --- Read the file dynamically ---
+            try:
+                if ext in [".xlsx", ".xls", ".xlsm", ".ods"]:
+                    try:
+                        df = pd.read_excel(file_path, engine="openpyxl")
+                    except Exception:
+                        df = pd.read_excel(file_path)  # fallback auto engine
+                elif ext == ".xlsb":
+                    df = pd.read_excel(file_path, engine="pyxlsb")
+                else:
+                    df = pd.read_csv(file_path, encoding="utf-8", on_bad_lines="skip")
+            except Exception as read_err:
+                self.ui.csvLabelDropStats.setText(f"⚠️ Unable to read file: {read_err}")
+                return
+
+            if df.empty:
+                self.ui.csvLabelDropStats.setText("⚠️ File is empty or unreadable.")
+                return
+
+            # --- Clean headers ---
             headers = list(df.columns)
+            header_map = {self.clean_header(h): h for h in headers if isinstance(h, str)}
 
-            # Clean headers
-            header_map = {self.clean_header(h): h for h in headers}
-
-            # Needed data (allow "net income" column)
+            # Needed columns
             DataNeeded_Graph = ['expense', 'netincome', 'liabilities']
 
-            # Match headers
+            # --- Match headers ---
             matched = {}
             for needed in DataNeeded_Graph:
                 for cleaned, original in header_map.items():
@@ -461,7 +483,7 @@ class WelcomeWindow(QtWidgets.QWidget):
 
             row = df.iloc[0] if not df.empty else {}
 
-            # Helper for safety
+            # --- Helper to safely extract numbers ---
             def safe_get(key):
                 if key in matched:
                     val = row.get(matched[key], None)
@@ -475,13 +497,11 @@ class WelcomeWindow(QtWidgets.QWidget):
             netincome = safe_get('netincome')
             liabilities = safe_get('liabilities')
 
-            # Convert "N/A" to 0 for DB
             def to_num(v): return 0 if v == "N/A" else v
 
+            # --- Insert into database ---
             conn = sqlite3.connect(self.graph_db)
             cur = conn.cursor()
-
-            # ✅ Map netincome → income if your DB still uses 'income' column
             cur.execute("""
                 INSERT INTO graph_data (username, filename, expense, netincome, liabilities)
                 VALUES (?, ?, ?, ?, ?)
@@ -489,7 +509,7 @@ class WelcomeWindow(QtWidgets.QWidget):
                 self.username,
                 os.path.basename(file_path),
                 to_num(expense),
-                to_num(netincome),  # notice this maps netincome → income
+                to_num(netincome),
                 to_num(liabilities)
             ))
             conn.commit()
@@ -499,7 +519,10 @@ class WelcomeWindow(QtWidgets.QWidget):
             self.ui.csvLabelDropStats.setText(f"✅ Saved: {os.path.basename(file_path)}")
 
         except Exception as e:
-            self.ui.csvLabelDropStats.setText(f"⚠️ Error loading CSV: {e}")
+            import traceback
+            tb = traceback.format_exc(limit=1)
+            self.ui.csvLabelDropStats.setText(f"⚠️ Error processing file: {e}\n{tb}")
+
 
     def display_graph(self):
         selected_file = self.ui.statsComboBox.currentText()
@@ -628,24 +651,45 @@ class WelcomeWindow(QtWidgets.QWidget):
 
     def dropEvent(self, event):
         for url in event.mimeData().urls():
-            file_path = url.toLocalFile()
-            if file_path.endswith(".csv"):
-                self.process_csv(file_path)
+            file_path = url.toLocalFile().strip().lower()
+
+            # Accept common spreadsheet formats
+            valid_exts = (".csv", ".xlsx", ".xls", ".xlsm", ".xlsb", ".ods")
+
+            if file_path.endswith(valid_exts):
+                self.process_file(file_path)
             else:
-                self.ui.csvLabelDropPredict.setText("❌ Invalid file! Please drop a .csv file.")
+                self.ui.csvLabelDropPredict.setText("Unsupported file type!")
 
-    def process_csv(self, file_path: str):
-        import pandas as pd
-        import os
-
+    def process_file(self, file_path: str):
         try:
-            df = pd.read_csv(file_path)
+            ext = os.path.splitext(file_path)[1].lower()
+
+            # --- Try reading file dynamically ---
+            try:
+                if ext in [".xlsx", ".xls", ".xlsm", ".xlsb", ".ods"]:
+                    try:
+                        df = pd.read_excel(file_path, engine="openpyxl")
+                    except Exception:
+                        # Fallback to auto-detect engine if openpyxl fails
+                        df = pd.read_excel(file_path)
+                else:
+                    # Default fallback: try CSV if it's not a standard Excel format
+                    df = pd.read_csv(file_path, encoding="utf-8", on_bad_lines="skip")
+            except Exception as read_err:
+                self.ui.csvLabelDropPredict.setText(f"⚠️ Unable to read file: {read_err}")
+                return
+
+            # --- Validate dataframe ---
+            if df.empty:
+                self.ui.csvLabelDropPredict.setText("⚠️ File is empty or unreadable.")
+                return
+
+            # --- Clean and map headers ---
             headers = list(df.columns)
+            header_map = {self.clean_header(h): h for h in headers if isinstance(h, str)}
 
-            # Clean headers
-            header_map = {self.clean_header(h): h for h in headers}
-
-            # Match headers to needed ones
+            # --- Match headers with required ones ---
             matched = {}
             for needed in self.DataNeeded_Prediction:
                 for cleaned, original in header_map.items():
@@ -654,18 +698,18 @@ class WelcomeWindow(QtWidgets.QWidget):
                         break
 
             if not matched:
-                self.ui.csvLabelDropPredict.setText("⚠️ No matching columns found.")
+                self.ui.csvLabelDropPredict.setText("No matching data found.")
                 return
 
-            # Use the first row (assuming it's the latest/only entry)
+            # --- Use the first row ---
             row = df.iloc[0]
 
-            # Fill each QLineEdit if available
+            # --- Helper to safely set UI fields ---
             def set_if_exists(attr, value):
                 if hasattr(self.ui, attr):
                     getattr(self.ui, attr).setText(str(value))
 
-            # Assign values
+            # --- Assign values to UI ---
             set_if_exists("totalAssetsQLine", row.get(matched.get("totalassets", ""), ""))
             set_if_exists("totalLiabilitiesQLine", row.get(matched.get("totalliabilities", ""), ""))
             set_if_exists("totalEquityQLine", row.get(matched.get("totalequity", ""), ""))
@@ -674,11 +718,14 @@ class WelcomeWindow(QtWidgets.QWidget):
             set_if_exists("currentAssetsQLine", row.get(matched.get("currentassets", ""), ""))
             set_if_exists("currentLiabilitiesQLine", row.get(matched.get("currentliabilities", ""), ""))
 
-            # Update label
-            self.ui.csvLabelDropPredict.setText(f"✅ Loaded: {os.path.basename(file_path)}")
+            # --- Success message ---
+            self.ui.csvLabelDropPredict.setText(f"File: {os.path.basename(file_path)}")
 
         except Exception as e:
-            self.ui.csvLabelDropPredict.setText(f"⚠️ Error loading CSV: {e}")
+            import traceback
+            tb = traceback.format_exc(limit=1)
+            self.ui.csvLabelDropPredict.setText(f"⚠️ Error processing file: {e}\n{tb}")
+
 
     # ----------------------
     # Load latest prediction for home widget
@@ -749,8 +796,6 @@ class WelcomeWindow(QtWidgets.QWidget):
 
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to load previous prediction:\n{e}")
-
-
 
     # ----------------------
     # Prediction Tips
@@ -824,9 +869,6 @@ class WelcomeWindow(QtWidgets.QWidget):
 
         return tips[:15]
 
-
-
-
     # ----------------------
     # Prediction
     # ----------------------
@@ -844,92 +886,164 @@ class WelcomeWindow(QtWidgets.QWidget):
     
     def handle_prediction(self):
         try:
-            raw_input = {
-                "Total_Assets": float(self.ui.totalAssetsQLine.text()),
-                "Total_Liabilities": float(self.ui.totalLiabilitiesQLine.text()),
-                "Total_Equity": float(self.ui.totalEquityQLine.text()),
-                "Net_Income": float(self.ui.netIncomeQLine.text()),
-                "Operating_Income": float(self.ui.operatingIncomeQLine.text()),
-                "Current_Assets": float(self.ui.currentAssetsQLine.text()),
-                "Current_Liabilities": float(self.ui.currentLiabilitiesQLine.text())
-            }
-        except ValueError:
-            QMessageBox.warning(self, "Input Error", "Please enter valid numeric values in all fields.")
-            return
+            start_date_text = self.ui.starting_Date.text().strip()
 
-        # 1️⃣ Compute ratios
-        df_input = self.compute_ratios(raw_input)
-        ratios = df_input.iloc[0].to_dict()
+            # --- QLineEdit references ---
+            qlines = [
+                self.ui.totalAssetsQLine, self.ui.totalLiabilitiesQLine, self.ui.totalEquityQLine,
+                self.ui.netIncomeQLine, self.ui.operatingIncomeQLine,
+                self.ui.currentAssetsQLine, self.ui.currentLiabilitiesQLine
+            ]
+            cols = [
+                "total_assets", "total_liabilities", "total_equity",
+                "net_income", "operating_income", "current_assets", "current_liabilities"
+            ]
 
-        # 2️⃣ Load model
-        model = joblib.load("bankruptcy_Simple.pkl")
-        df_input = df_input[model.feature_names_in_]
+            # --- SUM from database for prediction only ---
+            sums = {col: 0.0 for col in cols}
+            try:
+                conn = sqlite3.connect(self.prediction_db_name)
+                cur = conn.cursor()
 
-        # 3️⃣ Predict
-        prediction = model.predict(df_input)[0]
-        proba = model.predict_proba(df_input)[0]
-        prob_bankrupt = proba[1] * 100
-        prob_healthy = proba[0] * 100
-        limiter = 45.0
+                if start_date_text:
+                    start_date_db = start_date_text.replace("/", "-")
+                    cur.execute("""
+                        SELECT total_assets, total_liabilities, total_equity,
+                            net_income, operating_income, current_assets, current_liabilities
+                        FROM predictions
+                        WHERE date >= ?
+                    """, (start_date_db,))
+                else:
+                    cur.execute("""
+                        SELECT total_assets, total_liabilities, total_equity,
+                            net_income, operating_income, current_assets, current_liabilities
+                        FROM predictions
+                    """)
 
-        # 4️⃣ Determine status
-        if prob_bankrupt > limiter:
-            status_text = "Bankrupt !"
-            self.ui.result_label.setStyleSheet("""
-                #result_label {
-                    color: red; font-weight: 900; font-size: 22px;
-                    text-shadow: 0px 0px 6px #ff4d4d;
-                }
-            """)
-            probability = f"Confidence: {prob_bankrupt:.2f}%"
-            message_text = "⚠️ Your Business is at\nrisk for bankruptcy"
-        else:
-            status_text = "Healthy !"
-            self.ui.result_label.setStyleSheet("""
-                #result_label {
-                    color: green; font-weight: 900; font-size: 22px;
-                    text-shadow: 0px 0px 6px #00ff99;
-                }
-            """)
-            probability = f"Confidence: {prob_healthy:.2f}%"
-            message_text = "✅ Your business seems healthy,\nkeep it up!"
+                rows = cur.fetchall()
+                for row in rows:
+                    for i, col in enumerate(cols):
+                        sums[col] += row[i]
 
-        # 5️⃣ Generate financial tips (based on ratios and status)
-        tips = self.generate_tips(ratios, status_text)
+                conn.close()
+            except Exception as e:
+                QMessageBox.critical(self, "Database Error", f"Failed to read previous predictions:\n{e}")
+                return
 
-        # Ensure exactly 5 tips (padding if fewer)
-        tips = (tips + [""] * 5)[:5]
+            # --- Collect current raw inputs (for DB storage & adding to sums for prediction) ---
+            raw_inputs_to_store = {}
+            for col in cols:
+                qline_name = self._qline_name_from_column(col)
+                text = getattr(self.ui, qline_name).text().strip()
+                raw_inputs_to_store[col] = float(text) if text else 0.0
 
-        # 6️⃣ Update UI
-        self.ui.result_label.setText(status_text)
-        self.ui.percentage_label.setText(probability)
-        self.ui.message_label.setText(message_text)
+            # --- Prepare processed_input for prediction & tips (DB sum + raw inputs) ---
+            processed_input = {}
+            for col in cols:
+                processed_input[col.replace("_", " ").title().replace(" ", "_")] = sums[col] + raw_inputs_to_store[col]
 
-        for i, tip in enumerate(tips, start=1):
-            label = getattr(self.ui, f"tipsLabel_{i}", None)
-            if label:
-                label.setText(f"• {tip}")
+            # --- COMPUTE RATIOS ---
+            df_input = self.compute_ratios(processed_input)
+            ratios = df_input.iloc[0].to_dict()
 
-        # 7️⃣ Save prediction + tips to database
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        try:
-            conn = sqlite3.connect(self.prediction_db_name)
-            cur = conn.cursor()
-            cur.execute("""
-                INSERT INTO predictions (
-                    date, status, probability,
-                    tips_1, tips_2, tips_3, tips_4, tips_5
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                current_time, status_text, probability,
-                tips[0], tips[1], tips[2], tips[3], tips[4]
-            ))
-            conn.commit()
-            conn.close()
+            # --- LOAD MODEL ---
+            model = joblib.load("bankruptcy_Simple.pkl")
+            df_input = df_input[model.feature_names_in_]
+
+            # --- PREDICTION ---
+            prediction = model.predict(df_input)[0]
+            proba = model.predict_proba(df_input)[0]
+            prob_bankrupt = proba[1] * 100
+            prob_healthy = proba[0] * 100
+            limiter = 45.0
+
+            # --- STATUS & STYLES ---
+            if prob_bankrupt > limiter:
+                status_text = "Bankrupt !"
+                self.ui.result_label.setStyleSheet("""
+                    #result_label {
+                        color: red; font-weight: 900; font-size: 22px;
+                        text-shadow: 0px 0px 6px #ff4d4d;
+                    }
+                """)
+                probability = f"Confidence Level: {prob_bankrupt:.2f}%"
+                message_text = "⚠️ Your Business is at\nrisk for bankruptcy"
+            else:
+                status_text = "Healthy !"
+                self.ui.result_label.setStyleSheet("""
+                    #result_label {
+                        color: green; font-weight: 900; font-size: 22px;
+                        text-shadow: 0px 0px 6px #00ff99;
+                    }
+                """)
+                probability = f"Confidence Level: {prob_healthy:.2f}%"
+                message_text = "✅ Your business seems healthy,\nkeep it up!"
+
+            # --- GENERATE FINANCIAL TIPS (from DB sum + raw inputs) ---
+            tips = self.generate_tips(ratios, status_text)
+            tips = (tips + [""] * 5)[:5]
+
+            # --- UPDATE UI ---
+            self.ui.result_label.setText(status_text)
+            self.ui.percentage_label.setText(probability)
+            self.ui.message_label.setText(message_text)
+            for i, tip in enumerate(tips, start=1):
+                label = getattr(self.ui, f"tipsLabel_{i}", None)
+                if label:
+                    label.setText(f"• {tip}")
+
+            # --- STORE RAW INPUTS + PREDICTION RESULTS IN DATABASE ---
+            try:
+                store_date = start_date_text.replace("/", "-") if start_date_text else datetime.now().strftime("%Y-%m-%d")
+
+                conn = sqlite3.connect(self.prediction_db_name)
+                cur = conn.cursor()
+                cur.execute("""
+                    INSERT INTO predictions (
+                        date, status, probability,
+                        total_assets, total_liabilities, total_equity,
+                        net_income, operating_income, current_assets, current_liabilities,
+                        tips_1, tips_2, tips_3, tips_4, tips_5
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    store_date,
+                    status_text,
+                    probability,
+                    raw_inputs_to_store["total_assets"],
+                    raw_inputs_to_store["total_liabilities"],
+                    raw_inputs_to_store["total_equity"],
+                    raw_inputs_to_store["net_income"],
+                    raw_inputs_to_store["operating_income"],
+                    raw_inputs_to_store["current_assets"],
+                    raw_inputs_to_store["current_liabilities"],
+                    tips[0], tips[1], tips[2], tips[3], tips[4]
+                ))
+                conn.commit()
+                conn.close()
+                print("\n✅ Raw inputs + prediction stored in database.")
+            except Exception as e:
+                QMessageBox.critical(self, "Database Error", f"Failed to insert data:\n{e}")
+
+            print("\n✅ Prediction Complete.")
+
         except Exception as e:
-            QMessageBox.critical(self, "Database Error", f"Failed to insert prediction data:\n{e}")
+            QMessageBox.critical(self, "Prediction Error", f"An error occurred: {e}")
 
+
+
+    # Helper: column -> QLineEdit mapping
+    def _qline_name_from_column(self, col):
+        mapping = {
+            "total_assets": "totalAssetsQLine",
+            "total_liabilities": "totalLiabilitiesQLine",
+            "total_equity": "totalEquityQLine",
+            "net_income": "netIncomeQLine",
+            "operating_income": "operatingIncomeQLine",
+            "current_assets": "currentAssetsQLine",
+            "current_liabilities": "currentLiabilitiesQLine"
+        }
+        return mapping[col]
 
 
     # --- HANDLE NAVIGATION ---
@@ -952,7 +1066,6 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "stackedWidget"):
             self.ui.stackedWidget.setCurrentWidget(widget)
             print(f"📄 Switched to: {widget.objectName()}")
-
 
     # --- HIGHLIGHT ACTIVE BUTTON ---
     def highlight_button(self, button):

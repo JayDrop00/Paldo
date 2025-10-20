@@ -333,7 +333,7 @@ QPushButton:checked {
       <string notr="true">background : transparent</string>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="inventory_widget">
       <widget class="QWidget" name="widget_inventory" native="true">
@@ -606,9 +606,9 @@ QPushButton:checked {
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
+          <y>0</y>
           <width>181</width>
-          <height>41</height>
+          <height>61</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -778,7 +778,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: #002B5B; </string>
         </property>
         <property name="text">
          <string/>
@@ -794,7 +794,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: #002B5B; </string>
         </property>
         <property name="text">
          <string/>
@@ -810,7 +810,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">tipsLabelH_4</string>
+         <string notr="true">color: #002B5B; </string>
         </property>
         <property name="text">
          <string/>
@@ -826,7 +826,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: #002B5B; </string>
         </property>
         <property name="text">
          <string/>
@@ -842,7 +842,7 @@ QPushButton:checked {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: #002B5B; </string>
         </property>
         <property name="text">
          <string/>
@@ -987,7 +987,7 @@ QPushButton:checked {
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>40</y>
+           <y>80</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1014,8 +1014,8 @@ QLineEdit:focus {
         <widget class="QLabel" name="label_totalliabilities">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>80</y>
+           <x>20</x>
+           <y>120</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -1049,12 +1049,15 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Total Liabilities:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLineEdit" name="totalAssetsQLine">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>40</y>
+           <y>80</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1081,9 +1084,9 @@ QLineEdit:focus {
         <widget class="QLabel" name="label_equity">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>140</y>
-           <width>81</width>
+           <x>20</x>
+           <y>180</y>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -1116,12 +1119,15 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Total Equity:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLineEdit" name="operatingIncomeQLine">
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>100</y>
+           <y>140</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1149,7 +1155,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>160</y>
+           <y>200</y>
            <width>113</width>
            <height>31</height>
           </rect>
@@ -1176,9 +1182,9 @@ QLineEdit:focus {
         <widget class="QLabel" name="label_totalassets">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>81</width>
+           <x>20</x>
+           <y>60</y>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -1211,13 +1217,16 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Total Assets:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLabel" name="label_net">
          <property name="geometry">
           <rect>
-           <x>150</x>
-           <y>20</y>
-           <width>91</width>
+           <x>160</x>
+           <y>60</y>
+           <width>111</width>
            <height>21</height>
           </rect>
          </property>
@@ -1250,13 +1259,16 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Net  Income:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLabel" name="label_currentliabilities">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>200</y>
-           <width>121</width>
+           <y>240</y>
+           <width>131</width>
            <height>21</height>
           </rect>
          </property>
@@ -1289,12 +1301,15 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Current Liabilities:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLabel" name="label_operating">
          <property name="geometry">
           <rect>
            <x>150</x>
-           <y>80</y>
+           <y>120</y>
            <width>131</width>
            <height>21</height>
           </rect>
@@ -1328,12 +1343,15 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Operating Income:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLineEdit" name="totalLiabilitiesQLine">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>100</y>
+           <y>140</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1361,7 +1379,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>160</x>
-           <y>160</y>
+           <y>200</y>
            <width>113</width>
            <height>31</height>
           </rect>
@@ -1389,7 +1407,7 @@ QLineEdit:focus {
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>220</y>
+           <y>260</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -1416,8 +1434,8 @@ QLineEdit:focus {
         <widget class="QLabel" name="label_currentassets">
          <property name="geometry">
           <rect>
-           <x>150</x>
-           <y>140</y>
+           <x>160</x>
+           <y>180</y>
            <width>111</width>
            <height>21</height>
           </rect>
@@ -1451,12 +1469,15 @@ QLabel#subtitle_label {
          <property name="text">
           <string>Current Assets:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QPushButton" name="predictButton">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>270</y>
+           <y>300</y>
            <width>251</width>
            <height>31</height>
           </rect>
@@ -1487,6 +1508,82 @@ QLabel#subtitle_label {
          </property>
          <property name="text">
           <string>PREDICT</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="starting_Date">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>20</y>
+           <width>111</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    background-color: #ffffff;
+    border: 2px solid #1c3f63;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #0a1f33;  /* 👈 user text = dark blue/black */
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 13px;
+}
+
+/* Focus effect */
+QLineEdit:focus {
+    border: 2px solid #00b4d8;
+    background-color: #f0faff;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+
+/* Placeholder styling */
+QLineEdit::placeholder {
+    color: gray;          /* 👈 placeholder = gray */
+    font-style: italic;
+}</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_totalassets_2">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>0</y>
+           <width>111</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Semibold&quot;;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#title_label {
+    color: #0a1f33;
+    font-family: &quot;Segoe UI Black&quot;;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+QLabel#subtitle_label {
+    color: #1a3e57;
+    font-family: &quot;Segoe UI&quot;;
+    font-style: italic;
+    font-size: 13px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Staring Date:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </widget>
@@ -1565,13 +1662,13 @@ QLabel#subtitle_label {
          <property name="styleSheet">
           <string notr="true">#percentage_label{
                   
-    font-weight: 900;                /* Bold emphasis */
+    font-weight: 450;                /* Bold emphasis */
     font-size: 20px;                 /* Slightly larger title */
     background: transparent;         /* Keep background clean */
                /* Space out letters slightly */
     text-transform: uppercase;       /* Make “Inventory” more assertive */
     border: none;                    /* Remove any frame borders */
-    
+    color: #002B5B; 
     /* Subtle cyan glow for elegance */
     text-shadow: 0px 0px 6px #00ffff;
 }</string>
@@ -1594,7 +1691,8 @@ QLabel#subtitle_label {
          </property>
          <property name="styleSheet">
           <string notr="true">background: transparent;
- font-weight: 900; </string>
+ font-weight: 450; 
+color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1606,7 +1704,7 @@ QLabel#subtitle_label {
          <rect>
           <x>0</x>
           <y>100</y>
-          <width>641</width>
+          <width>291</width>
           <height>61</height>
          </rect>
         </property>
@@ -1625,7 +1723,7 @@ QLabel#subtitle_label {
 }</string>
         </property>
         <property name="text">
-         <string>DROP CSV FILE HERE</string>
+         <string>DROP FILE HERE</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1698,7 +1796,7 @@ QLabel#subtitle_label {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1714,7 +1812,7 @@ QLabel#subtitle_label {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1730,7 +1828,7 @@ QLabel#subtitle_label {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1746,7 +1844,7 @@ QLabel#subtitle_label {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1762,7 +1860,7 @@ QLabel#subtitle_label {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color: #002B5B; </string>
          </property>
          <property name="text">
           <string/>
@@ -1889,7 +1987,7 @@ QLabel#subtitle_label {
 }</string>
        </property>
        <property name="text">
-        <string>DROP CSV FILE HERE</string>
+        <string>DROP FILE HERE</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
