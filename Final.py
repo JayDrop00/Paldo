@@ -1383,6 +1383,36 @@ class Ui_Form(object):
         self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+
+        
+        self.pangutan_button = QtWidgets.QPushButton(parent=self.mainwidget)
+        self.pangutan_button.setGeometry(QtCore.QRect(840, 0, 41, 61))
+        self.pangutan_button.setStyleSheet("QPushButton {\n"
+"    background-color: transparent;   /* fully transparent background */\n"
+"    border: none;                    /* removes the white outline */\n"
+"    border-radius: 40px;             /* keeps it circular */\n"
+"    width: 80px;\n"
+"    height: 80px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgba(255, 255, 255, 0.15); /* soft hover glow */\n"
+"}\n"
+"")
+        self.pangutan_button.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("C:/Users/USER/Documents/system_90/gethub_porn/logo.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.pangutan_button.setIcon(icon)
+        self.pangutan_button.setIconSize(QtCore.QSize(35, 35))
+        self.pangutan_button.setObjectName("pangutan_button")
+        self.label_upperhome.raise_()
+        self.label_smalllogo.raise_()
+        self.plainTextEdit_Entrep.raise_()
+        self.frame_sidebar.raise_()
+        self.stackedWidget.raise_()
+        self.pangutan_button.raise_()
+
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
