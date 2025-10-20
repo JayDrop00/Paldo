@@ -13,9 +13,16 @@ from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
+<<<<<<< HEAD
 
 #from tuturialfinal import Ui_Form as Help
 
+=======
+from reportPopUp import Ui_Form as ReportPopUpForm
+from tuturialfinal import Ui_Form as Help
+#DataNeeded_Prediction = ['totalassets', 'totalliabilities', 'totalequity', 'netincome', 'operatingincome', 'currentassets', 'currentliabilities']
+#DataNeeded_Graph = ['expense', 'income', 'liabilities']
+>>>>>>> 4349ff3be817539eb2af83265aefdf7d7871118f
 # --- DATABASE SETUP ---
 def init_database():
     conn = sqlite3.connect("users.db")
@@ -290,15 +297,25 @@ class MainWindow(QtWidgets.QWidget):
         anim.start(QtCore.QAbstractAnimation.DeletionPolicy.DeleteWhenStopped)
         self._anim = anim
 
+<<<<<<< HEAD
 '''class Helpwidget(QtWidgets.QWidget):
+=======
+class Helpwidget(QtWidgets.QWidget):
+>>>>>>> 4349ff3be817539eb2af83265aefdf7d7871118f
     def __init__(self,username:str):
         super().__init__()
         self.ui = Help()
         self.ui.setupUi(self)
         self.setWindowTitle("Help")
         if hasattr(self.ui, "pushButton_2"):
+<<<<<<< HEAD
             self.ui.logOutPushButton.clicked.connect(self.handle_logout)    '''
          
+=======
+            self.ui.logOutPushButton.clicked.connect(self.handle_logout)    
+         
+
+>>>>>>> 4349ff3be817539eb2af83265aefdf7d7871118f
 # --- WELCOME WINDOW (manages logout and returns to MainWindow) ---
 class WelcomeWindow(QtWidgets.QWidget):
     def __init__(self, username: str):
@@ -380,12 +397,21 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "graphPushButton"):
             self.ui.graphPushButton.clicked.connect(self.display_graph)
 
+<<<<<<< HEAD
         #self.ui.pangutan_button.clicked.connect(self.open_help_window)  
 
     '''def open_help_window(self):
         # 🪄 Create and open Help window
         self.help_window = Helpwidget(self.username)
         self.help_window.show()'''
+=======
+        self.ui.pangutan_button.clicked.connect(self.open_help_window)  
+
+    def open_help_window(self):
+        # 🪄 Create and open Help window
+        self.help_window = Helpwidget(self.username)
+        self.help_window.show()
+>>>>>>> 4349ff3be817539eb2af83265aefdf7d7871118f
 
     def center_on_screen(self):
         from PyQt6.QtWidgets import QApplication
