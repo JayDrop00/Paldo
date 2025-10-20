@@ -14,7 +14,7 @@ from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
 
-from tuturialfinal import Ui_Form as Help
+from Tutorial import Ui_Form as Help
 
 # --- DATABASE SETUP ---
 def init_database():
@@ -659,7 +659,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             if file_path.endswith(valid_exts):
                 self.process_file(file_path)
             else:
-                self.ui.csvLabelDropPredict.setText("❌ Unsupported file type!")
+                self.ui.csvLabelDropPredict.setText("Unsupported file type!")
 
     def process_file(self, file_path: str):
         try:
@@ -698,7 +698,7 @@ class WelcomeWindow(QtWidgets.QWidget):
                         break
 
             if not matched:
-                self.ui.csvLabelDropPredict.setText("⚠️ No matching columns found in file.")
+                self.ui.csvLabelDropPredict.setText("No matching data found.")
                 return
 
             # --- Use the first row ---
@@ -719,7 +719,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             set_if_exists("currentLiabilitiesQLine", row.get(matched.get("currentliabilities", ""), ""))
 
             # --- Success message ---
-            self.ui.csvLabelDropPredict.setText(f"✅ File loaded successfully: {os.path.basename(file_path)}")
+            self.ui.csvLabelDropPredict.setText(f"File: {os.path.basename(file_path)}")
 
         except Exception as e:
             import traceback

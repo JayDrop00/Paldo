@@ -186,7 +186,7 @@ class Ui_Form(QtCore.QObject):  # 👈 inherits QObject to allow eventFilter
             self.lineEdit_confirmpasswordCreate: "PASSWORD",
         }
         for lineEdit, text in self.placeholders.items():
-            lineEdit.setText(text)
+            lineEdit.setPlaceholderText(text)
             lineEdit.installEventFilter(self)
 
     def eventFilter(self, obj, event):

@@ -216,37 +216,11 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-        # -------- FUNCTION: Clear-on-click behavior --------
-        self.lineEdit_username.installEventFilter(Form)
-        self.lineEdit_password.installEventFilter(Form)
-        Form.eventFilter = self.eventFilter  # attach filter to form
+        
 
-        # -------- CONNECT LOGIN BUTTON --------
-        self.pushButton_login.clicked.connect(self.handle_login)
+        
 
-    def eventFilter(self, obj, event):
-        if event.type() == QtCore.QEvent.Type.FocusIn:
-            if obj.objectName() == "lineEdit_username" and obj.text() == "USERNAME":
-                obj.clear()
-            elif obj.objectName() == "lineEdit_password" and obj.text() == "PASSWORD":
-                obj.clear()
-        elif event.type() == QtCore.QEvent.Type.FocusOut:
-            if obj.objectName() == "lineEdit_username" and obj.text() == "":
-                obj.setText("USERNAME")
-            elif obj.objectName() == "lineEdit_password" and obj.text() == "":
-                obj.setText("PASSWORD")
-        return False
-
-    # -------- VALIDATION: Login input check --------
-    def handle_login(self):
-        username = self.lineEdit_username.text().strip()
-        password = self.lineEdit_password.text().strip()
-
-        if not username or not password or username == "USERNAME" or password == "PASSWORD":
-            QtWidgets.QMessageBox.warning(None, "Input Error", "Please enter both username and password before logging in.")
-            return
-
-        # Placeholder for real login validation
+    
   
 
     def retranslateUi(self, Form):
@@ -258,8 +232,8 @@ class Ui_Form(object):
         self.label_entrep.setText(_translate("Form", "ENTREPREDICT"))
         self.plainTextEdit_Entrep.setPlainText(_translate("Form", "ENTREPREDICT"))
         self.label_login_title.setText(_translate("Form", "LOG IN"))
-        self.lineEdit_username.setText(_translate("Form", "USERNAME"))
-        self.lineEdit_password.setText(_translate("Form", "PASSWORD"))
+        self.lineEdit_username.setPlaceholderText("USERNAME")
+        self.lineEdit_password.setPlaceholderText("PASSWORD")
         self.pushButton_login.setText(_translate("Form", "Login"))
         self.label_create_account.setText(_translate("Form", "Create Account"))
         self.label_noAccount.setText(_translate("Form", "Don't have an account?"))

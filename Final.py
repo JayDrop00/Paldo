@@ -886,6 +886,7 @@ class Ui_Form(object):
 "")
         self.predictButton.setObjectName("predictButton")
         self.starting_Date = QtWidgets.QLineEdit(parent=self.frame)
+        self.starting_Date.setPlaceholderText("yyyy-mm-dd")
         self.starting_Date.setGeometry(QtCore.QRect(90, 20, 111, 31))
         self.starting_Date.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
