@@ -194,118 +194,59 @@ class Ui_Form(object):
 "}\n"
 "")
         self.logOutPushButton.setObjectName("logOutPushButton")
+        self.dataPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
+        self.dataPushButton.setGeometry(QtCore.QRect(30, 210, 101, 41))
+        self.dataPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.dataPushButton.setStyleSheet("QPushButton {\n"
+"    background-color: transparent;\n"
+"    color: #00E5FF;\n"
+"    font-family: \"Segoe UI\";\n"
+"    font-size: 9pt;\n"
+"    font-weight: 500;\n"
+"    border: 2px solid #00E5FF;\n"
+"    border-radius: 12px;\n"
+"    padding: 5px 15px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgba(0, 229, 255, 0.1);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgba(0, 229, 255, 0.2);\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"    background-color: #00E5FF;\n"
+"    color: #001F3F;\n"
+"}\n"
+"\n"
+"")
+        self.dataPushButton.setObjectName("dataPushButton")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainwidget)
         self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 691, 521))
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
         self.stackedWidget.setStyleSheet("background : transparent")
         self.stackedWidget.setObjectName("stackedWidget")
-        self.inventory_widget = QtWidgets.QWidget()
-        self.inventory_widget.setObjectName("inventory_widget")
-        self.widget_inventory = QtWidgets.QWidget(parent=self.inventory_widget)
-        self.widget_inventory.setGeometry(QtCore.QRect(10, 10, 671, 481))
-        self.widget_inventory.setStyleSheet("#widget_inventory {\n"
-"    background: rgba(255, 255, 255, 0.15);     /* semi-transparent glass effect */\n"
-"    border: 2px solid #031b3d;                 /* navy border */\n"
-"    border-radius: 15px;                       /* smoother corners */\n"
-"    backdrop-filter: blur(10px);               /* subtle blur for depth */\n"
-"    padding: 15px;\n"
-"}\n"
-"")
-        self.widget_inventory.setObjectName("widget_inventory")
-        self.label_inventory = QtWidgets.QLabel(parent=self.widget_inventory)
-        self.label_inventory.setGeometry(QtCore.QRect(20, 20, 141, 31))
-        self.label_inventory.setStyleSheet("#label_inventory {\n"
-"    color: #031b3d;                  /* Deep navy text for contrast */\n"
-"    font-weight: 900;                /* Bold emphasis */\n"
-"    font-size: 22px;                 /* Slightly larger title */\n"
-"    background: transparent;         /* Keep background clean */\n"
-"    letter-spacing: 1px;             /* Space out letters slightly */\n"
-"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
-"    border: none;                    /* Remove any frame borders */\n"
+        self.data_widget = QtWidgets.QWidget()
+        self.data_widget.setObjectName("data_widget")
+        self.data_table = QtWidgets.QFrame(parent=self.data_widget)
+        self.data_table.setGeometry(QtCore.QRect(40, 30, 581, 471))
+        self.data_table.setStyleSheet("#data_table\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
 "    \n"
-"    /* Subtle cyan glow for elegance */\n"
-"    text-shadow: 0px 0px 6px #00ffff;\n"
 "}")
-        self.label_inventory.setObjectName("label_inventory")
-        self.label_search = QtWidgets.QLabel(parent=self.widget_inventory)
-        self.label_search.setGeometry(QtCore.QRect(410, 60, 61, 31))
-        self.label_search.setStyleSheet("#label_search {\n"
-"    color: #031b3d;            /* Same navy tone for consistency */\n"
-"    font-weight: 600;\n"
-"    font-size: 14px;\n"
-"    background: transparent;\n"
-"    border: none;\n"
-"    padding-right: 5px;        /* Adds spacing between label and input */\n"
-"}\n"
-"")
-        self.label_search.setObjectName("label_search")
-        self.lineEdit_search = QtWidgets.QLineEdit(parent=self.widget_inventory)
-        self.lineEdit_search.setGeometry(QtCore.QRect(480, 60, 151, 31))
-        self.lineEdit_search.setStyleSheet("#lineEdit_search {\n"
-"    background: rgba(255, 255, 255, 70);  /* Semi-transparent white */\n"
-"    border: 2px solid #031b3d;\n"
-"    border-radius: 10px;\n"
-"    padding: 5px 10px;\n"
-"    color: #031b3d;\n"
-"    font-size: 14px;\n"
-"    selection-background-color: #00ffff;  /* Cyan highlight when selecting text */\n"
-"    selection-color: #031b3d;\n"
-"}\n"
-"\n"
-"#lineEdit_search:focus {\n"
-"    border: 2px solid #00ffff;            /* Cyan glow on focus */\n"
-"    background: rgba(255, 255, 255, 90);\n"
-"}")
-        self.lineEdit_search.setObjectName("lineEdit_search")
-        self.addbutton = QtWidgets.QPushButton(parent=self.widget_inventory)
-        self.addbutton.setGeometry(QtCore.QRect(30, 120, 91, 31))
-        self.addbutton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.addbutton.setStyleSheet("#addbutton {\n"
-"    background-color: #002B5B;    /* Very light cyan tint */\n"
-"    border: 2px solid #031b3d;                  /* Deep navy border */\n"
-"    border-radius: 9px;\n"
-"    color: #FFFFFF;\n"
-"    font-weight: 500;\n"
-"    font-size: 11px;                            /* Smaller text */\n"
-"    padding: 4px 10px;\n"
-"}\n"
-"\n"
-"#addbutton:hover {\n"
-"    background-color: rgba(0, 255, 255, 60);    /* Subtle cyan highlight */\n"
-"    border: 2px solid #00ffff;                  /* Cyan glow */\n"
-"}\n"
-"\n"
-"#addbutton:pressed {\n"
-"    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */\n"
-"}\n"
-"")
-        self.addbutton.setObjectName("addbutton")
-        self.deletebutton = QtWidgets.QPushButton(parent=self.widget_inventory)
-        self.deletebutton.setGeometry(QtCore.QRect(130, 120, 101, 31))
-        self.deletebutton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.deletebutton.setStyleSheet("#deletebutton {\n"
-"    background-color: #002B5B;    /* Soft coral tint (less aggressive than red) */\n"
-"    border: 2px solid #031b3d;\n"
-"    border-radius: 8px;\n"
-"    color: #FFFFFF;\n"
-"    font-weight: 500;\n"
-"    font-size: 11px;                            /* Smaller text */\n"
-"    padding: 4px 10px;\n"
-"}\n"
-"\n"
-"#deletebutton:hover {\n"
-"    background-color: rgba(255, 99, 71, 60);    /* Gentle coral hover */\n"
-"    border: 2px solid #00ffff;                  /* Cyan hover border for harmony */\n"
-"}\n"
-"\n"
-"#deletebutton:pressed {\n"
-"    background-color: rgba(255, 99, 71, 90);\n"
-"}")
-        self.deletebutton.setObjectName("deletebutton")
-        self.table_inventory = QtWidgets.QTableView(parent=self.widget_inventory)
-        self.table_inventory.setGeometry(QtCore.QRect(30, 160, 611, 291))
-        self.table_inventory.setObjectName("table_inventory")
-        self.stackedWidget.addWidget(self.inventory_widget)
+        self.data_table.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.data_table.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.data_table.setObjectName("data_table")
+        self.stackedWidget.addWidget(self.data_widget)
         self.home_widget = QtWidgets.QWidget()
         self.home_widget.setObjectName("home_widget")
         self.label_welcome = QtWidgets.QLabel(parent=self.home_widget)
@@ -886,7 +827,6 @@ class Ui_Form(object):
 "")
         self.predictButton.setObjectName("predictButton")
         self.starting_Date = QtWidgets.QLineEdit(parent=self.frame)
-        self.starting_Date.setPlaceholderText("yyyy-mm-dd")
         self.starting_Date.setGeometry(QtCore.QRect(90, 20, 111, 31))
         self.starting_Date.setStyleSheet("QLineEdit {\n"
 "    background-color: #ffffff;\n"
@@ -1085,7 +1025,7 @@ class Ui_Form(object):
 "}")
         self.label_inventory_4.setObjectName("label_inventory_4")
         self.graphFrame = QtWidgets.QFrame(parent=self.stats_widget)
-        self.graphFrame.setGeometry(QtCore.QRect(30, 220, 561, 291))
+        self.graphFrame.setGeometry(QtCore.QRect(20, 280, 371, 221))
         self.graphFrame.setStyleSheet("#graphFrame\n"
 "{\n"
 "    background-color: qlineargradient(\n"
@@ -1101,7 +1041,7 @@ class Ui_Form(object):
         self.graphFrame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.graphFrame.setObjectName("graphFrame")
         self.graphPushButton = QtWidgets.QPushButton(parent=self.stats_widget)
-        self.graphPushButton.setGeometry(QtCore.QRect(380, 170, 101, 41))
+        self.graphPushButton.setGeometry(QtCore.QRect(200, 60, 171, 31))
         self.graphPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.graphPushButton.setStyleSheet("#graphPushButton {\n"
 "    background-color: #002B5B;    /* Very light cyan tint */\n"
@@ -1123,22 +1063,8 @@ class Ui_Form(object):
 "}\n"
 "")
         self.graphPushButton.setObjectName("graphPushButton")
-        self.csvLabelDropStats = QtWidgets.QLabel(parent=self.stats_widget)
-        self.csvLabelDropStats.setGeometry(QtCore.QRect(30, 130, 331, 81))
-        self.csvLabelDropStats.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
-        self.csvLabelDropStats.setStyleSheet("QLabel {\n"
-"    border: 3px dashed #aaaaaa;\n"
-"    font-size: 18px;\n"
-"    color: #444;\n"
-"    \n"
-"    border-radius: 12px;\n"
-"    background-color: #f9f9f9;\n"
-"    text-align: center;  /* Centers text horizontally */\n"
-"}")
-        self.csvLabelDropStats.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.csvLabelDropStats.setObjectName("csvLabelDropStats")
         self.statsComboBox = QtWidgets.QComboBox(parent=self.stats_widget)
-        self.statsComboBox.setGeometry(QtCore.QRect(380, 130, 101, 31))
+        self.statsComboBox.setGeometry(QtCore.QRect(30, 60, 151, 31))
         self.statsComboBox.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.statsComboBox.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.statsComboBox.setStyleSheet("border: 1px solid rgba(0, 188, 212, 60); \n"
@@ -1150,19 +1076,332 @@ class Ui_Form(object):
 "")
         self.statsComboBox.setEditable(False)
         self.statsComboBox.setObjectName("statsComboBox")
-        self.plainTextEdit_prediction_2 = QtWidgets.QPlainTextEdit(parent=self.stats_widget)
-        self.plainTextEdit_prediction_2.setEnabled(False)
-        self.plainTextEdit_prediction_2.setGeometry(QtCore.QRect(30, 40, 581, 81))
-        self.plainTextEdit_prediction_2.setStyleSheet("#plainTextEdit_prediction_2 {\n"
-"    font-family: \"Poppins\";\n"
-"    font-size: 11pt;\n"
-"    font-weight: 500;\n"
-"    color: #002B5B; /* Black text */\n"
-"    background-color: transparent; /* Transparent background */\n"
-"    border:none;\n"
-"}\n"
-"")
-        self.plainTextEdit_prediction_2.setObjectName("plainTextEdit_prediction_2")
+        self.withdrawal_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.withdrawal_Frame.setGeometry(QtCore.QRect(20, 100, 171, 91))
+        self.withdrawal_Frame.setStyleSheet("#withdrawal_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.withdrawal_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.withdrawal_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.withdrawal_Frame.setObjectName("withdrawal_Frame")
+        self.label1 = QtWidgets.QLabel(parent=self.withdrawal_Frame)
+        self.label1.setGeometry(QtCore.QRect(20, 10, 131, 21))
+        self.label1.setStyleSheet("#label1{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 650;                /* Bold emphasis */\n"
+"    font-size: 14px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label1.setObjectName("label1")
+        self.withdrawal_Label = QtWidgets.QLabel(parent=self.withdrawal_Frame)
+        self.withdrawal_Label.setGeometry(QtCore.QRect(20, 40, 131, 31))
+        self.withdrawal_Label.setStyleSheet("#withdrawal_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 15px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.withdrawal_Label.setText("")
+        self.withdrawal_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.withdrawal_Label.setObjectName("withdrawal_Label")
+        self.currentRatio_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.currentRatio_Frame.setGeometry(QtCore.QRect(140, 200, 111, 71))
+        self.currentRatio_Frame.setStyleSheet("#currentRatio_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.currentRatio_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.currentRatio_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.currentRatio_Frame.setObjectName("currentRatio_Frame")
+        self.label_4 = QtWidgets.QLabel(parent=self.currentRatio_Frame)
+        self.label_4.setGeometry(QtCore.QRect(10, 10, 91, 21))
+        self.label_4.setStyleSheet("#label_4{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_4.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_4.setObjectName("label_4")
+        self.currentRatio_Label = QtWidgets.QLabel(parent=self.currentRatio_Frame)
+        self.currentRatio_Label.setGeometry(QtCore.QRect(10, 30, 91, 21))
+        self.currentRatio_Label.setStyleSheet("#currentRatio_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.currentRatio_Label.setText("")
+        self.currentRatio_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.currentRatio_Label.setObjectName("currentRatio_Label")
+        self.debtEquity_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.debtEquity_Frame.setGeometry(QtCore.QRect(20, 200, 111, 71))
+        self.debtEquity_Frame.setStyleSheet("#debtEquity_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.debtEquity_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.debtEquity_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.debtEquity_Frame.setObjectName("debtEquity_Frame")
+        self.label_3 = QtWidgets.QLabel(parent=self.debtEquity_Frame)
+        self.label_3.setGeometry(QtCore.QRect(10, 10, 91, 21))
+        self.label_3.setStyleSheet("#label_3{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_3.setObjectName("label_3")
+        self.debtEquity_Label = QtWidgets.QLabel(parent=self.debtEquity_Frame)
+        self.debtEquity_Label.setGeometry(QtCore.QRect(10, 30, 91, 21))
+        self.debtEquity_Label.setStyleSheet("#debtEquity_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.debtEquity_Label.setText("")
+        self.debtEquity_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.debtEquity_Label.setObjectName("debtEquity_Label")
+        self.quickRatio_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.quickRatio_Frame.setGeometry(QtCore.QRect(260, 200, 111, 71))
+        self.quickRatio_Frame.setStyleSheet("#quickRatio_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.quickRatio_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.quickRatio_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.quickRatio_Frame.setObjectName("quickRatio_Frame")
+        self.label_5 = QtWidgets.QLabel(parent=self.quickRatio_Frame)
+        self.label_5.setGeometry(QtCore.QRect(10, 10, 91, 21))
+        self.label_5.setStyleSheet("#label_5{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_5.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_5.setObjectName("label_5")
+        self.quickRatio_Label = QtWidgets.QLabel(parent=self.quickRatio_Frame)
+        self.quickRatio_Label.setGeometry(QtCore.QRect(10, 30, 91, 21))
+        self.quickRatio_Label.setStyleSheet("#quickRatio_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 10px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.quickRatio_Label.setText("")
+        self.quickRatio_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.quickRatio_Label.setObjectName("quickRatio_Label")
+        self.revenue_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.revenue_Frame.setGeometry(QtCore.QRect(390, 100, 261, 161))
+        self.revenue_Frame.setStyleSheet("#revenue_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.revenue_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.revenue_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.revenue_Frame.setObjectName("revenue_Frame")
+        self.label_6 = QtWidgets.QLabel(parent=self.revenue_Frame)
+        self.label_6.setGeometry(QtCore.QRect(20, 10, 221, 41))
+        self.label_6.setStyleSheet("#label_6{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 750;                /* Bold emphasis */\n"
+"    font-size: 20px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_6.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_6.setObjectName("label_6")
+        self.revenue_Label = QtWidgets.QLabel(parent=self.revenue_Frame)
+        self.revenue_Label.setGeometry(QtCore.QRect(20, 60, 221, 51))
+        self.revenue_Label.setStyleSheet("#revenue_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 750;                /* Bold emphasis */\n"
+"    font-size: 25px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.revenue_Label.setText("")
+        self.revenue_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.revenue_Label.setObjectName("revenue_Label")
+        self.pieChart_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.pieChart_Frame.setGeometry(QtCore.QRect(410, 280, 241, 221))
+        self.pieChart_Frame.setStyleSheet("#pieChart_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.pieChart_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.pieChart_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.pieChart_Frame.setObjectName("pieChart_Frame")
+        self.label_7 = QtWidgets.QLabel(parent=self.pieChart_Frame)
+        self.label_7.setGeometry(QtCore.QRect(20, 10, 201, 21))
+        self.label_7.setStyleSheet("#label_7{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 14px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_7.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_7.setObjectName("label_7")
+        self.Capital_Frame = QtWidgets.QFrame(parent=self.stats_widget)
+        self.Capital_Frame.setGeometry(QtCore.QRect(200, 100, 171, 91))
+        self.Capital_Frame.setStyleSheet("#Capital_Frame\n"
+"{\n"
+"    background-color: qlineargradient(\n"
+"        spread:pad, x1:0, y1:0, x2:1, y2:1,\n"
+"        stop:0 rgba(224, 247, 250, 255),  /* light cyan */\n"
+"        stop:1 rgba(255, 255, 255, 255)    /* soft white */\n"
+"    );\n"
+"    border-radius: 20px;\n"
+"    border: 1px solid rgba(0, 188, 212, 60); /* subtle cyan border */\n"
+"    \n"
+"}")
+        self.Capital_Frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Capital_Frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Capital_Frame.setObjectName("Capital_Frame")
+        self.label_2 = QtWidgets.QLabel(parent=self.Capital_Frame)
+        self.label_2.setGeometry(QtCore.QRect(20, 10, 131, 21))
+        self.label_2.setStyleSheet("#label_2{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 650;                /* Bold emphasis */\n"
+"    font-size: 14px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.label_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_2.setObjectName("label_2")
+        self.capital_Label = QtWidgets.QLabel(parent=self.Capital_Frame)
+        self.capital_Label.setGeometry(QtCore.QRect(20, 40, 131, 31))
+        self.capital_Label.setStyleSheet("#capital_Label{\n"
+"    color: #031b3d;                  /* Deep navy text for contrast */\n"
+"    font-weight: 600;                /* Bold emphasis */\n"
+"    font-size: 15px;                 /* Slightly larger title */\n"
+"    background: transparent;         /* Keep background clean */\n"
+"    letter-spacing: 1px;             /* Space out letters slightly */\n"
+"    text-transform: uppercase;       /* Make “Inventory” more assertive */\n"
+"    border: none;                    /* Remove any frame borders */\n"
+"    \n"
+"    /* Subtle cyan glow for elegance */\n"
+"    text-shadow: 0px 0px 6px #00ffff;\n"
+"}")
+        self.capital_Label.setText("")
+        self.capital_Label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.capital_Label.setObjectName("capital_Label")
         self.stackedWidget.addWidget(self.stats_widget)
         self.sales_widget = QtWidgets.QWidget()
         self.sales_widget.setObjectName("sales_widget")
@@ -1372,19 +1611,6 @@ class Ui_Form(object):
 "    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */\n"
 "}\n"
 "")
-        self.addbutton_2.setObjectName("addbutton_2")
-        self.stackedWidget.addWidget(self.sales_widget)
-        self.label_upperhome.raise_()
-        self.label_smalllogo.raise_()
-        self.plainTextEdit_Entrep.raise_()
-        self.frame_sidebar.raise_()
-        self.stackedWidget.raise_()
-
-        self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(2)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-
-
         
         self.pangutan_button = QtWidgets.QPushButton(parent=self.mainwidget)
         self.pangutan_button.setGeometry(QtCore.QRect(840, 0, 41, 61))
@@ -1406,6 +1632,10 @@ class Ui_Form(object):
         self.pangutan_button.setIcon(icon)
         self.pangutan_button.setIconSize(QtCore.QSize(35, 35))
         self.pangutan_button.setObjectName("pangutan_button")
+
+
+        self.addbutton_2.setObjectName("addbutton_2")
+        self.stackedWidget.addWidget(self.sales_widget)
         self.label_upperhome.raise_()
         self.label_smalllogo.raise_()
         self.plainTextEdit_Entrep.raise_()
@@ -1413,6 +1643,9 @@ class Ui_Form(object):
         self.stackedWidget.raise_()
         self.pangutan_button.raise_()
 
+        self.retranslateUi(Form)
+        self.stackedWidget.setCurrentIndex(3)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -1422,11 +1655,7 @@ class Ui_Form(object):
         self.statsPushButton.setText(_translate("Form", "STATISTICS"))
         self.predictionPushButton.setText(_translate("Form", "PREDICTION"))
         self.logOutPushButton.setText(_translate("Form", "LOG OUT"))
-        self.label_inventory.setText(_translate("Form", "Inventory"))
-        self.label_search.setText(_translate("Form", "Search:"))
-        self.lineEdit_search.setPlaceholderText(_translate("Form", "Search"))
-        self.addbutton.setText(_translate("Form", "Add Product"))
-        self.deletebutton.setText(_translate("Form", "Delete Selected"))
+        self.dataPushButton.setText(_translate("Form", "DATA"))
         self.label_welcome.setText(_translate("Form", "Welcome!"))
         self.label_summary.setText(_translate("Form", "Here\'s your business summary."))
         self.label_status.setText(_translate("Form", "Business Status"))
@@ -1446,17 +1675,19 @@ class Ui_Form(object):
         self.label_operating.setText(_translate("Form", "Operating Income:"))
         self.label_currentassets.setText(_translate("Form", "Current Assets:"))
         self.predictButton.setText(_translate("Form", "PREDICT"))
-        self.label_totalassets_2.setText(_translate("Form", "Starting Date:"))
+        self.label_totalassets_2.setText(_translate("Form", "Staring Date:"))
         self.result_label.setText(_translate("Form", "Result"))
         self.csvLabelDropPredict.setText(_translate("Form", "DROP FILE HERE"))
         self.result_label_5.setText(_translate("Form", "Tips for improvement"))
         self.label_inventory_4.setText(_translate("Form", "Statistics"))
-        self.graphPushButton.setText(_translate("Form", "View Graph"))
-        self.csvLabelDropStats.setText(_translate("Form", "DROP FILE HERE"))
-        self.plainTextEdit_prediction_2.setPlainText(_translate("Form", "Upload your financial data to and load the graph. This graph only shows: Expense, \n"
-"Net Income and Liabilities\n"
-"\n"
-"*NOTE: These data assumes that you have already summed them up."))
+        self.graphPushButton.setText(_translate("Form", "View Business Data"))
+        self.label1.setText(_translate("Form", "Withdrawal"))
+        self.label_4.setText(_translate("Form", "Current ratio"))
+        self.label_3.setText(_translate("Form", "Debt Equity"))
+        self.label_5.setText(_translate("Form", "quick ratio"))
+        self.label_6.setText(_translate("Form", "TOTAL REVENUE"))
+        self.label_7.setText(_translate("Form", "total assets"))
+        self.label_2.setText(_translate("Form", "Capital"))
         self.label_inventory_2.setText(_translate("Form", "SALES"))
         self.label_title.setText(_translate("Form", "Total Sales"))
         self.label_text.setText(_translate("Form", "125"))

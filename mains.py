@@ -1,6 +1,7 @@
 import sqlite3, os
 import pandas as pd
 import matplotlib.pyplot as plt
+from PyQt6.QtCharts import QChart, QChartView, QPieSeries
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 import re
 import joblib
@@ -9,10 +10,11 @@ from PyQt6.QtSql import QSqlDatabase, QSqlTableModel
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QPoint, Qt, QSortFilterProxyModel, QEvent, QTimer
 from PyQt6.QtWidgets import QVBoxLayout, QTableView, QComboBox, QStyledItemDelegate, QGraphicsDropShadowEffect, QMessageBox, QInputDialog, QHeaderView, QAbstractItemView
-from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem
+from PyQt6.QtGui import QColor, QStandardItemModel, QStandardItem, QPainter
 from ENTREPREDICT import Ui_Form
 from CREATE import Ui_Form as Ui_CreateForm
 from Final import Ui_Form as FinalInterfaceForm  # Welcome UI import
+
 
 from Tutorial import Ui_Form as Help
 
@@ -325,6 +327,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             
             self.ui.statsPushButton: self.ui.stats_widget,
             self.ui.predictionPushButton: self.ui.prediction_widget,
+            self.ui.dataPushButton: self.ui.data_widget
             
         }
         # Store default styles to restore later
@@ -340,7 +343,7 @@ class WelcomeWindow(QtWidgets.QWidget):
         if hasattr(self.ui, "logOutPushButton"):
             self.ui.logOutPushButton.clicked.connect(self.handle_logout)
 
-        # Modernize inventory table UI
+        
         
         if hasattr(self.ui, "predictButton"):
             self.ui.predictButton.clicked.connect(self.handle_prediction)
@@ -361,16 +364,9 @@ class WelcomeWindow(QtWidgets.QWidget):
             'netincome', 'operatingincome', 'currentassets', 'currentliabilities'
         ]
 
-                # --- CSV Drag & Drop for Graph Data ---
-        if hasattr(self.ui, "csvLabelDropStats"):
-            self.ui.csvLabelDropStats.setAcceptDrops(True)
-            self.ui.csvLabelDropStats.setText("Drag File Here")
-            self.ui.csvLabelDropStats.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        
 
-            self.ui.csvLabelDropStats.dragEnterEvent = self.dragEnterEvent
-            self.ui.csvLabelDropStats.dropEvent = self.dropEventGraph
-
-        self.DataNeeded_Graph = ['expense', 'income', 'liabilities']
+        
 
         # Initialize DB for storing graph data
         self.init_graph_db()
@@ -422,118 +418,31 @@ class WelcomeWindow(QtWidgets.QWidget):
                 filename TEXT,
                 expense REAL,
                 netincome REAL,
-                liabilities REAL
+                liabilities REAL,
+                capital,
+                withdrawal,
+                debt_equity,
+                current_ratio,
+                quick_ratio,
+                total_revenue,
+                total_assets,
+                total_equity
             )
         """)
         conn.commit()
         conn.close()
         return self.graph_db
 
-    def dropEventGraph(self, event):
-        for url in event.mimeData().urls():
-            file_path = url.toLocalFile().strip()
-            valid_exts = (".csv", ".xlsx", ".xls", ".xlsm", ".xlsb", ".ods")
-            ext = os.path.splitext(file_path)[1].lower()
-            if ext in valid_exts:
-                self.process_graph_file(file_path)
-            else:
-                self.ui.csvLabelDropStats.setText("❌ Unsupported file type!")
-
-    def process_graph_file(self, file_path: str):
-        try:
-            ext = os.path.splitext(file_path)[1].lower()
-
-            # --- Read the file dynamically ---
-            try:
-                if ext in [".xlsx", ".xls", ".xlsm", ".ods"]:
-                    try:
-                        df = pd.read_excel(file_path, engine="openpyxl")
-                    except Exception:
-                        df = pd.read_excel(file_path)  # fallback auto engine
-                elif ext == ".xlsb":
-                    df = pd.read_excel(file_path, engine="pyxlsb")
-                else:
-                    df = pd.read_csv(file_path, encoding="utf-8", on_bad_lines="skip")
-            except Exception as read_err:
-                self.ui.csvLabelDropStats.setText(f"⚠️ Unable to read file: {read_err}")
-                return
-
-            if df.empty:
-                self.ui.csvLabelDropStats.setText("⚠️ File is empty or unreadable.")
-                return
-
-            # --- Clean headers ---
-            headers = list(df.columns)
-            header_map = {self.clean_header(h): h for h in headers if isinstance(h, str)}
-
-            # Needed columns
-            DataNeeded_Graph = ['expense', 'netincome', 'liabilities']
-
-            # --- Match headers ---
-            matched = {}
-            for needed in DataNeeded_Graph:
-                for cleaned, original in header_map.items():
-                    if cleaned == needed:
-                        matched[needed] = original
-                        break
-
-            if not matched:
-                self.ui.csvLabelDropStats.setText("⚠️ No matching columns found.")
-                return
-
-            row = df.iloc[0] if not df.empty else {}
-
-            # --- Helper to safely extract numbers ---
-            def safe_get(key):
-                if key in matched:
-                    val = row.get(matched[key], None)
-                    try:
-                        return float(val)
-                    except (ValueError, TypeError):
-                        return "N/A"
-                return "N/A"
-
-            expense = safe_get('expense')
-            netincome = safe_get('netincome')
-            liabilities = safe_get('liabilities')
-
-            def to_num(v): return 0 if v == "N/A" else v
-
-            # --- Insert into database ---
-            conn = sqlite3.connect(self.graph_db)
-            cur = conn.cursor()
-            cur.execute("""
-                INSERT INTO graph_data (username, filename, expense, netincome, liabilities)
-                VALUES (?, ?, ?, ?, ?)
-            """, (
-                self.username,
-                os.path.basename(file_path),
-                to_num(expense),
-                to_num(netincome),
-                to_num(liabilities)
-            ))
-            conn.commit()
-            conn.close()
-
-            self.load_graph_files()
-            self.ui.csvLabelDropStats.setText(f"✅ Saved: {os.path.basename(file_path)}")
-
-        except Exception as e:
-            import traceback
-            tb = traceback.format_exc(limit=1)
-            self.ui.csvLabelDropStats.setText(f"⚠️ Error processing file: {e}\n{tb}")
-
-
     def display_graph(self):
-        selected_file = self.ui.statsComboBox.currentText()
-        if not selected_file:
-            self.ui.csvLabelDropStats.setText("⚠️ Select a file from the combo box.")
-            return
+        selected_file = self.ui.statsComboBox.currentText()        
 
         conn = sqlite3.connect(self.graph_db)
         cur = conn.cursor()
         cur.execute("""
-            SELECT expense, netincome, liabilities 
+            SELECT expense, netincome, liabilities,
+                withdrawal, capital, total_revenue,
+                debt_equity, current_ratio, quick_ratio, total_equity
+                    
             FROM graph_data
             WHERE username = ? AND filename = ?
         """, (self.username, selected_file))
@@ -541,12 +450,15 @@ class WelcomeWindow(QtWidgets.QWidget):
         conn.close()
 
         if not result:
-            self.ui.csvLabelDropStats.setText("⚠️ No data found for that file.")
-            return
+            return  # No data found
 
-        expense, netincome, liabilities = result  # 👈 changed here
+        (
+            expense, netincome, liabilities,
+            withdrawal, capital, total_revenue,
+            debt_equity, current_ratio, quick_ratio, total_equity
+        ) = result
 
-        # Convert safely to numeric
+        # Safe numeric conversion
         def safe_value(v):
             if v is None:
                 return 0
@@ -558,18 +470,30 @@ class WelcomeWindow(QtWidgets.QWidget):
         expense_val = safe_value(expense)
         netincome_val = safe_value(netincome)
         liabilities_val = safe_value(liabilities)
+        withdrawal_val = safe_value(withdrawal)
+        capital_val = safe_value(capital)
+        revenue_val = safe_value(total_revenue)
+        debt_equity_val = safe_value(debt_equity)
+        current_ratio_val = safe_value(current_ratio)
+        quick_ratio_val = safe_value(quick_ratio)
+        total_equity_val = safe_value(total_equity)
 
-        categories = ['Expense', 'Net Income', 'Liabilities']  # 👈 label changed
+        # Round ratios to 2 decimals
+        debt_equity_val = round(debt_equity_val, 2)
+        current_ratio_val = round(current_ratio_val, 2)
+        quick_ratio_val = round(quick_ratio_val, 2)
+
+        # --- Display to Labels ---
+        self.ui.withdrawal_Label.setText(f"₱{withdrawal_val:.2f}")
+        self.ui.capital_Label.setText(f"₱{capital_val:.2f}")
+        self.ui.debtEquity_Label.setText(f"{debt_equity_val:.2f}")
+        self.ui.currentRatio_Label.setText(f"{current_ratio_val:.2f}")
+        self.ui.quickRatio_Label.setText(f"{quick_ratio_val:.2f}")
+        self.ui.revenue_Label.setText(f"₱{revenue_val:.2f}")
+
+        # --- Prepare Graph Data ---
+        categories = ['Expense', 'Net Income', 'Liabilities']
         values = [expense_val, netincome_val, liabilities_val]
-
-
-        # Labels shown *inside* bars
-        def label_text(v):
-            if v is None or v == 0:
-                return "N/A"
-            return str(v)
-
-        display_texts = [label_text(expense), label_text(netincome), label_text(liabilities)]
 
         # --- Colors (gray for missing) ---
         colors = []
@@ -579,7 +503,6 @@ class WelcomeWindow(QtWidgets.QWidget):
             else:
                 colors.append('#66bb6a' if v == netincome else '#ef5350' if v == expense else '#42a5f5')
 
-        # --- Ensure layout exists ---
         layout = self.ui.graphFrame.layout()
         if layout is None:
             layout = QtWidgets.QVBoxLayout(self.ui.graphFrame)
@@ -592,24 +515,15 @@ class WelcomeWindow(QtWidgets.QWidget):
                 child.widget().deleteLater()
 
         # --- Create Matplotlib Figure ---
-        fig, ax = plt.subplots(figsize=(5.5, 3.5))
+        fig, ax = plt.subplots(figsize=(3.5, 3.5))
         bars = ax.bar(categories, values, color=colors)
 
         for bar, value, color in zip(bars, values, colors):
             height = bar.get_height()
-
-            # Handle invalid or missing values safely
-            if not isinstance(value, (int, float)):
-                value = 0
-            if value is None:
-                value = 0
-
-            # Determine text color for contrast
+            value = 0 if not isinstance(value, (int, float)) else value
             text_color = "black" if color == '#B0BEC5' else "white"
 
-            # Display logic
             if value == 0:
-                # Show 0 above the bar
                 ax.text(
                     bar.get_x() + bar.get_width() / 2,
                     height + (max(values) * 0.05 if max(values) > 0 else 0.2),
@@ -618,29 +532,107 @@ class WelcomeWindow(QtWidgets.QWidget):
                     va='bottom',
                     fontsize=11,
                     fontweight='bold',
-                    color='black'  # always black for visibility
+                    color='black'
                 )
             else:
-                # Show value inside the bar
                 ax.text(
                     bar.get_x() + bar.get_width() / 2,
                     height / 2,
-                    f"{value:.2f}".rstrip('0').rstrip('.'),  # clean numeric formatting
+                    f"{value:.2f}".rstrip('0').rstrip('.'),
                     ha='center',
                     va='center',
                     fontsize=11,
                     fontweight='bold',
                     color=text_color
                 )
-   
-        ax.set_xlabel("Business Data", fontsize=12, fontweight='bold')
-        ax.set_ylabel("Value", fontsize=12, fontweight='bold')
+
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         fig.tight_layout()
 
         canvas = FigureCanvas(fig)
         layout.addWidget(canvas)
+
+        # ----------------------
+        # --- PIE CHART ---
+        # ----------------------
+
+        # Use existing layout if available
+        pie_layout = self.ui.pieChart_Frame.layout()
+        if pie_layout is None:
+            pie_layout = QtWidgets.QVBoxLayout(self.ui.pieChart_Frame)
+            self.ui.pieChart_Frame.setLayout(pie_layout)
+
+        # Clear old widgets
+        for i in reversed(range(pie_layout.count())):
+            widget_item = pie_layout.itemAt(i)
+            if widget_item.widget():
+                widget_item.widget().setParent(None)
+            elif widget_item.layout():
+                # Remove nested layouts if any
+                while widget_item.layout().count():
+                    child = widget_item.layout().takeAt(0)
+                    if child.widget():
+                        child.widget().deleteLater()
+
+        # Compute total for percentage calculation
+        total = total_equity_val + liabilities_val
+
+        # Build the pie chart
+        series = QPieSeries()
+        series.append("Equity", total_equity_val)
+        series.append("Liabilities", liabilities_val)
+
+        # Remove labels from slices
+        for slice_ in series.slices():
+            slice_.setLabelVisible(False)
+
+        # Highlight the largest slice
+        if series.slices():
+            max_slice = max(series.slices(), key=lambda s: s.value())
+            max_slice.setExploded(True)
+
+        # Create chart
+        chart = QChart()
+        chart.addSeries(series)
+        chart.legend().setVisible(False)  # Hide default legend
+
+        # Force perfect circle
+        chart.setPlotAreaBackgroundVisible(False)
+        chart.setBackgroundVisible(False)
+        chart.setMargins(QtCore.QMargins(10, 10, 10, 10))
+        chart.setTheme(QChart.ChartTheme.ChartThemeLight)
+
+        chart_view = QChartView(chart)
+        chart_view.setRenderHint(QPainter.RenderHint.Antialiasing)
+        chart_view.setMinimumSize(220, 220)
+        chart_view.setMaximumSize(220, 220)
+        chart_view.setSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
+        )
+
+        # Add chart to layout
+        pie_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        pie_layout.addWidget(chart_view)
+
+        # Add custom color labels with percentages below the chart
+        label_layout = QtWidgets.QHBoxLayout()
+        label_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        equity_percent = (total_equity_val / total) * 100 if total != 0 else 0
+        liabilities_percent = (liabilities_val / total) * 100 if total != 0 else 0
+
+        # Equity label
+        equity_label = QtWidgets.QLabel(f"🟣 Equity — {equity_percent:.0f}%")
+        label_layout.addWidget(equity_label)
+
+        # Liabilities label
+        liabilities_label = QtWidgets.QLabel(f"🔵 Liabilities — {liabilities_percent:.0f}%")
+        label_layout.addWidget(liabilities_label)
+
+        pie_layout.addLayout(label_layout)
+        pie_layout.setContentsMargins(10, 10, 10, 10)
+
 
     def clean_header(self, header_name: str) -> str:
         return re.sub(r'[^a-z0-9]', '', header_name.lower())
@@ -725,7 +717,107 @@ class WelcomeWindow(QtWidgets.QWidget):
             import traceback
             tb = traceback.format_exc(limit=1)
             self.ui.csvLabelDropPredict.setText(f"⚠️ Error processing file: {e}\n{tb}")
+            
+        # ----------------------------------
+        # --- Process File to statistics ---
+        # ----------------------------------
+        DataNeeded_Graph = [
+            'expense',
+            'netincome',
+            'totalliabilities',
+            'capital',
+            'withdrawal',
+            'totalrevenue',
+            'totalassets',
+            'totalequity',
+            'currentassets',          # used only for ratio computation
+            'currentliabilities'      # used only for ratio computation
+        ]
 
+        stats_matched = {}
+        for statsNeeded in DataNeeded_Graph:
+            for cleaned, original in header_map.items():
+                if cleaned == statsNeeded:
+                    stats_matched[statsNeeded] = original
+                    break
+
+        stats_row = df.iloc[0]
+
+        def stats_safe_get(data):
+            if data in stats_matched:
+                val = stats_row.get(stats_matched[data], None)
+                try:
+                    return float(val)
+                except (ValueError, TypeError):
+                    print("yawa")
+                    return 0.0 
+            print("yawa")
+            return 0.0
+
+        # --- Extracted directly from file ---
+        expense = stats_safe_get('expense')
+        net_income = stats_safe_get('netincome')
+        liabilities = stats_safe_get('totalliabilities')
+        capital = stats_safe_get('capital')
+        withdrawal = stats_safe_get('withdrawal')
+        total_revenue = stats_safe_get('totalrevenue')
+        total_assets = stats_safe_get('totalassets')
+        total_equity = stats_safe_get('totalequity')
+        current_assets = stats_safe_get('currentassets')
+        current_liabilities = stats_safe_get('currentliabilities')
+
+        # --- Computed ratios ---
+        if total_equity != 0:
+            debt_equity = round(liabilities / total_equity, 2)
+        else:
+            debt_equity = 0.0
+
+        if current_liabilities != 0:
+            current_ratio = round(current_assets / current_liabilities, 2)
+            quick_ratio = round((current_assets - (current_assets * 0.3)) / current_liabilities, 2)
+        else:
+            current_ratio = quick_ratio = 0.0
+
+
+        
+        conns = sqlite3.connect(self.graph_db)
+        curs = conns.cursor()    
+
+        filename = os.path.basename(file_path)
+
+        curs.execute("SELECT filename FROM graph_data")
+        existing_filenames = [str(row[0]) for row in curs.fetchall() if row[0] is not None]
+
+        if filename in existing_filenames:
+            print("Duplicate!")  
+        else:
+            curs.execute("""
+                INSERT INTO graph_data (
+                    username, filename,
+                    expense, netincome, liabilities,
+                    capital, withdrawal, debt_equity, current_ratio,
+                    quick_ratio, total_revenue, total_assets, total_equity
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                self.username,
+                os.path.basename(file_path),
+                expense,
+                net_income,
+                liabilities,
+                capital,
+                withdrawal,
+                debt_equity,
+                current_ratio,
+                quick_ratio,
+                total_revenue,
+                total_assets,
+                total_equity
+            ))
+            conns.commit()
+            conns.close()
+
+            self.load_graph_files()
 
     # ----------------------
     # Load latest prediction for home widget
@@ -1107,7 +1199,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             # Close the welcome window
             self.close()
 
-# --- MAIN EXECUTION ---
+# --- MAIN EXECUTION --- 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     init_database()
