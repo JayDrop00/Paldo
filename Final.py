@@ -194,35 +194,6 @@ class Ui_Form(object):
 "}\n"
 "")
         self.logOutPushButton.setObjectName("logOutPushButton")
-        self.dataPushButton = QtWidgets.QPushButton(parent=self.frame_sidebar)
-        self.dataPushButton.setGeometry(QtCore.QRect(30, 210, 101, 41))
-        self.dataPushButton.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.dataPushButton.setStyleSheet("QPushButton {\n"
-"    background-color: transparent;\n"
-"    color: #00E5FF;\n"
-"    font-family: \"Segoe UI\";\n"
-"    font-size: 9pt;\n"
-"    font-weight: 500;\n"
-"    border: 2px solid #00E5FF;\n"
-"    border-radius: 12px;\n"
-"    padding: 5px 15px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgba(0, 229, 255, 0.1);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgba(0, 229, 255, 0.2);\n"
-"}\n"
-"\n"
-"QPushButton:checked {\n"
-"    background-color: #00E5FF;\n"
-"    color: #001F3F;\n"
-"}\n"
-"\n"
-"")
-        self.dataPushButton.setObjectName("dataPushButton")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.mainwidget)
         self.stackedWidget.setGeometry(QtCore.QRect(200, 80, 691, 521))
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
@@ -1110,7 +1081,7 @@ class Ui_Form(object):
         self.label1.setObjectName("label1")
         self.withdrawal_Label = QtWidgets.QLabel(parent=self.withdrawal_Frame)
         self.withdrawal_Label.setGeometry(QtCore.QRect(20, 40, 131, 31))
-        self.withdrawal_Label.setStyleSheet("#withdrawal_Label{\n"
+        self.withdrawal_Label.setStyleSheet("#withdrawal_label{\n"
 "    color: #031b3d;                  /* Deep navy text for contrast */\n"
 "    font-weight: 600;                /* Bold emphasis */\n"
 "    font-size: 15px;                 /* Slightly larger title */\n"
@@ -1611,7 +1582,6 @@ class Ui_Form(object):
 "    background-color: rgba(0, 255, 255, 90);    /* Slightly stronger color */\n"
 "}\n"
 "")
-        
         self.pangutan_button = QtWidgets.QPushButton(parent=self.mainwidget)
         self.pangutan_button.setGeometry(QtCore.QRect(840, 0, 41, 61))
         self.pangutan_button.setStyleSheet("QPushButton {\n"
@@ -1632,7 +1602,6 @@ class Ui_Form(object):
         self.pangutan_button.setIcon(icon)
         self.pangutan_button.setIconSize(QtCore.QSize(35, 35))
         self.pangutan_button.setObjectName("pangutan_button")
-
 
         self.addbutton_2.setObjectName("addbutton_2")
         self.stackedWidget.addWidget(self.sales_widget)
@@ -1655,7 +1624,6 @@ class Ui_Form(object):
         self.statsPushButton.setText(_translate("Form", "STATISTICS"))
         self.predictionPushButton.setText(_translate("Form", "PREDICTION"))
         self.logOutPushButton.setText(_translate("Form", "LOG OUT"))
-        self.dataPushButton.setText(_translate("Form", "DATA"))
         self.label_welcome.setText(_translate("Form", "Welcome!"))
         self.label_summary.setText(_translate("Form", "Here\'s your business summary."))
         self.label_status.setText(_translate("Form", "Business Status"))

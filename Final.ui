@@ -316,49 +316,6 @@ QPushButton:checked {
        <string>LOG OUT</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="dataPushButton">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>210</y>
-        <width>101</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-    background-color: transparent;
-    color: #00E5FF;
-    font-family: &quot;Segoe UI&quot;;
-    font-size: 9pt;
-    font-weight: 500;
-    border: 2px solid #00E5FF;
-    border-radius: 12px;
-    padding: 5px 15px;
-}
-
-QPushButton:hover {
-    background-color: rgba(0, 229, 255, 0.1);
-}
-
-QPushButton:pressed {
-    background-color: rgba(0, 229, 255, 0.2);
-}
-
-QPushButton:checked {
-    background-color: #00E5FF;
-    color: #001F3F;
-}
-
-</string>
-      </property>
-      <property name="text">
-       <string>DATA</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="geometry">
