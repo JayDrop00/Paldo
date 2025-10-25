@@ -327,7 +327,7 @@ class WelcomeWindow(QtWidgets.QWidget):
             
             self.ui.statsPushButton: self.ui.stats_widget,
             self.ui.predictionPushButton: self.ui.prediction_widget,
-            self.ui.dataPushButton: self.ui.data_widget
+            
             
         }
         # Store default styles to restore later
@@ -746,12 +746,16 @@ class WelcomeWindow(QtWidgets.QWidget):
         def stats_safe_get(data):
             if data in stats_matched:
                 val = stats_row.get(stats_matched[data], None)
+                if val is None:
+                    return 0.0
+                # Convert to string and remove commas and spaces
+                val_str = str(val).replace(',', '').strip()
                 try:
-                    return float(val)
+                    return float(val_str)
                 except (ValueError, TypeError):
-                    print("yawa")
-                    return 0.0 
-            print("yawa")
+                    print(f"Warning: Could not convert {val} to float.")
+                    return 0.0
+            print(f"Warning: {data} not found in stats_matched.")
             return 0.0
 
         # --- Extracted directly from file ---
